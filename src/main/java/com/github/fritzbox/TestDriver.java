@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
+import com.github.fritzbox.http.CustomHostnameVerifierHttpRequestFactory;
+import com.github.fritzbox.http.NullHostnameVerifier;
 import com.github.fritzbox.http.TrustSelfSignedCertificates;
 import com.github.fritzbox.model.homeautomation.DeviceList;
 
@@ -23,11 +25,13 @@ public class TestDriver {
         final String hostname = config.getProperty("fritzbox.hostname");
         final String username = config.getProperty("fritzbox.username", null);
         final String password = config.getProperty("fritzbox.password");
-        final FritzBoxSession session = new FritzBoxSession(hostname, new RestTemplate());
+        final FritzBoxSession session = new FritzBoxSession(hostname,
+                new RestTemplate(new CustomHostnameVerifierHttpRequestFactory(new NullHostnameVerifier())));
         session.login(username, password);
         final HomeAutomation homeAutomation = new HomeAutomation(session);
         final DeviceList devices = homeAutomation.getDeviceListInfos();
-        LOG.info("{}", devices);
+        LOG.info("Found {} devices", devices.getDevices().size());
+        devices.getDevices().stream().forEach(d -> LOG.info("\t{}", d));
         session.logout();
     }
 

@@ -22,7 +22,7 @@ public class CustomHostnameVerifierHttpRequestFactory extends SimpleClientHttpRe
     @Override
     protected void prepareConnection(HttpURLConnection connection, String httpMethod) throws IOException {
         if (connection instanceof HttpsURLConnection) {
-            LOG.debug("Setting hostname verifier {} for url connection {}", verifier, connection.getURL());
+            LOG.trace("Setting hostname verifier {} for url connection {}", verifier, connection.getURL());
             ((HttpsURLConnection) connection).setHostnameVerifier(verifier);
         }
         super.prepareConnection(connection, httpMethod);
