@@ -21,7 +21,7 @@ public class HomeAutomation {
     public DeviceList getDeviceListInfos() {
         final DeviceList deviceList = fritzbox.getForObject(HOME_AUTOMATION_PATH,
                 Collections.singletonMap("switchcmd", "getdevicelistinfos"), DeviceList.class);
-        LOG.debug("Found {} devices, devicelist version: {}", deviceList.getDevices().size(), deviceList.getVersion());
+        LOG.trace("Found {} devices, devicelist version: {}", deviceList.getDevices().size(), deviceList.getVersion());
         return deviceList;
     }
 }

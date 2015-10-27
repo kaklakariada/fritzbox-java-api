@@ -14,12 +14,14 @@ import org.springframework.web.client.RestTemplate;
 import com.github.fritzbox.http.CustomHostnameVerifierHttpRequestFactory;
 import com.github.fritzbox.http.NullHostnameVerifier;
 import com.github.fritzbox.http.TrustSelfSignedCertificates;
+import com.github.fritzbox.model.homeautomation.Device;
 import com.github.fritzbox.model.homeautomation.DeviceList;
+import com.github.fritzbox.model.homeautomation.PowerMeter;
 
 public class TestDriver {
     private final static Logger LOG = LoggerFactory.getLogger(TestDriver.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         final Properties config = readConfig(Paths.get("application.properties"));
         TrustSelfSignedCertificates.trustSelfSignedSSL();
         final String hostname = config.getProperty("fritzbox.hostname");
@@ -32,7 +34,19 @@ public class TestDriver {
         final DeviceList devices = homeAutomation.getDeviceListInfos();
         LOG.info("Found {} devices", devices.getDevices().size());
         devices.getDevices().stream().forEach(d -> LOG.info("\t{}", d));
-        session.logout();
+
+        if (devices.getDevices().isEmpty()) {
+            session.logout();
+            return;
+        }
+        while (true) {
+            final Device device = homeAutomation.getDeviceListInfos().getDevices().get(0);
+            final PowerMeter powerMeter = device.getPowerMeter();
+            LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh",
+                    device.getSwitchState().isState() ? "on" : "off", device.getTemperature().getCelsius(),
+                    powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
+            Thread.sleep(1000);
+        }
     }
 
     private static Properties readConfig(Path file) {
