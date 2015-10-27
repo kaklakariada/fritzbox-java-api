@@ -4,6 +4,7 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -17,19 +18,37 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.github.fritzbox.model.SessionInfo;
 
 class FritzBoxSession {
-    private static final String LOGIN_PATH = "/login_sid.lua";
     private final static Logger LOG = LoggerFactory.getLogger(FritzBoxSession.class);
+
+    private static final String LOGIN_PATH = "/login_sid.lua";
+    private static final String WEBCM_PATH = "/home/home.lua";
     private static final String EMPTY_SESSION_ID = "0000000000000000";
     private final RestTemplate restTemplate;
     private final URI loginUri;
+    private final URI webcmUri;
+    private final String host;
     private String sid;
 
     FritzBoxSession(String host, RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        loginUri = UriComponentsBuilder.newInstance() //
+        this.host = host;
+        loginUri = createUri(host, LOGIN_PATH);
+        webcmUri = createUri(host, WEBCM_PATH);
+    }
+
+    private URI createUri(String host, String path) {
+        return createUri(host, path, null);
+    }
+
+    private URI createUri(String host, String path, MultiValueMap<String, String> params) {
+        final UriComponentsBuilder builder = UriComponentsBuilder.newInstance() //
                 .scheme("https") //
                 .host(host) //
-                .path(LOGIN_PATH) //
+                .path(path);
+        if (params != null) {
+            builder.queryParams(params);
+        }
+        return builder //
                 .build().toUri();
     }
 
@@ -46,6 +65,21 @@ class FritzBoxSession {
         }
         LOG.debug("Got sid {}", loggedInSession.getSid());
         this.sid = loggedInSession.getSid();
+    }
+
+    public void logout() {
+        final MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
+        request.add("sid", sid);
+        request.add("logout=", "1");
+        final String string = restTemplate.postForObject(webcmUri, request, String.class);
+        LOG.debug("Logout successful: {}", string);
+    }
+
+    public <T> T getForObject(String path, Map<String, String> args, Class<T> responseType) {
+        final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.setAll(args);
+        params.set("sid", sid);
+        return restTemplate.getForObject(createUri(host, path, params), responseType);
     }
 
     private SessionInfo sendResponse(String username, final String response) {

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 import com.github.fritzbox.http.TrustSelfSignedCertificates;
+import com.github.fritzbox.model.homeautomation.DeviceList;
 
 public class TestDriver {
     private final static Logger LOG = LoggerFactory.getLogger(TestDriver.class);
@@ -24,6 +25,10 @@ public class TestDriver {
         final String password = config.getProperty("fritzbox.password");
         final FritzBoxSession session = new FritzBoxSession(hostname, new RestTemplate());
         session.login(username, password);
+        final HomeAutomation homeAutomation = new HomeAutomation(session);
+        final DeviceList devices = homeAutomation.getDeviceListInfos();
+        LOG.info("{}", devices);
+        session.logout();
     }
 
     private static Properties readConfig(Path file) {

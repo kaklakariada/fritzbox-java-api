@@ -1,50 +1,40 @@
 package com.github.fritzbox.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "SessionInfo")
 public class SessionInfo {
 
+    @XmlElement(name = "SID")
     private String sid;
+
+    @XmlElement(name = "Challenge")
     private String challenge;
+
+    @XmlElement(name = "BlockTime")
     private String blockTime;
+
+    @XmlElement(name = "Rights")
     private String rights;
 
-    @XmlElement(name = "SID")
     public String getSid() {
         return sid;
     }
 
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
-
-    @XmlElement(name = "Challenge")
     public String getChallenge() {
         return challenge;
     }
 
-    public void setChallenge(String challenge) {
-        this.challenge = challenge;
-    }
-
-    @XmlElement(name = "BlockTime")
     public String getBlockTime() {
         return blockTime;
     }
 
-    public void setBlockTime(String blockTime) {
-        this.blockTime = blockTime;
-    }
-
-    @XmlElement(name = "Rights")
     public String getRights() {
         return rights;
-    }
-
-    public void setRights(String rights) {
-        this.rights = rights;
     }
 
     @Override
