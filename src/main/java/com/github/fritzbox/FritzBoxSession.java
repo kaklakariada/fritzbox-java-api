@@ -71,8 +71,8 @@ class FritzBoxSession {
         final MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
         request.add("sid", sid);
         request.add("logout=", "1");
-        final String string = restTemplate.postForObject(webcmUri, request, String.class);
-        LOG.debug("Logout successful: {}", string);
+        restTemplate.postForObject(webcmUri, request, Void.class);
+        LOG.debug("Logout successful");
     }
 
     public <T> T getForObject(String path, Map<String, String> args, Class<T> responseType) {
