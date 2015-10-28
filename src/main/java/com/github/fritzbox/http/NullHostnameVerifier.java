@@ -11,7 +11,7 @@ public class NullHostnameVerifier implements HostnameVerifier {
 
     @Override
     public boolean verify(String hostname, SSLSession session) {
-        LOG.warn("Ignore ssl certificate for {}: {}", hostname, session);
+        LOG.trace("Ignore ssl certificate for {}: {}", hostname, session);
         return true;
     }
 }
