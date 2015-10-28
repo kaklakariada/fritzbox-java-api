@@ -27,11 +27,16 @@ class FritzBoxSession {
     private final URI loginUri;
     private final URI webcmUri;
     private final String host;
+    private final String urlScheme;
     private String sid;
 
-    FritzBoxSession(String host, RestTemplate restTemplate) {
+    private final int port;
+
+    FritzBoxSession(String host, int port, boolean useHttps, RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         this.host = host;
+        this.port = port;
+        this.urlScheme = useHttps ? "https" : "http";
         loginUri = createUri(host, LOGIN_PATH);
         webcmUri = createUri(host, WEBCM_PATH);
     }
@@ -42,17 +47,20 @@ class FritzBoxSession {
 
     private URI createUri(String host, String path, MultiValueMap<String, String> params) {
         final UriComponentsBuilder builder = UriComponentsBuilder.newInstance() //
-                .scheme("https") //
+                .scheme(urlScheme) //
                 .host(host) //
+                .port(port) //
                 .path(path);
         if (params != null) {
             builder.queryParams(params);
         }
-        return builder //
-                .build().toUri();
+        final URI uri = builder.build().toUri();
+        LOG.trace("Created uri '{}'", uri);
+        return uri;
     }
 
     public void login(String username, String password) {
+        LOG.debug("Logging in using url {}", loginUri);
         final SessionInfo sessionWithChallenge = restTemplate.getForObject(loginUri, SessionInfo.class);
         if (!EMPTY_SESSION_ID.equals(sessionWithChallenge.getSid())) {
             throw new RuntimeException("Already logged in: " + sessionWithChallenge);

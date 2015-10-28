@@ -10,6 +10,8 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import com.github.fritzbox.http.CustomHostnameVerifierHttpRequestFactory;
@@ -22,12 +24,19 @@ public class TestDriver {
 
     public static void main(String[] args) throws InterruptedException {
         final Properties config = readConfig(Paths.get("application.properties"));
-        TrustSelfSignedCertificates.trustSelfSignedSSL();
+        final boolean useHttps = Boolean.parseBoolean(config.getProperty("fritzbox.useHttps", "true"));
+        ClientHttpRequestFactory requestFactory;
+        if (useHttps) {
+            TrustSelfSignedCertificates.trustSelfSignedSSL();
+            requestFactory = new CustomHostnameVerifierHttpRequestFactory(new NullHostnameVerifier());
+        } else {
+            requestFactory = new SimpleClientHttpRequestFactory();
+        }
         final String hostname = config.getProperty("fritzbox.hostname");
+        final int port = Integer.parseInt(config.getProperty("fritzbox.port", "443"));
         final String username = config.getProperty("fritzbox.username", null);
         final String password = config.getProperty("fritzbox.password");
-        final FritzBoxSession session = new FritzBoxSession(hostname,
-                new RestTemplate(new CustomHostnameVerifierHttpRequestFactory(new NullHostnameVerifier())));
+        final FritzBoxSession session = new FritzBoxSession(hostname, port, useHttps, new RestTemplate(requestFactory));
         session.login(username, password);
         final HomeAutomation homeAutomation = new HomeAutomation(session);
 
