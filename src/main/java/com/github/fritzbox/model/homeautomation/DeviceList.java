@@ -14,13 +14,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class DeviceList {
 
     @XmlAttribute(name = "version")
-    private String version;
+    private String apiVersion;
 
     @XmlElement(name = "device", type = Device.class)
     private final List<Device> devices = new ArrayList<>();
 
-    public String getVersion() {
-        return version;
+    public String getApiVersion() {
+        return apiVersion;
     }
 
     public List<Device> getDevices() {
@@ -29,6 +29,6 @@ public class DeviceList {
 
     @Override
     public String toString() {
-        return "DeviceList [version=" + version + ", devices=" + devices + "]";
+        return "DeviceList [apiVersion=" + apiVersion + ", devices=" + devices + "]";
     }
 }
