@@ -72,13 +72,14 @@ public class TestDriver {
         // }
     }
 
-    private static Properties readConfig(Path file) {
+    private static Properties readConfig(Path path) {
         final Properties config = new Properties();
-        LOG.debug("Reading config from file {}", file);
-        try (InputStream in = Files.newInputStream(file)) {
+        final Path absolutePath = path.toAbsolutePath();
+        LOG.debug("Reading config from file {}", absolutePath);
+        try (InputStream in = Files.newInputStream(absolutePath)) {
             config.load(in);
         } catch (final IOException e) {
-            throw new RuntimeException("Error loading configuration from " + file, e);
+            throw new RuntimeException("Error loading configuration from " + absolutePath, e);
         }
         return config;
     }
