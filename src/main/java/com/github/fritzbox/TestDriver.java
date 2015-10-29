@@ -33,7 +33,7 @@ public class TestDriver {
             requestFactory = new SimpleClientHttpRequestFactory();
         }
         final String hostname = config.getProperty("fritzbox.hostname");
-        final int port = Integer.parseInt(config.getProperty("fritzbox.port", "443"));
+        final int port = Integer.parseInt(config.getProperty("fritzbox.port", useHttps ? "443" : "80"));
         final String username = config.getProperty("fritzbox.username", null);
         final String password = config.getProperty("fritzbox.password");
         final FritzBoxSession session = new FritzBoxSession(hostname, port, useHttps, new RestTemplate(requestFactory));
