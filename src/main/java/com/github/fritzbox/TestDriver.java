@@ -14,10 +14,13 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import com.github.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
 import com.github.fritzbox.http.CustomHostnameVerifierHttpRequestFactory;
 import com.github.fritzbox.http.NullHostnameVerifier;
 import com.github.fritzbox.http.TrustSelfSignedCertificates;
+import com.github.fritzbox.model.homeautomation.Device;
 import com.github.fritzbox.model.homeautomation.DeviceList;
+import com.github.fritzbox.model.homeautomation.PowerMeter;
 
 public class TestDriver {
     private final static Logger LOG = LoggerFactory.getLogger(TestDriver.class);
@@ -53,6 +56,20 @@ public class TestDriver {
         }
 
         final String ain = ids.get(0);
+
+        testEnergyStats(session, devices.getDevices().get(0).getId());
+        // testHomeAutomation(homeAutomation, ain);
+    }
+
+    private static void testEnergyStats(FritzBoxSession session, String deviceId) {
+        final EnergyStatisticsService service = new EnergyStatisticsService(session);
+        for (final EnergyStatsTimeRange timeRange : EnergyStatsTimeRange.values()) {
+            service.getEnergyStatistics(deviceId, timeRange);
+        }
+    }
+
+    private static void testHomeAutomation(final HomeAutomation homeAutomation, final String ain)
+            throws InterruptedException {
         // homeAutomation.switchPowerState(ain, false);
         // homeAutomation.togglePowerState(ain);
         LOG.info("Switch {} has present state '{}'", ain, homeAutomation.getSwitchPresent(ain));
@@ -60,16 +77,16 @@ public class TestDriver {
         LOG.info("Switch {} uses {}W", ain, homeAutomation.getSwitchPowerWatt(ain));
         LOG.info("Switch {} has used {}Wh", ain, homeAutomation.getSwitchEnergyWattHour(ain));
         LOG.info("Switch {} has name '{}'", ain, homeAutomation.getSwitchName(ain));
-        LOG.info("Switch {} has temperature {}°C", ain, homeAutomation.getTemperature(ain));
+        // LOG.info("Switch {} has temperature {}°C", ain, homeAutomation.getTemperature(ain));
 
-        // while (true) {
-        // final Device device = homeAutomation.getDeviceListInfos().getDevices().get(0);
-        // final PowerMeter powerMeter = device.getPowerMeter();
-        // LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh",
-        // device.getSwitchState().isState() ? "on" : "off", device.getTemperature().getCelsius(),
-        // powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
-        // Thread.sleep(1000);
-        // }
+        while (true) {
+            final Device device = homeAutomation.getDeviceListInfos().getDevices().get(0);
+            final PowerMeter powerMeter = device.getPowerMeter();
+            LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh",
+                    device.getSwitchState().isState() ? "on" : "off", device.getTemperature().getCelsius(),
+                    powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
+            Thread.sleep(1000);
+        }
     }
 
     private static Properties readConfig(Path path) {
