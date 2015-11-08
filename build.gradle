@@ -1,12 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
 repositories {
     mavenLocal()
     mavenCentral()
 }
 
-version = '0.0.1'
+group 'com.github.kaklakariada'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 tasks.withType(JavaCompile) {
