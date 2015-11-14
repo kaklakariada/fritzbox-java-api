@@ -1,19 +1,13 @@
 package com.github.fritzbox;
 
-import java.net.URI;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
 
 import javax.xml.bind.DatatypeConverter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.github.fritzbox.model.SessionInfo;
 
@@ -23,78 +17,31 @@ class FritzBoxSession {
     private static final String LOGIN_PATH = "/login_sid.lua";
     private static final String WEBCM_PATH = "/home/home.lua";
     private static final String EMPTY_SESSION_ID = "0000000000000000";
-    private final RestTemplate restTemplate;
-    private final URI loginUri;
-    private final URI webcmUri;
-    private final String host;
-    private final String urlScheme;
+
     private String sid;
 
-    private final int port;
+    private final HttpTemplate httpTemplate;
 
-    FritzBoxSession(String host, int port, boolean useHttps, RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-        this.host = host;
-        this.port = port;
-        this.urlScheme = useHttps ? "https" : "http";
-        loginUri = createUri(host, LOGIN_PATH);
-        webcmUri = createUri(host, WEBCM_PATH);
-    }
-
-    private URI createUri(String host, String path) {
-        return createUri(host, path, null);
-    }
-
-    private URI createUri(String host, String path, MultiValueMap<String, String> params) {
-        final UriComponentsBuilder builder = UriComponentsBuilder.newInstance() //
-                .scheme(urlScheme) //
-                .host(host) //
-                .port(port) //
-                .path(path);
-        if (params != null) {
-            builder.queryParams(params);
-        }
-        final URI uri = builder.build().toUri();
-        LOG.trace("Created uri '{}'", uri);
-        return uri;
+    FritzBoxSession(HttpTemplate httpTemplate) {
+        this.httpTemplate = httpTemplate;
     }
 
     public void login(String username, String password) {
-        LOG.debug("Logging in using url {}", loginUri);
-        final SessionInfo sessionWithChallenge = restTemplate.getForObject(loginUri, SessionInfo.class);
+        final SessionInfo sessionWithChallenge = httpTemplate.get(LOGIN_PATH, SessionInfo.class);
         if (!EMPTY_SESSION_ID.equals(sessionWithChallenge.getSid())) {
             throw new RuntimeException("Already logged in: " + sessionWithChallenge);
         }
         final String response = createChallengeResponse(sessionWithChallenge.getChallenge(), password);
         LOG.debug("Got response {} for challenge {}", response, sessionWithChallenge.getChallenge());
-        final SessionInfo loggedInSession = sendResponse(username, response);
+
+        final SessionInfo loggedInSession = httpTemplate.get(LOGIN_PATH,
+                QueryParameters.builder().add("username", username).add("response", response).build(),
+                SessionInfo.class);
         if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
             throw new RuntimeException("Login failed: " + loggedInSession);
         }
         LOG.debug("Got sid {}", loggedInSession.getSid());
         this.sid = loggedInSession.getSid();
-    }
-
-    public void logout() {
-        final MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
-        request.add("sid", sid);
-        request.add("logout=", "1");
-        restTemplate.postForObject(webcmUri, request, Void.class);
-        LOG.debug("Logout successful");
-    }
-
-    public <T> T getForObject(String path, Map<String, String> args, Class<T> responseType) {
-        final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.setAll(args);
-        params.set("sid", sid);
-        return restTemplate.getForObject(createUri(host, path, params), responseType);
-    }
-
-    private SessionInfo sendResponse(String username, final String response) {
-        final MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
-        request.add("username", username);
-        request.add("response", response);
-        return restTemplate.postForObject(loginUri, request, SessionInfo.class);
     }
 
     private static String createChallengeResponse(String challenge, String password) {
@@ -105,5 +52,10 @@ class FritzBoxSession {
         } catch (final NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void logout() {
+        // TODO Auto-generated method stub
+
     }
 }

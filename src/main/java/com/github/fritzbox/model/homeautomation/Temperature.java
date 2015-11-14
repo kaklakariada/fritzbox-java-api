@@ -1,18 +1,15 @@
 package com.github.fritzbox.model.homeautomation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "temperature")
+@Root(name = "temperature")
 public class Temperature {
 
-    @XmlElement(name = "celsius")
+    @Element(name = "celsius")
     private int deciCelsius;
 
-    @XmlElement(name = "offset")
+    @Element(name = "offset")
     private int offsetDeciCelsius;
 
     public float getCelsius() {

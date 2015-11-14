@@ -8,19 +8,15 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
+import org.simpleframework.xml.core.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
 
 import com.github.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
-import com.github.fritzbox.http.CustomHostnameVerifierHttpRequestFactory;
-import com.github.fritzbox.http.NullHostnameVerifier;
-import com.github.fritzbox.http.TrustSelfSignedCertificates;
 import com.github.fritzbox.model.homeautomation.Device;
 import com.github.fritzbox.model.homeautomation.DeviceList;
 import com.github.fritzbox.model.homeautomation.PowerMeter;
+import com.squareup.okhttp.OkHttpClient;
 
 public class TestDriver {
     private final static Logger LOG = LoggerFactory.getLogger(TestDriver.class);
@@ -28,18 +24,13 @@ public class TestDriver {
     public static void main(String[] args) throws InterruptedException {
         final Properties config = readConfig(Paths.get("application.properties"));
         final boolean useHttps = Boolean.parseBoolean(config.getProperty("fritzbox.useHttps", "true"));
-        ClientHttpRequestFactory requestFactory;
-        if (useHttps) {
-            TrustSelfSignedCertificates.trustSelfSignedSSL();
-            requestFactory = new CustomHostnameVerifierHttpRequestFactory(new NullHostnameVerifier());
-        } else {
-            requestFactory = new SimpleClientHttpRequestFactory();
-        }
         final String hostname = config.getProperty("fritzbox.hostname");
         final int port = Integer.parseInt(config.getProperty("fritzbox.port", useHttps ? "443" : "80"));
         final String username = config.getProperty("fritzbox.username", null);
         final String password = config.getProperty("fritzbox.password");
-        final FritzBoxSession session = new FritzBoxSession(hostname, port, useHttps, new RestTemplate(requestFactory));
+        final HttpTemplate template = new HttpTemplate(new OkHttpClient(), new Persister(), useHttps ? "https" : "http",
+                hostname, port);
+        final FritzBoxSession session = new FritzBoxSession(template);
         session.login(username, password);
         final HomeAutomation homeAutomation = new HomeAutomation(session);
 

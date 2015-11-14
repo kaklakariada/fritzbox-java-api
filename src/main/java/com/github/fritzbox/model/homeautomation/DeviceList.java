@@ -3,20 +3,17 @@ package com.github.fritzbox.model.homeautomation;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "devicelist")
+@Root(name = "devicelist")
 public class DeviceList {
 
-    @XmlAttribute(name = "version")
+    @Attribute(name = "version")
     private String apiVersion;
 
-    @XmlElement(name = "device", type = Device.class)
+    @Element(name = "device", type = Device.class)
     private final List<Device> devices = new ArrayList<>();
 
     public String getApiVersion() {

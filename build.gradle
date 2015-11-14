@@ -24,7 +24,8 @@ test {
 }
 
 dependencies {
-    compile 'org.springframework:spring-web:4.2.2.RELEASE'
+	compile 'com.squareup.okhttp:okhttp:2.5.0'
+	compile 'org.simpleframework:simple-xml:2.7.1'
 	compile 'org.slf4j:slf4j-api:1.7.12'
 	runtime 'ch.qos.logback:logback-classic:1.1.3'
 

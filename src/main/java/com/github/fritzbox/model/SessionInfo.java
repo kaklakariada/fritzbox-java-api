@@ -1,25 +1,27 @@
 package com.github.fritzbox.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "SessionInfo")
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
+@Root(name = "SessionInfo")
 public class SessionInfo {
 
-    @XmlElement(name = "SID")
+    @Element(name = "SID")
     private String sid;
 
-    @XmlElement(name = "Challenge")
+    @Element(name = "Challenge")
     private String challenge;
 
-    @XmlElement(name = "BlockTime")
+    @Element(name = "BlockTime")
     private String blockTime;
 
-    @XmlElement(name = "Rights")
-    private String rights;
+    @ElementList(name = "Rights", inline = false, required = false)
+    private List<UserRight> rights;
+    // @Element(name = "Rights")
+    // private Rights rights;
 
     public String getSid() {
         return sid;
@@ -33,9 +35,9 @@ public class SessionInfo {
         return blockTime;
     }
 
-    public String getRights() {
-        return rights;
-    }
+    // public List<UserRight> getRights() {
+    // return rights.getRights();
+    // }
 
     @Override
     public String toString() {

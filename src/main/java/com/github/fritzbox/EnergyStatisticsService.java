@@ -41,8 +41,7 @@ public class EnergyStatisticsService {
         args.put("command", command);
         args.put("id", deviceId);
         args.put("xhr", "1");
-        final String result = fritzbox.getForObject(QUERY_PATH, args, String.class).trim();
-        LOG.debug("Executed command '{}' for device '{}' got result '{}'", command, deviceId, result);
-        return result;
+        // final String result = fritzbox.getForObject(QUERY_PATH, args, String.class).trim();
+        return null;
     }
 }

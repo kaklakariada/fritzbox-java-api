@@ -1,39 +1,36 @@
 package com.github.fritzbox.model.homeautomation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "device")
+@Root(name = "device")
 public class Device {
 
-    @XmlAttribute(name = "identifier")
+    @Attribute(name = "identifier")
     private String identifier;
-    @XmlAttribute(name = "id")
+    @Attribute(name = "id")
     private String id;
-    @XmlAttribute(name = "functionbitmask")
+    @Attribute(name = "functionbitmask")
     private int functionBitmask;
-    @XmlAttribute(name = "fwversion")
+    @Attribute(name = "fwversion")
     private String firmwareVersion;
-    @XmlAttribute(name = "manufacturer")
+    @Attribute(name = "manufacturer")
     private String manufacturer;
 
-    @XmlAttribute(name = "productname")
+    @Attribute(name = "productname")
     private String productName;
 
-    @XmlElement(name = "present")
+    @Element(name = "present")
     private boolean present;
-    @XmlElement(name = "name")
+    @Element(name = "name")
     private String name;
 
-    @XmlElement(name = "switch")
+    @Element(name = "switch")
     private SwitchState switchState;
-    @XmlElement(name = "powermeter")
+    @Element(name = "powermeter")
     private PowerMeter powerMeter;
-    @XmlElement(name = "temperature")
+    @Element(name = "temperature")
     private Temperature temperature;
 
     public String getIdentifier() {

@@ -1,21 +1,18 @@
 package com.github.fritzbox.model.homeautomation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "switch")
+@Root(name = "switch")
 public class SwitchState {
 
-    @XmlElement(name = "state")
+    @Element(name = "state")
     private boolean state;
 
-    @XmlElement(name = "mode")
+    @Element(name = "mode")
     private String mode;
 
-    @XmlElement(name = "lock")
+    @Element(name = "lock")
     private boolean lock;
 
     public boolean isState() {

@@ -26,13 +26,15 @@ public class HomeAutomation {
     public DeviceList getDeviceListInfos() {
         final String command = "getdevicelistinfos";
         final DeviceList deviceList = executeCommand(command, DeviceList.class);
-        LOG.trace("Found {} devices, devicelist version: {}", deviceList.getDevices().size(), deviceList.getApiVersion());
+        LOG.trace("Found {} devices, devicelist version: {}", deviceList.getDevices().size(),
+                deviceList.getApiVersion());
         return deviceList;
     }
 
     private <T> T executeCommand(String command, Class<T> responseType) {
         final Map<String, String> args = Collections.singletonMap("switchcmd", command);
-        return fritzbox.getForObject(HOME_AUTOMATION_PATH, args, responseType);
+        // return fritzbox.getForObject(HOME_AUTOMATION_PATH, args, responseType);
+        return null;
     }
 
     private String executeDeviceCommand(String deviceAin, String command, String parameter) {
@@ -42,10 +44,7 @@ public class HomeAutomation {
         if (parameter != null) {
             args.put("param", parameter);
         }
-        final String result = fritzbox.getForObject(HOME_AUTOMATION_PATH, args, String.class).trim();
-        LOG.debug("Executed command '{}' with parameter '{}' for device '{}', got result '{}'", command, parameter,
-                deviceAin, result);
-        return result;
+        return null;
     }
 
     public List<String> getSwitchList() {

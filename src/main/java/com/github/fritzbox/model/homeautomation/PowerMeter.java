@@ -1,17 +1,14 @@
 package com.github.fritzbox.model.homeautomation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "powermeter")
+@Root(name = "powermeter")
 public class PowerMeter {
 
-    @XmlElement(name = "power")
+    @Element(name = "power")
     private int powerMilliWatt;
-    @XmlElement(name = "energy")
+    @Element(name = "energy")
     private int energyWattHours;
 
     public float getPowerWatt() {
