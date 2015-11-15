@@ -1,5 +1,3 @@
-fritzbox.hostname = fritz.box
-fritzbox.port = 443
-fritzbox.useHttps = true
+fritzbox.url = http://fritz.box
 fritzbox.username =
 fritzbox.password = secret

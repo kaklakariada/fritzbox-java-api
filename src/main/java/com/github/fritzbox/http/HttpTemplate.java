@@ -3,10 +3,10 @@ package com.github.fritzbox.http;
 import java.io.IOException;
 import java.util.Map.Entry;
 
-import org.simpleframework.xml.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.fritzbox.mapping.Deserializer;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.HttpUrl.Builder;
 import com.squareup.okhttp.MediaType;
@@ -15,18 +15,24 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+/**
+ * This class allows executing http requests against a server. Responses are converted to the requested response type.
+ */
 public class HttpTemplate {
     private final static Logger LOG = LoggerFactory.getLogger(HttpTemplate.class);
 
     private final OkHttpClient httpClient;
     private final HttpUrl baseUrl;
+    private final Deserializer deserializer;
 
-    private final Serializer serializer;
+    public HttpTemplate(String baseUrl) {
+        this(new OkHttpClient(), new Deserializer(), HttpUrl.parse(baseUrl));
+    }
 
-    public HttpTemplate(OkHttpClient httpClient, Serializer serializer, String urlScheme, String host, int port) {
+    HttpTemplate(OkHttpClient httpClient, Deserializer deserializer, HttpUrl baseUrl) {
         this.httpClient = httpClient;
-        this.serializer = serializer;
-        this.baseUrl = new HttpUrl.Builder().scheme(urlScheme).host(host).port(port).build();
+        this.deserializer = deserializer;
+        this.baseUrl = baseUrl;
     }
 
     public <T> T get(String path, Class<T> resultType) {
@@ -60,7 +66,7 @@ public class HttpTemplate {
     private <T> T parse(final Response response, Class<T> resultType) {
         final String body = getBodyAsString(response);
         LOG.trace("Got response {} with body\n'{}'", response, body.trim());
-        return parse(body, resultType);
+        return deserializer.parse(body.trim(), resultType);
     }
 
     private String getBodyAsString(final Response response) {
@@ -68,29 +74,6 @@ public class HttpTemplate {
             return response.body().string();
         } catch (final IOException e) {
             throw new RuntimeException("Error getting body from response " + response, e);
-        }
-    }
-
-    private <T> T parse(String body, Class<T> resultType) {
-        final String trimmedBody = body.trim();
-        if (resultType == String.class) {
-            return resultType.cast(trimmedBody);
-        }
-        if (resultType == Boolean.class) {
-            return resultType.cast("1".equals(trimmedBody));
-        }
-        if (resultType == Integer.class) {
-            if (trimmedBody.isEmpty() || "inval".equals(trimmedBody)) {
-                return null;
-            }
-            return resultType.cast(Integer.parseInt(trimmedBody));
-        }
-        try {
-            final T object = serializer.read(resultType, body);
-            LOG.trace("Parsed response: {}", object);
-            return object;
-        } catch (final Exception e) {
-            throw new RuntimeException("Error parsing response body '" + body + "'", e);
         }
     }
 

@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
-import org.simpleframework.xml.core.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,20 +16,16 @@ import com.github.fritzbox.http.HttpTemplate;
 import com.github.fritzbox.model.homeautomation.Device;
 import com.github.fritzbox.model.homeautomation.DeviceList;
 import com.github.fritzbox.model.homeautomation.PowerMeter;
-import com.squareup.okhttp.OkHttpClient;
 
 public class TestDriver {
     private final static Logger LOG = LoggerFactory.getLogger(TestDriver.class);
 
     public static void main(String[] args) throws InterruptedException {
         final Properties config = readConfig(Paths.get("application.properties"));
-        final boolean useHttps = Boolean.parseBoolean(config.getProperty("fritzbox.useHttps", "true"));
-        final String hostname = config.getProperty("fritzbox.hostname");
-        final int port = Integer.parseInt(config.getProperty("fritzbox.port", useHttps ? "443" : "80"));
+        final String url = config.getProperty("fritzbox.url");
         final String username = config.getProperty("fritzbox.username", null);
         final String password = config.getProperty("fritzbox.password");
-        final HttpTemplate template = new HttpTemplate(new OkHttpClient(), new Persister(), useHttps ? "https" : "http",
-                hostname, port);
+        final HttpTemplate template = new HttpTemplate(url);
         final FritzBoxSession session = new FritzBoxSession(template);
         session.login(username, password);
         final HomeAutomation homeAutomation = new HomeAutomation(session);
@@ -38,6 +33,8 @@ public class TestDriver {
         final DeviceList devices = homeAutomation.getDeviceListInfos();
         LOG.info("Found {} devices", devices.getDevices().size());
         devices.getDevices().stream().forEach(d -> LOG.info("\t{}", d));
+
+        // session.logout();
 
         final List<String> ids = homeAutomation.getSwitchList();
         LOG.info("Found {} device ids: {}", ids.size(), ids);

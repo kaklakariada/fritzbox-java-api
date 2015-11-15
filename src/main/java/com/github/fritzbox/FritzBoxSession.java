@@ -13,7 +13,10 @@ import com.github.fritzbox.http.HttpTemplate;
 import com.github.fritzbox.http.QueryParameters;
 import com.github.fritzbox.model.SessionInfo;
 
-class FritzBoxSession {
+/**
+ * This class implements allows logging in to a fritzbox and execute authenticated requests.
+ */
+public class FritzBoxSession {
     private final static Logger LOG = LoggerFactory.getLogger(FritzBoxSession.class);
 
     private static final String LOGIN_PATH = "/login_sid.lua";
@@ -42,7 +45,7 @@ class FritzBoxSession {
         if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
             throw new RuntimeException("Login failed: " + loggedInSession);
         }
-        LOG.debug("Got sid {}", loggedInSession.getSid());
+        LOG.debug("Logged in with session id {}", loggedInSession.getSid());
         this.sid = loggedInSession.getSid();
     }
 
@@ -57,11 +60,17 @@ class FritzBoxSession {
     }
 
     public <T> T getAutenticated(String path, QueryParameters parameters, Class<T> resultType) {
+        if (sid == null) {
+            throw new RuntimeException("Not logged in, session id is null");
+        }
         final QueryParameters parametersWithSessionId = parameters.newBuilder().add("sid", this.sid).build();
         return httpTemplate.get(path, parametersWithSessionId, resultType);
     }
 
     public void logout() {
-        throw new UnsupportedOperationException();
+        httpTemplate.get(WEBCM_PATH, QueryParameters.builder().add("sid", sid).add("logout", "1").build(),
+                String.class);
+        LOG.debug("Logged out, invalidate sid");
+        sid = null;
     }
 }

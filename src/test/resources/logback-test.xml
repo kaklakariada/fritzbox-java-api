@@ -5,6 +5,9 @@
     </encoder>
   </appender>
   <logger name="com.github.fritzbox" level="TRACE" />
+  <logger name="com.github.fritzbox.http.HttpTemplate" level="DEBUG" />
+  <logger name="com.github.fritzbox.HomeAutomation" level="DEBUG" />
+  <logger name="com.github.fritzbox.mapping" level="DEBUG" />
   <root level="debug">
     <appender-ref ref="STDOUT" />
   </root>
