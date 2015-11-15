@@ -27,7 +27,7 @@ public class FritzBoxSession {
 
     private final HttpTemplate httpTemplate;
 
-    FritzBoxSession(HttpTemplate httpTemplate) {
+    public FritzBoxSession(HttpTemplate httpTemplate) {
         this.httpTemplate = httpTemplate;
     }
 
@@ -39,8 +39,8 @@ public class FritzBoxSession {
         final String response = createChallengeResponse(sessionWithChallenge.getChallenge(), password);
         LOG.debug("Got response {} for challenge {}", response, sessionWithChallenge.getChallenge());
 
-        final SessionInfo loggedInSession = httpTemplate.get(LOGIN_PATH,
-                QueryParameters.builder().add("username", username).add("response", response).build(),
+        final SessionInfo loggedInSession = httpTemplate.get(LOGIN_PATH, QueryParameters.builder()
+                .add("username", username == null ? "" : username).add("response", response).build(),
                 SessionInfo.class);
         if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
             throw new RuntimeException("Login failed: " + loggedInSession);
