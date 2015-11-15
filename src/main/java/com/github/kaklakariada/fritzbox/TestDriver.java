@@ -36,8 +36,6 @@ public class TestDriver {
             LOG.info("\t{}", device);
         }
 
-        // session.logout();
-
         final List<String> ids = homeAutomation.getSwitchList();
         LOG.info("Found {} device ids: {}", ids.size(), ids);
 
@@ -55,7 +53,8 @@ public class TestDriver {
     private static void testEnergyStats(FritzBoxSession session, String deviceId) {
         final EnergyStatisticsService service = new EnergyStatisticsService(session);
         for (final EnergyStatsTimeRange timeRange : EnergyStatsTimeRange.values()) {
-            service.getEnergyStatistics(deviceId, timeRange);
+            final String energyStatistics = service.getEnergyStatistics(deviceId, timeRange);
+            LOG.debug("Statistics {}: {}", timeRange, energyStatistics);
         }
     }
 

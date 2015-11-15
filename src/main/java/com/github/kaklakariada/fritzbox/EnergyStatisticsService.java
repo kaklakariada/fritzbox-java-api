@@ -1,11 +1,13 @@
 package com.github.kaklakariada.fritzbox;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.kaklakariada.fritzbox.http.QueryParameters;
+
+/**
+ * This class retrieves energy statistics.
+ */
 public class EnergyStatisticsService {
 
     private final static Logger LOG = LoggerFactory.getLogger(EnergyStatisticsService.class);
@@ -26,10 +28,10 @@ public class EnergyStatisticsService {
         }
     }
 
-    private final FritzBoxSession fritzbox;
+    private final FritzBoxSession session;
 
-    public EnergyStatisticsService(FritzBoxSession fritzbox) {
-        this.fritzbox = fritzbox;
+    public EnergyStatisticsService(FritzBoxSession session) {
+        this.session = session;
     }
 
     public String getEnergyStatistics(String deviceId, EnergyStatsTimeRange timeRange) {
@@ -37,11 +39,10 @@ public class EnergyStatisticsService {
     }
 
     private String executeDeviceCommand(String deviceId, String command) {
-        final Map<String, String> args = new HashMap<>();
-        args.put("command", command);
-        args.put("id", deviceId);
-        args.put("xhr", "1");
-        // final String result = fritzbox.getForObject(QUERY_PATH, args, String.class).trim();
-        return null;
+        final QueryParameters parameters = QueryParameters.builder().add("command", command).add("id", deviceId)
+                .add("xhr", "1").build();
+        final String statisticsJson = session.getAutenticated(QUERY_PATH, parameters, String.class);
+        LOG.trace("Got statistics json for command '{}': {}", command, statisticsJson);
+        return statisticsJson;
     }
 }

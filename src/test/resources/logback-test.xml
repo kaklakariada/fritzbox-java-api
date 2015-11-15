@@ -4,7 +4,7 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
-  <logger name="com.github.kaklakariada.fritzbox" level="TRACE" />
+  <logger name="com.github.kaklakariada.fritzbox" level="DEBUG" />
   <logger name="com.github.kaklakariada.fritzbox.http.HttpTemplate" level="DEBUG" />
   <logger name="com.github.kaklakariada.fritzbox.HomeAutomation" level="DEBUG" />
   <logger name="com.github.kaklakariada.fritzbox.mapping" level="DEBUG" />
