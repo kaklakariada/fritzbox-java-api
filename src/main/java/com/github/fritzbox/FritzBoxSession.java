@@ -9,6 +9,8 @@ import javax.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.fritzbox.http.HttpTemplate;
+import com.github.fritzbox.http.QueryParameters;
 import com.github.fritzbox.model.SessionInfo;
 
 class FritzBoxSession {

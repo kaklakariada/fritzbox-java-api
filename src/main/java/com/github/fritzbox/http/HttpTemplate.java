@@ -1,4 +1,4 @@
-package com.github.fritzbox;
+package com.github.fritzbox.http;
 
 import java.io.IOException;
 import java.util.Map.Entry;

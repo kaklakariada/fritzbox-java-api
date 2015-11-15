@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
+import com.github.fritzbox.http.HttpTemplate;
 import com.github.fritzbox.model.homeautomation.Device;
 import com.github.fritzbox.model.homeautomation.DeviceList;
 import com.github.fritzbox.model.homeautomation.PowerMeter;
