@@ -22,9 +22,22 @@ public class FritzBoxSession {
     private final HttpTemplate httpTemplate;
     private final Md5Service md5Service;
 
+    public FritzBoxSession(HttpTemplate httpTemplate, String sid) {
+        this(httpTemplate, new Md5Service(), sid);
+    }
+
     public FritzBoxSession(HttpTemplate httpTemplate) {
+        this(httpTemplate, new Md5Service(), null);
+    }
+
+    private FritzBoxSession(HttpTemplate httpTemplate, Md5Service md5Service, String sid) {
         this.httpTemplate = httpTemplate;
-        this.md5Service = new Md5Service();
+        this.md5Service = md5Service;
+        this.sid = sid;
+    }
+
+    public String getSid() {
+        return sid;
     }
 
     public void login(String username, String password) {
