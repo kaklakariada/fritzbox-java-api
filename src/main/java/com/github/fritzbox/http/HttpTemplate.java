@@ -58,15 +58,38 @@ public class HttpTemplate {
     }
 
     private <T> T parse(final Response response, Class<T> resultType) {
-        String body = null;
+        final String body = getBodyAsString(response);
+        LOG.trace("Got response {} with body\n'{}'", response, body.trim());
+        return parse(body, resultType);
+    }
+
+    private String getBodyAsString(final Response response) {
         try {
-            body = response.body().string();
-            LOG.trace("Got response {} with body\n'{}'", response, body.trim());
+            return response.body().string();
+        } catch (final IOException e) {
+            throw new RuntimeException("Error getting body from response " + response, e);
+        }
+    }
+
+    private <T> T parse(String body, Class<T> resultType) {
+        if (resultType == String.class) {
+            return resultType.cast(body);
+        }
+        if (resultType == Boolean.class) {
+            return resultType.cast("1".equals(body.trim()));
+        }
+        if (resultType == Integer.class) {
+            if ("inval".equals(body.trim())) {
+                return null;
+            }
+            return resultType.cast(Integer.parseInt(body.trim()));
+        }
+        try {
             final T object = serializer.read(resultType, body);
             LOG.trace("Parsed response: {}", object);
             return object;
         } catch (final Exception e) {
-            throw new RuntimeException("Error parsing response " + response + " with body\n'" + body + "'", e);
+            throw new RuntimeException("Error parsing response body '" + body + "'", e);
         }
     }
 

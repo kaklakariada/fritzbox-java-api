@@ -50,7 +50,7 @@ public class TestDriver {
         final String ain = ids.get(0);
 
         testEnergyStats(session, devices.getDevices().get(0).getId());
-        // testHomeAutomation(homeAutomation, ain);
+        testHomeAutomation(homeAutomation, ain);
     }
 
     private static void testEnergyStats(FritzBoxSession session, String deviceId) {
