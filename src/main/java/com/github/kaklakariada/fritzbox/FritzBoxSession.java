@@ -1,11 +1,5 @@
 package com.github.kaklakariada.fritzbox;
 
-import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import javax.xml.bind.DatatypeConverter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +20,11 @@ public class FritzBoxSession {
     private String sid;
 
     private final HttpTemplate httpTemplate;
+    private final Md5Service md5Service;
 
     public FritzBoxSession(HttpTemplate httpTemplate) {
         this.httpTemplate = httpTemplate;
+        this.md5Service = new Md5Service();
     }
 
     public void login(String username, String password) {
@@ -49,14 +45,9 @@ public class FritzBoxSession {
         this.sid = loggedInSession.getSid();
     }
 
-    private static String createChallengeResponse(String challenge, String password) {
-        try {
-            final byte[] text = (challenge + "-" + password).getBytes(Charset.forName("utf-16le"));
-            final byte[] digest = MessageDigest.getInstance("md5").digest(text);
-            return challenge + "-" + DatatypeConverter.printHexBinary(digest).toLowerCase();
-        } catch (final NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+    private String createChallengeResponse(String challenge, String password) {
+        final String text = (challenge + "-" + password);
+        return challenge + "-" + md5Service.md5(text);
     }
 
     public <T> T getAutenticated(String path, QueryParameters parameters, Class<T> resultType) {
