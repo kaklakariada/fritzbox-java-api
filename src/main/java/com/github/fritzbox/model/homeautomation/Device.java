@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
 @Root(name = "device")
 public class Device {
 
-    @Attribute(name = "identifier")
+    @Attribute(name = "identifier", required = true)
     private String identifier;
     @Attribute(name = "id")
     private String id;

@@ -6,9 +6,9 @@ import org.simpleframework.xml.Root;
 @Root(name = "powermeter")
 public class PowerMeter {
 
-    @Element(name = "power")
+    @Element(name = "power", required = false)
     private int powerMilliWatt;
-    @Element(name = "energy")
+    @Element(name = "energy", required = false)
     private int energyWattHours;
 
     public float getPowerWatt() {

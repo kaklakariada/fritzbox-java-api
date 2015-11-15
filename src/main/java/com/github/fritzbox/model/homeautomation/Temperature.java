@@ -6,10 +6,10 @@ import org.simpleframework.xml.Root;
 @Root(name = "temperature")
 public class Temperature {
 
-    @Element(name = "celsius")
+    @Element(name = "celsius", required = false)
     private int deciCelsius;
 
-    @Element(name = "offset")
+    @Element(name = "offset", required = false)
     private int offsetDeciCelsius;
 
     public float getCelsius() {

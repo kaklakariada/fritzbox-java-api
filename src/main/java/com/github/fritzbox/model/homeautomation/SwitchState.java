@@ -6,13 +6,13 @@ import org.simpleframework.xml.Root;
 @Root(name = "switch")
 public class SwitchState {
 
-    @Element(name = "state")
+    @Element(name = "state", required = false)
     private boolean state;
 
-    @Element(name = "mode")
+    @Element(name = "mode", required = false)
     private String mode;
 
-    @Element(name = "lock")
+    @Element(name = "lock", required = false)
     private boolean lock;
 
     public boolean isState() {
