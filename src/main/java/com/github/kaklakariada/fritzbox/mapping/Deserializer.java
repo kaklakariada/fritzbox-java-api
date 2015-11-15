@@ -1,4 +1,4 @@
-package com.github.fritzbox.mapping;
+package com.github.kaklakariada.fritzbox.mapping;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;

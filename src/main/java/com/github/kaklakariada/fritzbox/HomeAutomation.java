@@ -1,4 +1,4 @@
-package com.github.fritzbox;
+package com.github.kaklakariada.fritzbox;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.fritzbox.http.QueryParameters;
-import com.github.fritzbox.http.QueryParameters.Builder;
-import com.github.fritzbox.model.homeautomation.DeviceList;
+import com.github.kaklakariada.fritzbox.http.QueryParameters;
+import com.github.kaklakariada.fritzbox.http.QueryParameters.Builder;
+import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 
 public class HomeAutomation {
 

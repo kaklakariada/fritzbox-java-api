@@ -1,4 +1,4 @@
-package com.github.fritzbox;
+package com.github.kaklakariada.fritzbox;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -9,9 +9,9 @@ import javax.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.fritzbox.http.HttpTemplate;
-import com.github.fritzbox.http.QueryParameters;
-import com.github.fritzbox.model.SessionInfo;
+import com.github.kaklakariada.fritzbox.http.HttpTemplate;
+import com.github.kaklakariada.fritzbox.http.QueryParameters;
+import com.github.kaklakariada.fritzbox.model.SessionInfo;
 
 /**
  * This class implements allows logging in to a fritzbox and execute authenticated requests.

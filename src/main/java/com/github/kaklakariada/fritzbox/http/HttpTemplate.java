@@ -1,4 +1,4 @@
-package com.github.fritzbox.http;
+package com.github.kaklakariada.fritzbox.http;
 
 import java.io.IOException;
 import java.util.Map.Entry;
@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.fritzbox.mapping.Deserializer;
+import com.github.kaklakariada.fritzbox.mapping.Deserializer;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.HttpUrl.Builder;
 import com.squareup.okhttp.MediaType;

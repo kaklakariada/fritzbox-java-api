@@ -1,4 +1,4 @@
-package com.github.fritzbox.http;
+package com.github.kaklakariada.fritzbox.http;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package com.github.fritzbox;
+package com.github.kaklakariada.fritzbox;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,11 +11,11 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
-import com.github.fritzbox.http.HttpTemplate;
-import com.github.fritzbox.model.homeautomation.Device;
-import com.github.fritzbox.model.homeautomation.DeviceList;
-import com.github.fritzbox.model.homeautomation.PowerMeter;
+import com.github.kaklakariada.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
+import com.github.kaklakariada.fritzbox.http.HttpTemplate;
+import com.github.kaklakariada.fritzbox.model.homeautomation.Device;
+import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
+import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
 
 public class TestDriver {
     private final static Logger LOG = LoggerFactory.getLogger(TestDriver.class);

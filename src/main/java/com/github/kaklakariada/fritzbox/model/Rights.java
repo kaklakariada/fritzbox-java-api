@@ -1,4 +1,4 @@
-package com.github.fritzbox.model;
+package com.github.kaklakariada.fritzbox.model;
 
 import java.util.List;
 

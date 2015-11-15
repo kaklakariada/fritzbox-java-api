@@ -1,4 +1,4 @@
-package com.github.fritzbox.model.homeautomation;
+package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import java.util.List;
 
