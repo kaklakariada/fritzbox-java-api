@@ -8,3 +8,7 @@ Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP In
 * Copy file `application.properties.template` to `application.properties` and enter settings for your device.
 * Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/master/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
 * Use API in your program.
+
+## Building
+* Install library to local maven repository:
+```./gradlew install```
