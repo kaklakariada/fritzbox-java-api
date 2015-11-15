@@ -72,17 +72,18 @@ public class HttpTemplate {
     }
 
     private <T> T parse(String body, Class<T> resultType) {
+        final String trimmedBody = body.trim();
         if (resultType == String.class) {
-            return resultType.cast(body);
+            return resultType.cast(trimmedBody);
         }
         if (resultType == Boolean.class) {
-            return resultType.cast("1".equals(body.trim()));
+            return resultType.cast("1".equals(trimmedBody));
         }
         if (resultType == Integer.class) {
-            if ("inval".equals(body.trim())) {
+            if (trimmedBody.isEmpty() || "inval".equals(trimmedBody)) {
                 return null;
             }
-            return resultType.cast(Integer.parseInt(body.trim()));
+            return resultType.cast(Integer.parseInt(trimmedBody));
         }
         try {
             final T object = serializer.read(resultType, body);
@@ -104,7 +105,11 @@ public class HttpTemplate {
     private Response execute(Request request) {
         LOG.trace("Executing request {}", request);
         try {
-            return httpClient.newCall(request).execute();
+            final Response response = httpClient.newCall(request).execute();
+            if (!response.isSuccessful()) {
+                throw new RuntimeException("Request failed with response " + response);
+            }
+            return response;
         } catch (final IOException e) {
             throw new RuntimeException("Error executing requst " + request, e);
         }
