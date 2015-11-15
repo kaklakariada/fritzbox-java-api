@@ -1,7 +1,6 @@
 package com.github.fritzbox;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.fritzbox.http.QueryParameters;
 import com.github.fritzbox.model.homeautomation.DeviceList;
 
 public class HomeAutomation {
@@ -17,24 +17,22 @@ public class HomeAutomation {
     private final static Logger LOG = LoggerFactory.getLogger(HomeAutomation.class);
     private final static String HOME_AUTOMATION_PATH = "/webservices/homeautoswitch.lua";
 
-    private final FritzBoxSession fritzbox;
+    private final FritzBoxSession session;
 
     public HomeAutomation(FritzBoxSession fritzbox) {
-        this.fritzbox = fritzbox;
+        this.session = fritzbox;
     }
 
     public DeviceList getDeviceListInfos() {
-        final String command = "getdevicelistinfos";
-        final DeviceList deviceList = executeCommand(command, DeviceList.class);
+        final DeviceList deviceList = executeCommand("getdevicelistinfos", DeviceList.class);
         LOG.trace("Found {} devices, devicelist version: {}", deviceList.getDevices().size(),
                 deviceList.getApiVersion());
         return deviceList;
     }
 
-    private <T> T executeCommand(String command, Class<T> responseType) {
-        final Map<String, String> args = Collections.singletonMap("switchcmd", command);
-        // return fritzbox.getForObject(HOME_AUTOMATION_PATH, args, responseType);
-        return null;
+    private <T> T executeCommand(String command, Class<T> resultType) {
+        final QueryParameters parameters = QueryParameters.builder().add("switchcmd", command).build();
+        return session.getAutenticated(HOME_AUTOMATION_PATH, parameters, resultType);
     }
 
     private String executeDeviceCommand(String deviceAin, String command, String parameter) {

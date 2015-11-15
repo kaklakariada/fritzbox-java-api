@@ -18,11 +18,19 @@ public class QueryParameters {
         return parameters;
     }
 
+    public Builder newBuilder() {
+        return new Builder(new HashMap<>(this.parameters));
+    }
+
     public static class Builder {
         private final HashMap<String, String> parameters;
 
         private Builder() {
-            parameters = new HashMap<>();
+            this(new HashMap<>());
+        }
+
+        public Builder(HashMap<String, String> parameters) {
+            this.parameters = parameters;
         }
 
         public Builder add(String name, String value) {

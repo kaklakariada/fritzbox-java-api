@@ -56,8 +56,12 @@ class FritzBoxSession {
         }
     }
 
-    public void logout() {
-        // TODO Auto-generated method stub
+    public <T> T getAutenticated(String path, QueryParameters parameters, Class<T> resultType) {
+        final QueryParameters parametersWithSessionId = parameters.newBuilder().add("sid", this.sid).build();
+        return httpTemplate.get(path, parametersWithSessionId, resultType);
+    }
 
+    public void logout() {
+        throw new UnsupportedOperationException();
     }
 }
