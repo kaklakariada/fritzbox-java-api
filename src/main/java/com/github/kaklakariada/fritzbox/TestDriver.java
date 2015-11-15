@@ -32,7 +32,9 @@ public class TestDriver {
 
         final DeviceList devices = homeAutomation.getDeviceListInfos();
         LOG.info("Found {} devices", devices.getDevices().size());
-        devices.getDevices().stream().forEach(d -> LOG.info("\t{}", d));
+        for (final Device device : devices.getDevices()) {
+            LOG.info("\t{}", device);
+        }
 
         // session.logout();
 

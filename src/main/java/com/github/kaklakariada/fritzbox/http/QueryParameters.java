@@ -26,7 +26,7 @@ public class QueryParameters {
         private final HashMap<String, String> parameters;
 
         private Builder() {
-            this(new HashMap<>());
+            this(new HashMap<String, String>());
         }
 
         public Builder(HashMap<String, String> parameters) {

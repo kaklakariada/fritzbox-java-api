@@ -2,7 +2,6 @@ package com.github.kaklakariada.fritzbox;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +43,7 @@ public class HomeAutomation {
 
     public List<String> getSwitchList() {
         final String switches = executeCommand("getswitchlist", String.class);
-        final List<String> idList = Arrays.stream(switches.split(",")) //
-                .map(String::trim) //
-                .collect(Collectors.toList());
+        final List<String> idList = Arrays.asList(switches.split(","));
         LOG.trace("Got switch list string '{}': {}", switches, idList);
         return idList;
     }
