@@ -16,7 +16,8 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 /**
- * This class allows executing http requests against a server. Responses are converted to the requested response type.
+ * This class allows executing http requests against a server. Responses are converted using the given
+ * {@link Deserializer}.
  */
 public class HttpTemplate {
     private final static Logger LOG = LoggerFactory.getLogger(HttpTemplate.class);
@@ -73,7 +74,7 @@ public class HttpTemplate {
         try {
             return response.body().string();
         } catch (final IOException e) {
-            throw new RuntimeException("Error getting body from response " + response, e);
+            throw new HttpException("Error getting body from response " + response, e);
         }
     }
 
@@ -90,11 +91,15 @@ public class HttpTemplate {
         try {
             final Response response = httpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
-                throw new RuntimeException("Request failed with response " + response);
+                if (response.code() == 403) {
+                    throw new AccessForbiddenException(
+                            "Authentication failed, session id outdated or invalid: " + response);
+                }
+                throw new HttpException("Request failed with response " + response);
             }
             return response;
         } catch (final IOException e) {
-            throw new RuntimeException("Error executing requst " + request, e);
+            throw new HttpException("Error executing requst " + request, e);
         }
     }
 }
