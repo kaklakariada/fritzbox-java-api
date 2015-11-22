@@ -7,15 +7,15 @@ import org.simpleframework.xml.Root;
 public class SwitchState {
 
     @Element(name = "state", required = false)
-    private boolean state;
+    private int state;
 
     @Element(name = "mode", required = false)
     private String mode;
 
     @Element(name = "lock", required = false)
-    private boolean lock;
+    private int lock;
 
-    public boolean isState() {
+    public int isState() {
         return state;
     }
 
@@ -23,7 +23,7 @@ public class SwitchState {
         return mode;
     }
 
-    public boolean isLock() {
+    public int isLock() {
         return lock;
     }
 

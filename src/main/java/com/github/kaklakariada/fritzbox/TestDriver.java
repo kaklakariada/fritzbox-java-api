@@ -46,7 +46,7 @@ public class TestDriver {
 
         final String ain = ids.get(0);
 
-        testEnergyStats(session, devices.getDevices().get(0).getId());
+        // testEnergyStats(session, devices.getDevices().get(0).getId());
         testHomeAutomation(homeAutomation, ain);
     }
 
@@ -72,9 +72,8 @@ public class TestDriver {
         while (true) {
             final Device device = homeAutomation.getDeviceListInfos().getDevices().get(0);
             final PowerMeter powerMeter = device.getPowerMeter();
-            LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh",
-                    device.getSwitchState().isState() ? "on" : "off", device.getTemperature().getCelsius(),
-                    powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
+            LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh", device.getSwitchState().isState(),
+                    device.getTemperature().getCelsius(), powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
             Thread.sleep(1000);
         }
     }
