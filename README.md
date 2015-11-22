@@ -2,13 +2,20 @@
 
 [![Build Status](https://travis-ci.org/kaklakariada/fritzbox-java-api.svg?branch=master)](https://travis-ci.org/kaklakariada/fritzbox-java-api)
 
-Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AHA-HTTP-Interface.pdf) inspired by grundid's [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api). This also runs on Android devices.
+Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AHA-HTTP-Interface.pdf) inspired by grundid's [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api). This also runs on Android devices (see [Andect](https://github.com/kaklakariada/Andect)).
 
 ## Usage
 * Copy file `application.properties.template` to `application.properties` and enter settings for your device.
 * Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/master/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
 * Use API in your program.
 
+## Developing
+1. Run `./gradlew eclipse`
+2. Import into eclipse
+
+
 ## Building
-* Install library to local maven repository:
-```./gradlew install```
+Install to local maven repository:
+```bash
+./gradlew clean install
+```
