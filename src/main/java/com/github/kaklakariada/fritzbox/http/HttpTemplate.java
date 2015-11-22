@@ -27,13 +27,20 @@ public class HttpTemplate {
     private final Deserializer deserializer;
 
     public HttpTemplate(String baseUrl) {
-        this(new OkHttpClient(), new Deserializer(), HttpUrl.parse(baseUrl));
+        this(createUnsafeOkHttpClient(), new Deserializer(), HttpUrl.parse(baseUrl));
     }
 
     HttpTemplate(OkHttpClient httpClient, Deserializer deserializer, HttpUrl baseUrl) {
         this.httpClient = httpClient;
         this.deserializer = deserializer;
         this.baseUrl = baseUrl;
+    }
+
+    private static OkHttpClient createUnsafeOkHttpClient() {
+        final OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setSslSocketFactory(TrustSelfSignedCertificates.getUnsafeSslSocketFactory());
+        okHttpClient.setHostnameVerifier(new NullHostnameVerifier());
+        return okHttpClient;
     }
 
     public <T> T get(String path, Class<T> resultType) {

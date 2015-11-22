@@ -2,32 +2,39 @@ package com.github.kaklakariada.fritzbox.http;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class creates an {@link SSLSocketFactory} that trusts all certificates.
+ * 
+ * @see #getUnsafeSslSocketFactory()
+ */
 public class TrustSelfSignedCertificates {
+
     private final static Logger LOG = LoggerFactory.getLogger(TrustSelfSignedCertificates.class);
 
-    public static void trustSelfSignedSSL() {
+    public static SSLSocketFactory getUnsafeSslSocketFactory() {
         final SSLContext ctx = getSSLContext("TLS");
         final X509TrustManager tm = new NullTrustManager();
         initContext(ctx, tm);
-        LOG.warn("Using {} as default for SSL context {}", tm, ctx);
-        SSLContext.setDefault(ctx);
+        return ctx.getSocketFactory();
     }
 
     private static void initContext(final SSLContext ctx, final X509TrustManager tm) {
         try {
-            ctx.init(null, new TrustManager[] { tm }, null);
+            ctx.init(null, new TrustManager[] { tm }, new SecureRandom());
         } catch (final KeyManagementException e) {
-            throw new RuntimeException("Error initializing ssl context", e);
+            throw new HttpException("Error initializing ssl context", e);
         }
     }
 
@@ -35,7 +42,7 @@ public class TrustSelfSignedCertificates {
         try {
             return SSLContext.getInstance(algorithm);
         } catch (final NoSuchAlgorithmException e) {
-            throw new RuntimeException("Algorithm " + algorithm + " not found", e);
+            throw new HttpException("Algorithm " + algorithm + " not found", e);
         }
     }
 

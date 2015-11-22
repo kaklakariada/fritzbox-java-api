@@ -25,6 +25,8 @@ public class TestDriver {
         final String url = config.getProperty("fritzbox.url");
         final String username = config.getProperty("fritzbox.username", null);
         final String password = config.getProperty("fritzbox.password");
+
+        LOG.info("Logging in to {} with username {}", url, username);
         final HttpTemplate template = new HttpTemplate(url);
         final FritzBoxSession session = new FritzBoxSession(template);
         session.login(username, password);
