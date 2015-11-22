@@ -39,7 +39,7 @@ public class Deserializer {
             LOG.trace("Parsed response: {}", object);
             return object;
         } catch (final Exception e) {
-            throw new RuntimeException("Error parsing response body '" + data + "'", e);
+            throw new DeserializerException("Error parsing response body '" + data + "'", e);
         }
     }
 }
