@@ -22,7 +22,7 @@ public class Device {
     private String productName;
 
     @Element(name = "present")
-    private int present;
+    private String present;
     @Element(name = "name")
     private String name;
 
@@ -57,8 +57,8 @@ public class Device {
         return productName;
     }
 
-    public int getPresent() {
-        return present;
+    public boolean isPresent() {
+        return "1".equals(present);
     }
 
     public String getName() {

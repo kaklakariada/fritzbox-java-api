@@ -72,7 +72,7 @@ public class TestDriver {
         while (true) {
             final Device device = homeAutomation.getDeviceListInfos().getDevices().get(0);
             final PowerMeter powerMeter = device.getPowerMeter();
-            LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh", device.getSwitchState().isState(),
+            LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh", device.getSwitchState().isOn() ? "on" : "off",
                     device.getTemperature().getCelsius(), powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
             Thread.sleep(1000);
         }

@@ -7,7 +7,7 @@ repositories {
 }
 
 group 'com.github.kaklakariada'
-version = '0.2.0-SNAPSHOT'
+version = '0.3.0-SNAPSHOT'
 sourceCompatibility = 1.7
 
 tasks.withType(JavaCompile) {

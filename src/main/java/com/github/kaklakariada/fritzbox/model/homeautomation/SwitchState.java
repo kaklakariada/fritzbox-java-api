@@ -6,25 +6,36 @@ import org.simpleframework.xml.Root;
 @Root(name = "switch")
 public class SwitchState {
 
+    public enum SwitchMode {
+        AUTO, MANUAL
+    }
+
     @Element(name = "state", required = false)
-    private int state;
+    private String state;
 
     @Element(name = "mode", required = false)
     private String mode;
 
     @Element(name = "lock", required = false)
-    private int lock;
+    private String lock;
 
-    public int isState() {
-        return state;
+    public boolean isOn() {
+        return "1".equals(state);
     }
 
-    public String getMode() {
-        return mode;
+    public boolean isLocked() {
+        return "1".equals(lock);
     }
 
-    public int isLock() {
-        return lock;
+    public SwitchMode getMode() {
+        switch (mode) {
+        case "auto":
+            return SwitchMode.AUTO;
+        case "manuell":
+            return SwitchMode.MANUAL;
+        default:
+            return null;
+        }
     }
 
     @Override
