@@ -69,7 +69,7 @@ public class TestDriver {
         LOG.info("Switch {} uses {}W", ain, homeAutomation.getSwitchPowerWatt(ain));
         LOG.info("Switch {} has used {}Wh", ain, homeAutomation.getSwitchEnergyWattHour(ain));
         LOG.info("Switch {} has name '{}'", ain, homeAutomation.getSwitchName(ain));
-        // LOG.info("Switch {} has temperature {}°C", ain, homeAutomation.getTemperature(ain));
+        LOG.info("Switch {} has temperature {}°C", ain, homeAutomation.getTemperature(ain));
 
         while (true) {
             final Device device = homeAutomation.getDeviceListInfos().getDevices().get(0);
