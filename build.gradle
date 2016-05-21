@@ -28,7 +28,7 @@ test {
 }
 
 dependencies {
-	compile 'com.squareup.okhttp:okhttp:2.5.0'
+	compile 'com.squareup.okhttp:okhttp:2.7.5'
 	compile 'org.simpleframework:simple-xml:2.7.1'
 	compile 'org.slf4j:slf4j-api:1.7.13'
 	
