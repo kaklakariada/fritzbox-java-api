@@ -17,7 +17,9 @@
  */
 package com.github.kaklakariada.fritzbox.mapping;
 
-public class DeserializerException extends RuntimeException {
+import com.github.kaklakariada.fritzbox.FritzBoxException;
+
+public class DeserializerException extends FritzBoxException {
 
     private static final long serialVersionUID = 1L;
 

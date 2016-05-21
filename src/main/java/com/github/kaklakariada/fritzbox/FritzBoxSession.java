@@ -60,7 +60,7 @@ public class FritzBoxSession {
     public void login(String username, String password) {
         final SessionInfo sessionWithChallenge = httpTemplate.get(LOGIN_PATH, SessionInfo.class);
         if (!EMPTY_SESSION_ID.equals(sessionWithChallenge.getSid())) {
-            throw new RuntimeException("Already logged in: " + sessionWithChallenge);
+            throw new FritzBoxException("Already logged in: " + sessionWithChallenge);
         }
         final String response = createChallengeResponse(sessionWithChallenge.getChallenge(), password);
         LOG.debug("Got response {} for challenge {}", response, sessionWithChallenge.getChallenge());
@@ -69,7 +69,7 @@ public class FritzBoxSession {
                 .add("username", username == null ? "" : username).add("response", response).build(),
                 SessionInfo.class);
         if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
-            throw new RuntimeException("Login failed: " + loggedInSession);
+            throw new FritzBoxException("Login failed: " + loggedInSession);
         }
         LOG.debug("Logged in with session id {}", loggedInSession.getSid());
         this.sid = loggedInSession.getSid();
@@ -82,7 +82,7 @@ public class FritzBoxSession {
 
     public <T> T getAutenticated(String path, QueryParameters parameters, Class<T> resultType) {
         if (sid == null) {
-            throw new RuntimeException("Not logged in, session id is null");
+            throw new FritzBoxException("Not logged in, session id is null");
         }
         final QueryParameters parametersWithSessionId = parameters.newBuilder().add("sid", this.sid).build();
         return httpTemplate.get(path, parametersWithSessionId, resultType);

@@ -104,7 +104,7 @@ public class TestDriver {
         try (InputStream in = Files.newInputStream(absolutePath)) {
             config.load(in);
         } catch (final IOException e) {
-            throw new RuntimeException("Error loading configuration from " + absolutePath, e);
+            throw new FritzBoxException("Error loading configuration from " + absolutePath, e);
         }
         return config;
     }

@@ -17,7 +17,9 @@
  */
 package com.github.kaklakariada.fritzbox.http;
 
-public class HttpException extends RuntimeException {
+import com.github.kaklakariada.fritzbox.FritzBoxException;
+
+public class HttpException extends FritzBoxException {
 
     private static final long serialVersionUID = 1L;
 
