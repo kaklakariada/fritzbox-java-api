@@ -65,9 +65,11 @@ public class FritzBoxSession {
         final String response = createChallengeResponse(sessionWithChallenge.getChallenge(), password);
         LOG.debug("Got response {} for challenge {}", response, sessionWithChallenge.getChallenge());
 
-        final SessionInfo loggedInSession = httpTemplate.get(LOGIN_PATH, QueryParameters.builder()
-                .add("username", username == null ? "" : username).add("response", response).build(),
-                SessionInfo.class);
+        final QueryParameters arguments = QueryParameters.builder() //
+                .add("username", username == null ? "" : username) //
+                .add("response", response) //
+                .build();
+        final SessionInfo loggedInSession = httpTemplate.get(LOGIN_PATH, arguments, SessionInfo.class);
         if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
             throw new LoginFailedException(loggedInSession);
         }

@@ -20,9 +20,9 @@ package com.github.kaklakariada.fritzbox.http;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
@@ -41,15 +41,18 @@ public class TrustSelfSignedCertificates {
     private final static Logger LOG = LoggerFactory.getLogger(TrustSelfSignedCertificates.class);
 
     public static SSLSocketFactory getUnsafeSslSocketFactory() {
-        final SSLContext ctx = getSSLContext("TLS");
-        final X509TrustManager tm = new NullTrustManager();
-        initContext(ctx, tm);
-        return ctx.getSocketFactory();
+        final SSLContext sslContext = getSSLContext("TLS");
+        initializeSslContext(sslContext);
+        return sslContext.getSocketFactory();
     }
 
-    private static void initContext(final SSLContext ctx, final X509TrustManager tm) {
+    private static void initializeSslContext(SSLContext sslContext) {
+        final KeyManager[] keyManagers = null;
+        final TrustManager[] trustManagers = new TrustManager[] { new NullTrustManager() };
+        final SecureRandom secureRandom = new SecureRandom();
+        final SSLContext sslContext1 = sslContext;
         try {
-            ctx.init(null, new TrustManager[] { tm }, new SecureRandom());
+            sslContext1.init(keyManagers, trustManagers, secureRandom);
         } catch (final KeyManagementException e) {
             throw new HttpException("Error initializing ssl context", e);
         }
@@ -65,18 +68,18 @@ public class TrustSelfSignedCertificates {
 
     private static final class NullTrustManager implements X509TrustManager {
         @Override
-        public void checkClientTrusted(final X509Certificate[] xcs, final String string) throws CertificateException {
-            LOG.debug("Check client trusted {}", string);
+        public void checkClientTrusted(final X509Certificate[] xcs, final String authType) {
+            LOG.trace("Check client trusted auth type '{}'", authType);
         }
 
         @Override
-        public void checkServerTrusted(final X509Certificate[] xcs, final String string) throws CertificateException {
-            LOG.debug("Check server trusted {}", string);
+        public void checkServerTrusted(final X509Certificate[] xcs, final String authType) {
+            LOG.trace("Check server trusted auth type '{}'", authType);
         }
 
         @Override
         public X509Certificate[] getAcceptedIssuers() {
-            LOG.debug("Get accepted issuers");
+            LOG.trace("Get accepted issuers");
             return null;
         }
     }
