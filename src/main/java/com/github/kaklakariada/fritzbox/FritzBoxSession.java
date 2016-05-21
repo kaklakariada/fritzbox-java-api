@@ -69,7 +69,7 @@ public class FritzBoxSession {
                 .add("username", username == null ? "" : username).add("response", response).build(),
                 SessionInfo.class);
         if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
-            throw new FritzBoxException("Login failed: " + loggedInSession);
+            throw new LoginFailedException(loggedInSession);
         }
         LOG.debug("Logged in with session id {}", loggedInSession.getSid());
         this.sid = loggedInSession.getSid();
