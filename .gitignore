@@ -5,3 +5,5 @@ build/
 bin/
 application.properties
 /gradle.properties
+
+.project
