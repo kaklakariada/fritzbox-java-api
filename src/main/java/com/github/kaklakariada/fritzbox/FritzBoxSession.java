@@ -27,7 +27,7 @@ import com.github.kaklakariada.fritzbox.model.SessionInfo;
 /**
  * This class implements allows logging in to a fritzbox and execute authenticated requests.
  */
-public class FritzBoxSession {
+class FritzBoxSession {
     private final static Logger LOG = LoggerFactory.getLogger(FritzBoxSession.class);
 
     private static final String LOGIN_PATH = "/login_sid.lua";
@@ -39,11 +39,11 @@ public class FritzBoxSession {
     private final HttpTemplate httpTemplate;
     private final Md5Service md5Service;
 
-    public FritzBoxSession(HttpTemplate httpTemplate, String sid) {
-        this(httpTemplate, new Md5Service(), sid);
+    FritzBoxSession(String baseUrl) {
+        this(new HttpTemplate(baseUrl));
     }
 
-    public FritzBoxSession(HttpTemplate httpTemplate) {
+    FritzBoxSession(HttpTemplate httpTemplate) {
         this(httpTemplate, new Md5Service(), null);
     }
 

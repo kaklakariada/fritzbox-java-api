@@ -17,18 +17,16 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Root(name = "devicelist")
 public class DeviceList {
-
-    private final static Logger LOG = LoggerFactory.getLogger(DeviceList.class);
 
     @Attribute(name = "version")
     private String apiVersion;
@@ -45,13 +43,23 @@ public class DeviceList {
     }
 
     public Device getDeviceByIdentifier(String identifier) {
-        for (final Device device : devices) {
-            if (device.getIdentifier().equals(identifier)) {
-                return device;
-            }
-        }
-        LOG.warn("No device found for identifier '{}'", identifier);
-        return null;
+        return devices.stream() //
+                .filter(d -> identifierMatches(d, identifier)) //
+                .findFirst().orElse(null);
+    }
+
+    public List<String> getDeviceIdentifiers() {
+        return devices.stream() //
+                .map(Device::getIdentifier) //
+                .collect(toList());
+    }
+
+    private static boolean identifierMatches(Device device, String identifier) {
+        return normalizeIdentifier(device.getIdentifier()).equals(normalizeIdentifier(identifier));
+    }
+
+    private static String normalizeIdentifier(String identifier) {
+        return identifier.replace(" ", "");
     }
 
     @Override

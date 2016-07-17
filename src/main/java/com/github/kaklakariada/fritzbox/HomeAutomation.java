@@ -34,8 +34,14 @@ public class HomeAutomation {
 
     private final FritzBoxSession session;
 
-    public HomeAutomation(FritzBoxSession fritzbox) {
+    private HomeAutomation(FritzBoxSession fritzbox) {
         this.session = fritzbox;
+    }
+
+    public static HomeAutomation connect(String baseUrl, String username, String password) {
+        final FritzBoxSession session = new FritzBoxSession(baseUrl);
+        session.login(username, password);
+        return new HomeAutomation(session);
     }
 
     public DeviceList getDeviceListInfos() {
@@ -98,5 +104,9 @@ public class HomeAutomation {
 
     public Integer getSwitchEnergyWattHour(String deviceAin) {
         return executeDeviceCommand(deviceAin, "getswitchenergy", null, Integer.class);
+    }
+
+    public void logout() {
+        session.logout();
     }
 }

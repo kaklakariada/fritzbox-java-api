@@ -29,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
-import com.github.kaklakariada.fritzbox.http.HttpTemplate;
 import com.github.kaklakariada.fritzbox.model.homeautomation.Device;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
@@ -43,11 +42,8 @@ public class TestDriver {
         final String username = config.getProperty("fritzbox.username", null);
         final String password = config.getProperty("fritzbox.password");
 
-        LOG.info("Logging in to {} with username '{}'", url, username);
-        final HttpTemplate template = new HttpTemplate(url);
-        final FritzBoxSession session = new FritzBoxSession(template);
-        session.login(username, password);
-        final HomeAutomation homeAutomation = new HomeAutomation(session);
+        LOG.info("Logging in to '{}' with username '{}'", url, username);
+        final HomeAutomation homeAutomation = HomeAutomation.connect(url, username, password);
 
         final DeviceList devices = homeAutomation.getDeviceListInfos();
         LOG.info("Found {} devices", devices.getDevices().size());
@@ -59,7 +55,7 @@ public class TestDriver {
         LOG.info("Found {} device ids: {}", ids.size(), ids);
 
         if (devices.getDevices().isEmpty()) {
-            session.logout();
+            homeAutomation.logout();
             return;
         }
 
