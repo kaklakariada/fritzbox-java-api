@@ -19,9 +19,12 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Root(name = "switch")
 public class SwitchState {
+    private final static Logger LOG = LoggerFactory.getLogger(SwitchState.class);
 
     public enum SwitchMode {
         AUTO, MANUAL
@@ -36,6 +39,10 @@ public class SwitchState {
     @Element(name = "lock", required = false)
     private String lock;
 
+    boolean isNull() {
+        return state == null || mode == null || lock == null;
+    }
+
     public boolean isOn() {
         return "1".equals(state);
     }
@@ -45,12 +52,17 @@ public class SwitchState {
     }
 
     public SwitchMode getMode() {
+        if (mode == null) {
+            LOG.warn("Switch mode is null for {}", this);
+            return null;
+        }
         switch (mode) {
         case "auto":
             return SwitchMode.AUTO;
         case "manuell":
             return SwitchMode.MANUAL;
         default:
+            LOG.warn("Unknown value for switch mode: '{}' for {}", mode, this);
             return null;
         }
     }

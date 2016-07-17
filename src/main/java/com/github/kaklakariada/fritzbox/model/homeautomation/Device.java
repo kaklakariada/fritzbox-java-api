@@ -83,7 +83,7 @@ public class Device {
     }
 
     public SwitchState getSwitchState() {
-        return switchState;
+        return switchState.isNull() ? null : switchState;
     }
 
     public PowerMeter getPowerMeter() {
