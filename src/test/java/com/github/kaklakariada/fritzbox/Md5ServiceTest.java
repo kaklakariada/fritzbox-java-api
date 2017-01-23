@@ -37,6 +37,11 @@ public class Md5ServiceTest {
     }
 
     @Test
+    public void testMd5Umlauts() {
+        assertMd5Sum("1234567z-äbc", "9e224a41eeefa284df7bb0f26c2913e2");
+    }
+
+    @Test
     public void testMd5SpecialChars() {
         assertMd5Sum("!\"§$%&/()=?ßüäöÜÄÖ-.,;:_`´+*#'<>≤|", "ad44a7cb10a95cb0c4d7ae90b0ff118a");
     }
