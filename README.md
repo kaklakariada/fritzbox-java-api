@@ -37,7 +37,7 @@ Install to local maven repository:
 
 ## Publish to jcenter
 
-1. Create file `gradle.properties` in project directory with the following content and enter your bintray account:
+1. Add your bintray credentials to `~/.gradle/gradle.properties`:
 
     ```properties
     bintrayUser = <user>
