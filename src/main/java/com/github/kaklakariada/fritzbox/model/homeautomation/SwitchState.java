@@ -39,6 +39,9 @@ public class SwitchState {
     @Element(name = "lock", required = false)
     private String lock;
 
+    @Element(name = "devicelock", required = false)
+    private String devicelock;
+
     boolean isNull() {
         return state == null || mode == null || lock == null;
     }
@@ -49,6 +52,10 @@ public class SwitchState {
 
     public boolean isLocked() {
         return "1".equals(lock);
+    }
+
+    public boolean isDeviceLocked() {
+        return "1".equals(devicelock);
     }
 
     public SwitchMode getMode() {
