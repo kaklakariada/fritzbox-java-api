@@ -39,7 +39,7 @@ dependencies {
 
 license {
     header = file('gradle/license-header.txt')
-    ext.year = 2015
+    ext.year = 2017
     ext.name = 'Christoph Pirkl'
     ext.email = 'christoph at users.sourceforge.net'
 }
