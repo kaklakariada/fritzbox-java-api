@@ -34,3 +34,22 @@ Install to local maven repository:
 ```bash
 ./gradlew clean install
 ```
+
+## Publish to jcenter
+
+1. Create file `gradle.properties` in project directory with the following content and enter your bintray account:
+
+    ```properties
+    bintrayUser = <user>
+    bintrayApiKey = <apiKey>
+    ```
+
+2. Increment version number in `build.gradle`, commit and push.
+3. Run the following command:
+
+    ```bash
+    $ ./gradlew clean build check bintrayUpload -i
+    ```
+
+4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
+5. Sign in at https://bintray.com/ and publish the uploaded artifacts.
