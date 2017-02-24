@@ -29,6 +29,13 @@ dependencies {
 1. Copy file `application.properties.template` to `application.properties` and enter settings for your device.
 2. Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/master/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
 
+
+## Generate / update license header
+
+```bash
+$ ./gradlew licenseFormatMain licenseFormatTest
+```
+
 ## Building
 Install to local maven repository:
 ```bash
