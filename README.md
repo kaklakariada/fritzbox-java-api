@@ -38,8 +38,13 @@ $ ./gradlew licenseFormatMain licenseFormatTest
 
 ## Building
 Install to local maven repository:
+### with gradle
 ```bash
 ./gradlew clean install
+```
+### with maven
+```bash
+maven clean install
 ```
 
 ## Publish to jcenter
