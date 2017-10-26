@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.kaklakariada</groupId>
+	<artifactId>fritzbox-java-api</artifactId>
+	<version>0.4.1</version>
+	<name>fritzbox-java-api</name>
+	<description>Fritzbox Java API</description>
+	<url>https://github.com/kaklakariada/fritzbox-java-api</url>
+	<licenses>
+		<license>
+			<name>GNU General Public License (GPL)</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+	<scm>
+		<connection>scm:git:git://github.com/kaklakariada/fritzbox-java-api.git</connection>
+		<developerConnection>scm:git:git@github.com:kaklakariada/fritzbox-java-api.git</developerConnection>
+		<url>https://github.com/kaklakariada/fritzbox-java-api</url>
+	</scm>
+	<issueManagement>
+		<url>https://github.com/kaklakariada/fritzbox-java-api/issues</url>
+		<system>GitHub</system>
+	</issueManagement>
+	<properties>
+		<!-- http://stackoverflow.com/questions/3017695/how-to-configure-encoding-in-maven -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- github server corresponds to entry in ~/.m2/settings.xml -->
+		<github.global.server>github</github.global.server>
+		<!-- Dependency versions -->
+		<junit4.version>4.12</junit4.version>
+	</properties>
+	<developers>
+		<developer>
+			<id>chπ</id>
+			<name>kaklakariada</name>
+			<organization>kaklakariada</organization>
+			<organizationUrl>https://github.com/kaklakariada</organizationUrl>
+		</developer>
+		<developer>
+			<id>wf</id>
+			<name>Wolfgang Fahl</name>
+			<organization>BITPlan GmbH</organization>
+			<organizationUrl>http://www.bitplan.com</organizationUrl>
+		</developer>
+	</developers>
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.simpleframework/simple-xml -->
+		<dependency>
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple-xml</artifactId>
+			<version>2.7.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.24</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.3</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- JUnit testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit4.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>hamcrest-core</artifactId>
+					<groupId>org.hamcrest</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.7.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

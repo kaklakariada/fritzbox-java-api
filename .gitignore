@@ -1,11 +1,9 @@
 .classpath
 .gradle/
-.settings/org.eclipse.jdt.core.prefs
+.settings
 build/
 bin/
 application.properties
 /gradle.properties
-
 .project
-
-.settings/org.eclipse.buildship.core.prefs
+/target/
