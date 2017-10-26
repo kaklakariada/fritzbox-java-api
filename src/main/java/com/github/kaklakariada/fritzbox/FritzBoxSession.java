@@ -25,75 +25,91 @@ import com.github.kaklakariada.fritzbox.http.QueryParameters;
 import com.github.kaklakariada.fritzbox.model.SessionInfo;
 
 /**
- * This class implements allows logging in to a fritzbox and execute authenticated requests.
+ * This class implements allows logging in to a fritz box and execute
+ * authenticated requests.
  */
 class FritzBoxSession {
-    private final static Logger LOG = LoggerFactory.getLogger(FritzBoxSession.class);
+  private final static Logger LOG = LoggerFactory
+      .getLogger(FritzBoxSession.class);
 
-    private static final String LOGIN_PATH = "/login_sid.lua";
-    private static final String WEBCM_PATH = "/home/home.lua";
-    private static final String EMPTY_SESSION_ID = "0000000000000000";
+  private static final String LOGIN_PATH = "/login_sid.lua";
+  private static final String WEBCM_PATH = "/home/home.lua";
+  private static final String EMPTY_SESSION_ID = "0000000000000000";
 
-    private String sid;
+  private String sid;
 
-    private final HttpTemplate httpTemplate;
-    private final Md5Service md5Service;
+  private final HttpTemplate httpTemplate;
+  private final Md5Service md5Service;
 
-    FritzBoxSession(String baseUrl) {
-        this(new HttpTemplate(baseUrl));
+  FritzBoxSession(String baseUrl) {
+    this(new HttpTemplate(baseUrl));
+  }
+
+  FritzBoxSession(HttpTemplate httpTemplate) {
+    this(httpTemplate, new Md5Service(), null);
+  }
+
+  private FritzBoxSession(HttpTemplate httpTemplate, Md5Service md5Service,
+      String sid) {
+    this.httpTemplate = httpTemplate;
+    this.md5Service = md5Service;
+    this.sid = sid;
+  }
+
+  public String getSid() {
+    return sid;
+  }
+
+  /**
+   * login with the given username and password
+   * 
+   * @param username
+   * @param password
+   */
+  public void login(String username, String password) {
+    final SessionInfo sessionWithChallenge = httpTemplate.get(LOGIN_PATH,
+        SessionInfo.class);
+    if (!EMPTY_SESSION_ID.equals(sessionWithChallenge.getSid())) {
+      throw new FritzBoxException("Already logged in: " + sessionWithChallenge);
     }
+    final String response = createChallengeResponse(
+        sessionWithChallenge.getChallenge(), password);
+    LOG.debug("Got response {} for challenge {}", response,
+        sessionWithChallenge.getChallenge());
 
-    FritzBoxSession(HttpTemplate httpTemplate) {
-        this(httpTemplate, new Md5Service(), null);
+    final QueryParameters arguments = QueryParameters.builder() //
+        .add("username", username == null ? "" : username) //
+        .add("response", response) //
+        .build();
+    final SessionInfo loggedInSession = httpTemplate.get(LOGIN_PATH, arguments,
+        SessionInfo.class);
+    if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
+      throw new LoginFailedException(loggedInSession);
     }
+    LOG.debug("Logged in with session id {}", loggedInSession.getSid());
+    this.sid = loggedInSession.getSid();
+  }
 
-    private FritzBoxSession(HttpTemplate httpTemplate, Md5Service md5Service, String sid) {
-        this.httpTemplate = httpTemplate;
-        this.md5Service = md5Service;
-        this.sid = sid;
+  private String createChallengeResponse(String challenge, String password) {
+    final String text = (challenge + "-" + password);
+    return challenge + "-" + md5Service.md5(text);
+  }
+
+  public <T> T getAutenticated(String path, QueryParameters parameters,
+      Class<T> resultType) {
+    if (sid == null) {
+      throw new FritzBoxException("Not logged in, session id is null");
     }
+    final QueryParameters parametersWithSessionId = parameters.newBuilder()
+        .add("sid", this.sid).build();
+    return httpTemplate.get(path, parametersWithSessionId, resultType);
+  }
 
-    public String getSid() {
-        return sid;
-    }
-
-    public void login(String username, String password) {
-        final SessionInfo sessionWithChallenge = httpTemplate.get(LOGIN_PATH, SessionInfo.class);
-        if (!EMPTY_SESSION_ID.equals(sessionWithChallenge.getSid())) {
-            throw new FritzBoxException("Already logged in: " + sessionWithChallenge);
-        }
-        final String response = createChallengeResponse(sessionWithChallenge.getChallenge(), password);
-        LOG.debug("Got response {} for challenge {}", response, sessionWithChallenge.getChallenge());
-
-        final QueryParameters arguments = QueryParameters.builder() //
-                .add("username", username == null ? "" : username) //
-                .add("response", response) //
-                .build();
-        final SessionInfo loggedInSession = httpTemplate.get(LOGIN_PATH, arguments, SessionInfo.class);
-        if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
-            throw new LoginFailedException(loggedInSession);
-        }
-        LOG.debug("Logged in with session id {}", loggedInSession.getSid());
-        this.sid = loggedInSession.getSid();
-    }
-
-    private String createChallengeResponse(String challenge, String password) {
-        final String text = (challenge + "-" + password);
-        return challenge + "-" + md5Service.md5(text);
-    }
-
-    public <T> T getAutenticated(String path, QueryParameters parameters, Class<T> resultType) {
-        if (sid == null) {
-            throw new FritzBoxException("Not logged in, session id is null");
-        }
-        final QueryParameters parametersWithSessionId = parameters.newBuilder().add("sid", this.sid).build();
-        return httpTemplate.get(path, parametersWithSessionId, resultType);
-    }
-
-    public void logout() {
-        httpTemplate.get(WEBCM_PATH, QueryParameters.builder().add("sid", sid).add("logout", "1").build(),
-                String.class);
-        LOG.debug("Logged out, invalidate sid");
-        sid = null;
-    }
+  public void logout() {
+    httpTemplate.get(WEBCM_PATH,
+        QueryParameters.builder().add("sid", sid).add("logout", "1").build(),
+        String.class);
+    LOG.debug("Logged out, invalidate sid");
+    sid = null;
+  }
 }

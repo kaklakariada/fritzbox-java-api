@@ -17,22 +17,24 @@
  */
 package com.github.kaklakariada.fritzbox;
 
-import com.github.kaklakariada.fritzbox.model.SessionInfo;
+import org.junit.Test;
 
 /**
- * exception if a login failed
+ * test login
+ * 
+ * @author wf
+ *
  */
-public class LoginFailedException extends FritzBoxException {
+public class LoginTest {
 
-  private static final long serialVersionUID = 1L;
+  @Test
+  public void testLogin() {
+    try {
+      final Config config = ConfigService.readConfig();
+      final FritzBoxSession session = new FritzBoxSession(config.baseUrl);
+      session.login(config.username, config.password);
+    } catch (final FritzBoxException fbe) {
 
-  /**
-   * construct a login failed exception for the given session
-   * 
-   * @param session
-   *          - the session that had a problem
-   */
-  public LoginFailedException(SessionInfo session) {
-    super("Login failed, blocked for " + session.getBlockTime() + " min");
+    }
   }
 }

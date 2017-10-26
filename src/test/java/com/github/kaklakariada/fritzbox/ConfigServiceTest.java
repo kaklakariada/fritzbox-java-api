@@ -17,22 +17,21 @@
  */
 package com.github.kaklakariada.fritzbox;
 
-import com.github.kaklakariada.fritzbox.model.SessionInfo;
+import org.junit.Test;
 
 /**
- * exception if a login failed
+ * Unit test for {@link ConfigService} warn user if application.properties have
+ * not been set
  */
-public class LoginFailedException extends FritzBoxException {
+public class ConfigServiceTest {
 
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * construct a login failed exception for the given session
-   * 
-   * @param session
-   *          - the session that had a problem
-   */
-  public LoginFailedException(SessionInfo session) {
-    super("Login failed, blocked for " + session.getBlockTime() + " min");
+  @Test
+  public void testConfig() {
+    try {
+      final Config config = ConfigService.readConfig();
+    } catch (final FritzBoxException fbe) {
+      System.err.println("You might want to set your application properties in "
+          + ConfigService.getConfigFile());
+    }
   }
 }

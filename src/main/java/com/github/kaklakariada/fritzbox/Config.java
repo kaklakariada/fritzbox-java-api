@@ -17,22 +17,40 @@
  */
 package com.github.kaklakariada.fritzbox;
 
-import com.github.kaklakariada.fritzbox.model.SessionInfo;
+import java.util.Properties;
 
 /**
- * exception if a login failed
+ * a configuration
  */
-public class LoginFailedException extends FritzBoxException {
-
-  private static final long serialVersionUID = 1L;
+public class Config {
+  String baseUrl;
+  String username;
+  String password;
 
   /**
-   * construct a login failed exception for the given session
+   * construct me from the given properties
    * 
-   * @param session
-   *          - the session that had a problem
+   * @param config
    */
-  public LoginFailedException(SessionInfo session) {
-    super("Login failed, blocked for " + session.getBlockTime() + " min");
+  public Config(Properties config) {
+    baseUrl = config.getProperty("fritzbox.url");
+    username = config.getProperty("fritzbox.username", null);
+    password = config.getProperty("fritzbox.password");
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 }
