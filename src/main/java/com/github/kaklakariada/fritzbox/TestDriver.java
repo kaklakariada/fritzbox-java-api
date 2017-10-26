@@ -61,10 +61,10 @@ public class TestDriver {
       return;
     }
 
-    final String ain = ids.get(0);
-
-    // testEnergyStats(session, devices.getDevices().get(0).getId());
-    testHomeAutomation(homeAutomation, ain);
+    for (final String ain : ids) {
+      testHomeAutomation(homeAutomation, ain);
+      // testEnergyStats(homeAutomation.getSession(), ain);
+    }
   }
 
   /**
@@ -89,23 +89,28 @@ public class TestDriver {
    * 
    * @param homeAutomation
    * @param ain
-   * @throws InterruptedException
    */
   private static void testHomeAutomation(final HomeAutomation homeAutomation,
-      final String ain) throws InterruptedException {
+      final String ain) {
     // homeAutomation.switchPowerState(ain, false);
     // homeAutomation.togglePowerState(ain);
-    LOG.info("Switch {} has present state '{}'", ain,
-        homeAutomation.getSwitchPresent(ain));
-    LOG.info("Switch {} has state '{}'", ain,
-        homeAutomation.getSwitchState(ain));
-    LOG.info("Switch {} uses {}W", ain, homeAutomation.getSwitchPowerWatt(ain));
-    LOG.info("Switch {} has used {}Wh", ain,
-        homeAutomation.getSwitchEnergyWattHour(ain));
-    LOG.info("Switch {} has name '{}'", ain, homeAutomation.getSwitchName(ain));
-    LOG.info("Switch {} has temperature {}°C", ain,
-        homeAutomation.getTemperature(ain));
+    LOG.info("Switch {} ", ain);
+    LOG.info("\t has present state '{}'", homeAutomation.getSwitchPresent(ain));
+    LOG.info("\t has state '{}'", homeAutomation.getSwitchState(ain));
+    LOG.info("\t uses {} W", homeAutomation.getSwitchPowerWatt(ain));
+    LOG.info("\t has used {} Wh", homeAutomation.getSwitchEnergyWattHour(ain));
+    LOG.info("\t has name '{}'", homeAutomation.getSwitchName(ain));
+    LOG.info("\t has temperature {} °C", homeAutomation.getTemperature(ain));
+    LOG.info("---");
+  }
 
+  /**
+   * test endless
+   * 
+   * @param homeAutomation
+   * @throws Exception
+   */
+  public void testEndless(HomeAutomation homeAutomation) throws Exception {
     while (true) {
       final Device device = homeAutomation.getDeviceListInfos().getDevices()
           .get(0);

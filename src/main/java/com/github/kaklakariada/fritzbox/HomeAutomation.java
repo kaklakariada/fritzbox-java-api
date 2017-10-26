@@ -38,6 +38,10 @@ public class HomeAutomation {
 
   private final FritzBoxSession session;
 
+  public FritzBoxSession getSession() {
+    return session;
+  }
+
   /**
    * construct me from the given fritz box session
    * 
