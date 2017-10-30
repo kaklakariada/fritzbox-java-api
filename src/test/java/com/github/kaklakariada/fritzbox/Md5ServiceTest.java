@@ -27,6 +27,19 @@ import org.junit.Test;
 public class Md5ServiceTest {
 
   @Test
+  public void testUtf16LE() {
+    final String s = "1234567z-äbc";
+    final byte[] binary = s.getBytes(Md5Service.CHARSET_UTF_16LE);
+    final String utf16le = Md5Service.buildHexString(binary);
+    assertEquals("31003200330034003500360037007a002d00e40062006300", utf16le);
+  }
+
+  @Test
+  public void testMd5Secret() {
+    assertMd5Sum("secret", "09433e1853385270b51511571e35eeca");
+  }
+
+  @Test
   public void testMd5EmptyString() {
     assertMd5Sum("", "d41d8cd98f00b204e9800998ecf8427e");
   }
@@ -38,6 +51,8 @@ public class Md5ServiceTest {
 
   @Test
   public void testMd5Umlauts() {
+    // see
+    // https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AVM_Technical_Note_-_Session_ID.pdf
     assertMd5Sum("1234567z-äbc", "9e224a41eeefa284df7bb0f26c2913e2");
   }
 

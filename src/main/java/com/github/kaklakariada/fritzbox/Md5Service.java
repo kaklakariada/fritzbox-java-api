@@ -27,7 +27,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Md5Service {
 
-  private static final Charset CHARSET_UTF_16LE = Charset.forName("utf-16le");
+  public static final Charset CHARSET_UTF_16LE = Charset.forName("utf-16le");
 
   /**
    * create the md5 for the given string
@@ -49,10 +49,10 @@ public class Md5Service {
    *          - input
    * @return - the hex string
    */
-  private String buildHexString(final byte[] data) {
+  public static String buildHexString(final byte[] data) {
     final StringBuilder hexString = new StringBuilder();
-    for (final byte aMessageDigest : data) {
-      String h = Integer.toHexString(0xFF & aMessageDigest);
+    for (final byte b : data) {
+      String h = Integer.toHexString(0xFF & b);
       while (h.length() < 2) {
         h = "0" + h;
       }
