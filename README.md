@@ -39,7 +39,7 @@ $ ./gradlew licenseFormat
 ## Building
 Install to local maven repository:
 ```bash
-./gradlew clean install
+./gradlew clean publishToMavenLocal
 ```
 
 ## Publish to jcenter
