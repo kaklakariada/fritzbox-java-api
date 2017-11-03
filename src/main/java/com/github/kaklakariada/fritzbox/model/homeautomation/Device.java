@@ -47,7 +47,7 @@ public class Device {
     private SwitchState switchState;
     @Element(name = "powermeter")
     private PowerMeter powerMeter;
-    @Element(name = "temperature")
+    @Element(name = "temperature", required = false)
     private Temperature temperature;
 
     public String getIdentifier() {
