@@ -33,7 +33,7 @@ dependencies {
 ## Generate / update license header
 
 ```bash
-$ ./gradlew licenseFormatMain licenseFormatTest
+$ ./gradlew licenseFormat
 ```
 
 ## Building

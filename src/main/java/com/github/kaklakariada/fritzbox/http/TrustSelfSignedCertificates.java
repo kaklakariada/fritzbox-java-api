@@ -20,16 +20,11 @@ package com.github.kaklakariada.fritzbox.http;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
 
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class creates an {@link SSLSocketFactory} that trusts all certificates.
@@ -37,8 +32,6 @@ import org.slf4j.LoggerFactory;
  * @see #getUnsafeSslSocketFactory()
  */
 public class TrustSelfSignedCertificates {
-
-    private final static Logger LOG = LoggerFactory.getLogger(TrustSelfSignedCertificates.class);
 
     public static SSLSocketFactory getUnsafeSslSocketFactory() {
         final SSLContext sslContext = getSSLContext("TLS");
@@ -63,24 +56,6 @@ public class TrustSelfSignedCertificates {
             return SSLContext.getInstance(algorithm);
         } catch (final NoSuchAlgorithmException e) {
             throw new HttpException("Algorithm " + algorithm + " not found", e);
-        }
-    }
-
-    private static final class NullTrustManager implements X509TrustManager {
-        @Override
-        public void checkClientTrusted(final X509Certificate[] xcs, final String authType) {
-            LOG.trace("Check client trusted auth type '{}'", authType);
-        }
-
-        @Override
-        public void checkServerTrusted(final X509Certificate[] xcs, final String authType) {
-            LOG.trace("Check server trusted auth type '{}'", authType);
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            LOG.trace("Get accepted issuers");
-            return null;
         }
     }
 }

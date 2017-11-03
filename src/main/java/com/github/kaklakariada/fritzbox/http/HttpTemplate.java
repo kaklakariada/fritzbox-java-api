@@ -23,14 +23,16 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.kaklakariada.fritzbox.FritzBoxException;
 import com.github.kaklakariada.fritzbox.mapping.Deserializer;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.HttpUrl.Builder;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+
+import okhttp3.HttpUrl;
+import okhttp3.HttpUrl.Builder;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * This class allows executing http requests against a server. Responses are converted using the given
@@ -54,10 +56,10 @@ public class HttpTemplate {
     }
 
     private static OkHttpClient createUnsafeOkHttpClient() {
-        final OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.setSslSocketFactory(TrustSelfSignedCertificates.getUnsafeSslSocketFactory());
-        okHttpClient.setHostnameVerifier(new NullHostnameVerifier());
-        return okHttpClient;
+        final okhttp3.OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.sslSocketFactory(TrustSelfSignedCertificates.getUnsafeSslSocketFactory(), new NullTrustManager());
+        builder.hostnameVerifier(new NullHostnameVerifier());
+        return builder.build();
     }
 
     public <T> T get(String path, Class<T> resultType) {
@@ -89,6 +91,9 @@ public class HttpTemplate {
     }
 
     private <T> T parse(final Response response, Class<T> resultType) {
+        if (!response.isSuccessful()) {
+            throw new FritzBoxException("Request failed: " + response);
+        }
         final String body = getBodyAsString(response);
         LOG.trace("Got response {} with body\n'{}'", response, body.trim());
         return deserializer.parse(body.trim(), resultType);
