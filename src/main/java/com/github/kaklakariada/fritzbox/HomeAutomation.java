@@ -36,9 +36,9 @@ public class HomeAutomation {
       .getLogger(HomeAutomation.class);
   private final static String HOME_AUTOMATION_PATH = "/webservices/homeautoswitch.lua";
 
-  private final FritzBoxSession session;
+  private final FritzBoxSessionImpl session;
 
-  public FritzBoxSession getSession() {
+  public FritzBoxSessionImpl getSession() {
     return session;
   }
 
@@ -47,7 +47,7 @@ public class HomeAutomation {
    * 
    * @param fritzbox
    */
-  private HomeAutomation(FritzBoxSession fritzbox) {
+  private HomeAutomation(FritzBoxSessionImpl fritzbox) {
     this.session = fritzbox;
   }
 
@@ -61,7 +61,7 @@ public class HomeAutomation {
    */
   public static HomeAutomation connect(String baseUrl, String username,
       String password) {
-    final FritzBoxSession session = new FritzBoxSession(baseUrl);
+    final FritzBoxSessionImpl session = new FritzBoxSessionImpl(baseUrl);
     session.login(username, password);
     return new HomeAutomation(session);
   }

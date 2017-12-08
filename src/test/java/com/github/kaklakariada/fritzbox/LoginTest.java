@@ -17,6 +17,8 @@
  */
 package com.github.kaklakariada.fritzbox;
 
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
 /**
@@ -31,10 +33,11 @@ public class LoginTest {
   public void testLogin() {
     try {
       final Config config = ConfigService.readConfig();
-      final FritzBoxSession session = new FritzBoxSession(config.baseUrl);
+      final FritzBoxSessionImpl session = new FritzBoxSessionImpl(
+          config.baseUrl);
       session.login(config.username, config.password);
     } catch (final FritzBoxException fbe) {
-
+      fail("login failed");
     }
   }
 }

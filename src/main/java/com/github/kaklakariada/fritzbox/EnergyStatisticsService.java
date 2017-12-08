@@ -45,9 +45,9 @@ public class EnergyStatisticsService {
         }
     }
 
-    private final FritzBoxSession session;
+    private final FritzBoxSessionImpl session;
 
-    public EnergyStatisticsService(FritzBoxSession session) {
+    public EnergyStatisticsService(FritzBoxSessionImpl session) {
         this.session = session;
     }
 

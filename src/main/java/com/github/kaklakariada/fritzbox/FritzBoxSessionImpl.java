@@ -20,6 +20,7 @@ package com.github.kaklakariada.fritzbox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bitplan.fritzbox.FritzBoxSession;
 import com.github.kaklakariada.fritzbox.http.HttpTemplate;
 import com.github.kaklakariada.fritzbox.http.QueryParameters;
 import com.github.kaklakariada.fritzbox.model.SessionInfo;
@@ -28,9 +29,9 @@ import com.github.kaklakariada.fritzbox.model.SessionInfo;
  * This class implements allows logging in to a fritz box and execute
  * authenticated requests.
  */
-class FritzBoxSession {
+class FritzBoxSessionImpl implements FritzBoxSession {
   private final static Logger LOG = LoggerFactory
-      .getLogger(FritzBoxSession.class);
+      .getLogger(FritzBoxSessionImpl.class);
 
   private static final String LOGIN_PATH = "/login_sid.lua";
   private static final String WEBCM_PATH = "/home/home.lua";
@@ -41,15 +42,15 @@ class FritzBoxSession {
   private final HttpTemplate httpTemplate;
   private final Md5Service md5Service;
 
-  FritzBoxSession(String baseUrl) {
+  FritzBoxSessionImpl(String baseUrl) {
     this(new HttpTemplate(baseUrl));
   }
 
-  FritzBoxSession(HttpTemplate httpTemplate) {
+  FritzBoxSessionImpl(HttpTemplate httpTemplate) {
     this(httpTemplate, new Md5Service(), null);
   }
 
-  private FritzBoxSession(HttpTemplate httpTemplate, Md5Service md5Service,
+  private FritzBoxSessionImpl(HttpTemplate httpTemplate, Md5Service md5Service,
       String sid) {
     this.httpTemplate = httpTemplate;
     this.md5Service = md5Service;
@@ -105,6 +106,9 @@ class FritzBoxSession {
     return httpTemplate.get(path, parametersWithSessionId, resultType);
   }
 
+  /**
+   * log me out
+   */
   public void logout() {
     httpTemplate.get(WEBCM_PATH,
         QueryParameters.builder().add("sid", sid).add("logout", "1").build(),

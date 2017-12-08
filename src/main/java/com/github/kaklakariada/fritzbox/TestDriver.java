@@ -73,7 +73,7 @@ public class TestDriver {
    * @param session
    * @param deviceId
    */
-  private static void testEnergyStats(FritzBoxSession session,
+  private static void testEnergyStats(FritzBoxSessionImpl session,
       String deviceId) {
     final EnergyStatisticsService service = new EnergyStatisticsService(
         session);
