@@ -37,8 +37,6 @@ public class SessionInfo {
 
     @ElementList(name = "Rights", inline = false, required = false)
     private List<UserRight> rights;
-    // @Element(name = "Rights")
-    // private Rights rights;
 
     public String getSid() {
         return sid;
@@ -52,9 +50,9 @@ public class SessionInfo {
         return blockTime;
     }
 
-    // public List<UserRight> getRights() {
-    // return rights.getRights();
-    // }
+    public List<UserRight> getRights() {
+        return rights;
+    }
 
     @Override
     public String toString() {

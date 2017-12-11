@@ -69,12 +69,12 @@ class FritzBoxSession {
                 .add("username", username == null ? "" : username) //
                 .add("response", response) //
                 .build();
-        final SessionInfo loggedInSession = httpTemplate.get(LOGIN_PATH, arguments, SessionInfo.class);
-        if (EMPTY_SESSION_ID.equals(loggedInSession.getSid())) {
-            throw new LoginFailedException(loggedInSession);
+        final SessionInfo sessionInfo = httpTemplate.get(LOGIN_PATH, arguments, SessionInfo.class);
+        if (EMPTY_SESSION_ID.equals(sessionInfo.getSid())) {
+            throw new LoginFailedException(sessionInfo);
         }
-        LOG.debug("Logged in with session id {}", loggedInSession.getSid());
-        this.sid = loggedInSession.getSid();
+        LOG.debug("Logged in with session id {} and rights {}", sessionInfo.getSid(), sessionInfo.getRights());
+        this.sid = sessionInfo.getSid();
     }
 
     private String createChallengeResponse(String challenge, String password) {
