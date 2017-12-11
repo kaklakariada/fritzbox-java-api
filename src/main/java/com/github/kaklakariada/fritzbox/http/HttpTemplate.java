@@ -95,6 +95,9 @@ public class HttpTemplate {
             throw new FritzBoxException("Request failed: " + response);
         }
         final String body = getBodyAsString(response);
+        if (body.startsWith("HTTP/1.0 500 Internal Server Error")) {
+            throw new FritzBoxException("Request failed: " + body);
+        }
         LOG.trace("Got response {} with body\n'{}'", response, body.trim());
         return deserializer.parse(body.trim(), resultType);
     }
