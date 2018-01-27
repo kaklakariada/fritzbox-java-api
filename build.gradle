@@ -1,6 +1,5 @@
 plugins {
     id "java"
-    id "eclipse"
     id "maven-publish"
     id "com.github.hierynomus.license" version "0.14.0"
     id "com.jfrog.bintray" version "1.8.0"
@@ -57,7 +56,6 @@ publishing {
     }
 }
 
-
 bintray {
     def bintrayUser = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
     def bintrayApiKey = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
@@ -74,19 +72,6 @@ bintray {
             name = project.version
             released  = new Date()
             vcsTag = project.version
-        }
-    }
-}
-
-eclipse {
-    classpath {
-        downloadSources = true
-    }
-    jdt.file {
-        beforeMerged  { jdt ->
-          File defaultProperties = new File("${rootProject.projectDir}/gradle/defaultEclipseJdtPrefs.properties").absoluteFile
-          logger.info "Load defaults from $defaultProperties for $project"
-          jdt.load(defaultProperties)
         }
     }
 }

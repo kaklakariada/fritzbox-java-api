@@ -20,10 +20,6 @@ dependencies {
 }
 ```
 
-## Developing
-1. Run `./gradlew eclipse`
-2. Import into eclipse
-
 ### Run sample program
 
 1. Copy file `application.properties.template` to `application.properties` and enter settings for your device.
