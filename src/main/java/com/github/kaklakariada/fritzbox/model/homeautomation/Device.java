@@ -49,6 +49,8 @@ public class Device {
     private PowerMeter powerMeter;
     @Element(name = "temperature", required = false)
     private Temperature temperature;
+    @Element(name = "hkr", required = false)
+    private Hkr hkr;
 
     public String getIdentifier() {
         return identifier;
@@ -99,6 +101,6 @@ public class Device {
         return "Device [identifier=" + identifier + ", id=" + id + ", functionBitmask=" + functionBitmask
                 + ", firmwareVersion=" + firmwareVersion + ", manufacturer=" + manufacturer + ", productName="
                 + productName + ", present=" + present + ", name=" + name + ", switchState=" + switchState
-                + ", powerMeter=" + powerMeter + ", temperature=" + temperature + "]";
+                + ", powerMeter=" + powerMeter + ", temperature=" + temperature + ", hkr=" + hkr + "]";
     }
 }
