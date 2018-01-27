@@ -16,7 +16,7 @@ repositories {
 * Add dependency
 ```groovy
 dependencies {
-    compile 'com.github.kaklakariada:fritzbox-java-api:0.4.1'
+    compile 'com.github.kaklakariada:fritzbox-java-api:0.5.0'
 }
 ```
 
@@ -51,7 +51,7 @@ Install to local maven repository:
 3. Run the following command:
 
     ```bash
-    $ ./gradlew clean build check bintrayUpload -i
+    $ ./gradlew clean check bintrayUpload --info
     ```
 
 4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
