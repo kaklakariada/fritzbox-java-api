@@ -43,9 +43,9 @@ public class Device {
     @Element(name = "name")
     private String name;
 
-    @Element(name = "switch")
+    @Element(name = "switch", required = false)
     private SwitchState switchState;
-    @Element(name = "powermeter")
+    @Element(name = "powermeter", required = false)
     private PowerMeter powerMeter;
     @Element(name = "temperature", required = false)
     private Temperature temperature;
