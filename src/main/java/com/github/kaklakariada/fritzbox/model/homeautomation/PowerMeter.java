@@ -20,7 +20,7 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "powermeter")
+@Root(name = "powermeter", strict = false)
 public class PowerMeter {
 
     @Element(name = "power", required = false)
