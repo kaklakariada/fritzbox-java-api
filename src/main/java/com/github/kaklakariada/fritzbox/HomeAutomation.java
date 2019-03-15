@@ -106,6 +106,10 @@ public class HomeAutomation {
         return executeDeviceCommand(deviceAin, "getswitchenergy", null, Integer.class);
     }
 
+    public EnergyStatisticsService getEnergyStatistics() {
+        return new EnergyStatisticsService(session);
+    }
+
     public void logout() {
         session.logout();
     }

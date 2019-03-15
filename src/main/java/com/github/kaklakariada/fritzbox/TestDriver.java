@@ -34,7 +34,7 @@ import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
 
 public class TestDriver {
-    private final static Logger LOG = LoggerFactory.getLogger(TestDriver.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TestDriver.class);
 
     public static void main(String[] args) throws InterruptedException {
         final Properties config = readConfig(Paths.get("application.properties"));
@@ -61,12 +61,12 @@ public class TestDriver {
 
         final String ain = ids.get(0);
 
-        // testEnergyStats(session, devices.getDevices().get(0).getId());
+        // testEnergyStats(homeAutomation, devices.getDevices().get(0).getId());
         testHomeAutomation(homeAutomation, ain);
     }
 
-    private static void testEnergyStats(FritzBoxSession session, String deviceId) {
-        final EnergyStatisticsService service = new EnergyStatisticsService(session);
+    private static void testEnergyStats(HomeAutomation homeAutomation, String deviceId) {
+        final EnergyStatisticsService service = homeAutomation.getEnergyStatistics();
         for (final EnergyStatsTimeRange timeRange : EnergyStatsTimeRange.values()) {
             final String energyStatistics = service.getEnergyStatistics(deviceId, timeRange);
             LOG.debug("Statistics {}: {}", timeRange, energyStatistics);
@@ -75,8 +75,8 @@ public class TestDriver {
 
     private static void testHomeAutomation(final HomeAutomation homeAutomation, final String ain)
             throws InterruptedException {
-        // homeAutomation.switchPowerState(ain, false);
-        // homeAutomation.togglePowerState(ain);
+        homeAutomation.switchPowerState(ain, false);
+        homeAutomation.togglePowerState(ain);
         LOG.info("Switch {} has present state '{}'", ain, homeAutomation.getSwitchPresent(ain));
         LOG.info("Switch {} has state '{}'", ain, homeAutomation.getSwitchState(ain));
         LOG.info("Switch {} uses {}W", ain, homeAutomation.getSwitchPowerWatt(ain));
@@ -85,12 +85,23 @@ public class TestDriver {
         LOG.info("Switch {} has temperature {}°C", ain, homeAutomation.getTemperature(ain));
 
         while (true) {
-            final Device device = homeAutomation.getDeviceListInfos().getDevices().get(0);
-            final PowerMeter powerMeter = device.getPowerMeter();
-            LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh", device.getSwitchState().isOn() ? "on" : "off",
-                    device.getTemperature().getCelsius(), powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
+            final List<Device> devices = homeAutomation.getDeviceListInfos().getDevices();
+            if (devices.isEmpty()) {
+                LOG.warn("No devices found");
+                return;
+            }
+            devices.forEach(TestDriver::logDeviceDetails);
             Thread.sleep(1000);
         }
+    }
+
+    private static void logDeviceDetails(final Device device) {
+        final PowerMeter powerMeter = device.getPowerMeter();
+        if (device.getSwitchState() == null) {
+            return;
+        }
+        LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh", device.getSwitchState().isOn() ? "on" : "off",
+                device.getTemperature().getCelsius(), powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
     }
 
     private static Properties readConfig(Path path) {
