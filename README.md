@@ -16,7 +16,7 @@ repositories {
 * Add dependency
 ```groovy
 dependencies {
-    compile 'com.github.kaklakariada:fritzbox-java-api:0.5.0'
+    compile 'com.github.kaklakariada:fritzbox-java-api:0.6.0'
 }
 ```
 
