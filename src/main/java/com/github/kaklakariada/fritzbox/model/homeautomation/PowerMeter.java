@@ -23,10 +23,16 @@ import org.simpleframework.xml.Root;
 @Root(name = "powermeter", strict = false)
 public class PowerMeter {
 
+    @Element(name = "voltage", required = false)
+    private int voltageMilliVolt;
     @Element(name = "power", required = false)
     private int powerMilliWatt;
     @Element(name = "energy", required = false)
     private int energyWattHours;
+
+    public float getVoltageVolt() {
+        return voltageMilliVolt / 1000F;
+    }
 
     public float getPowerWatt() {
         return powerMilliWatt / 1000F;
@@ -38,6 +44,7 @@ public class PowerMeter {
 
     @Override
     public String toString() {
-        return "PowerMeter [energyWattHours=" + energyWattHours + ", powerWatt=" + getPowerWatt() + "]";
+        return "PowerMeter [voltage=" + getVoltageVolt() + ", energyWattHours=" + energyWattHours + ", powerWatt="
+                + getPowerWatt() + "]";
     }
 }

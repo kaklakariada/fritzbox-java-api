@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 @Root(name = "switch")
 public class SwitchState {
-    private final static Logger LOG = LoggerFactory.getLogger(SwitchState.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SwitchState.class);
 
     public enum SwitchMode {
         AUTO, MANUAL

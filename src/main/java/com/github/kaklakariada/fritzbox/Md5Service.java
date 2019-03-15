@@ -31,6 +31,8 @@ public class Md5Service {
         return buildHexString(binary);
     }
 
+    // Concatenating strings in a loop is ok here
+    @SuppressWarnings("squid:S1643")
     private String buildHexString(final byte[] data) {
         final StringBuilder hexString = new StringBuilder();
         for (final byte aMessageDigest : data) {

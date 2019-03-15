@@ -18,12 +18,13 @@
 package com.github.kaklakariada.fritzbox.http;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class QueryParameters {
 
-    private final HashMap<String, String> parameters;
+    private final Map<String, String> parameters;
 
-    private QueryParameters(HashMap<String, String> parameters) {
+    private QueryParameters(Map<String, String> parameters) {
         this.parameters = parameters;
     }
 
@@ -31,7 +32,7 @@ public class QueryParameters {
         return new Builder();
     }
 
-    public HashMap<String, String> getParameters() {
+    public Map<String, String> getParameters() {
         return parameters;
     }
 
@@ -40,13 +41,13 @@ public class QueryParameters {
     }
 
     public static class Builder {
-        private final HashMap<String, String> parameters;
+        private final Map<String, String> parameters;
 
         private Builder() {
             this(new HashMap<String, String>());
         }
 
-        public Builder(HashMap<String, String> parameters) {
+        public Builder(Map<String, String> parameters) {
             this.parameters = parameters;
         }
 

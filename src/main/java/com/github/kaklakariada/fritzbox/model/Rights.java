@@ -26,14 +26,14 @@ import org.simpleframework.xml.Root;
 public class Rights {
 
     @ElementList(inline = true, required = false, type = UserRight.class)
-    private List<UserRight> rights;
+    private List<UserRight> userRights;
 
     public List<UserRight> getRights() {
-        return rights;
+        return userRights;
     }
 
     @Override
     public String toString() {
-        return "Rights [rights=" + rights + "]";
+        return "Rights [rights=" + userRights + "]";
     }
 }

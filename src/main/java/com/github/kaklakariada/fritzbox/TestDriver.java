@@ -100,8 +100,10 @@ public class TestDriver {
         if (device.getSwitchState() == null) {
             return;
         }
-        LOG.debug("State: {}, temp: {}°C, power: {}W, energy: {}Wh", device.getSwitchState().isOn() ? "on" : "off",
-                device.getTemperature().getCelsius(), powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
+        final Object switchState = device.getSwitchState().isOn() ? "on" : "off";
+        LOG.debug("State: {}, temp: {}°C, voltage: {}V, power: {}W, energy: {}Wh",
+                switchState, device.getTemperature().getCelsius(), powerMeter.getVoltageVolt(),
+                powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
     }
 
     private static Properties readConfig(Path path) {

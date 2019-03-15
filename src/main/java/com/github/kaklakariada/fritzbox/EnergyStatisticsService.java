@@ -27,10 +27,10 @@ import com.github.kaklakariada.fritzbox.http.QueryParameters;
  */
 public class EnergyStatisticsService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(EnergyStatisticsService.class);
-    private final static String QUERY_PATH = "/net/home_auto_query.lua";
+    private static final Logger LOG = LoggerFactory.getLogger(EnergyStatisticsService.class);
+    private static final String QUERY_PATH = "/net/home_auto_query.lua";
 
-    public static enum EnergyStatsTimeRange {
+    public enum EnergyStatsTimeRange {
         TEN_MINUTES("EnergyStats_10"), //
         ONE_HOUR("EnergyStats_hour"), //
         ONE_DAY("EnergyStats_24h"), //

@@ -25,13 +25,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class NullTrustManager implements X509TrustManager {
-    private final static Logger LOG = LoggerFactory.getLogger(NullTrustManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NullTrustManager.class);
 
+    // Don't throw exception, we want to accept any certificate
+    @SuppressWarnings("squid:S4424")
     @Override
     public void checkClientTrusted(final X509Certificate[] xcs, final String authType) {
         LOG.trace("Check client trusted auth type '{}'", authType);
     }
 
+    // Don't throw exception, we want to accept any certificate
+    @SuppressWarnings("squid:S4424")
     @Override
     public void checkServerTrusted(final X509Certificate[] xcs, final String authType) {
         LOG.trace("Check server trusted auth type '{}'", authType);

@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NullHostnameVerifier implements HostnameVerifier {
-    private final static Logger LOG = LoggerFactory.getLogger(NullHostnameVerifier.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NullHostnameVerifier.class);
 
     @Override
     public boolean verify(String hostname, SSLSession session) {

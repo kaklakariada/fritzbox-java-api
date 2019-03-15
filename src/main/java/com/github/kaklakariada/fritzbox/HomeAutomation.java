@@ -29,8 +29,8 @@ import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 
 public class HomeAutomation {
 
-    private final static Logger LOG = LoggerFactory.getLogger(HomeAutomation.class);
-    private final static String HOME_AUTOMATION_PATH = "/webservices/homeautoswitch.lua";
+    private static final Logger LOG = LoggerFactory.getLogger(HomeAutomation.class);
+    private static final String HOME_AUTOMATION_PATH = "/webservices/homeautoswitch.lua";
 
     private final FritzBoxSession session;
 

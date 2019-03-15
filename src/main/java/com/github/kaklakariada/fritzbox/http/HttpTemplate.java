@@ -39,7 +39,7 @@ import okhttp3.Response;
  * {@link Deserializer}.
  */
 public class HttpTemplate {
-    private final static Logger LOG = LoggerFactory.getLogger(HttpTemplate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HttpTemplate.class);
 
     private final OkHttpClient httpClient;
     private final HttpUrl baseUrl;
@@ -98,7 +98,9 @@ public class HttpTemplate {
         if (body.startsWith("HTTP/1.0 500 Internal Server Error")) {
             throw new FritzBoxException("Request failed: " + body);
         }
-        LOG.trace("Got response {} with body\n'{}'", response, body.trim());
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Got response {} with body\n'{}'", response, body.trim());
+        }
         return deserializer.parse(body.trim(), resultType);
     }
 

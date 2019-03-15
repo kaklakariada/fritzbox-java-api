@@ -28,7 +28,7 @@ import com.github.kaklakariada.fritzbox.model.SessionInfo;
  * This class implements allows logging in to a fritzbox and execute authenticated requests.
  */
 class FritzBoxSession {
-    private final static Logger LOG = LoggerFactory.getLogger(FritzBoxSession.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FritzBoxSession.class);
 
     private static final String LOGIN_PATH = "/login_sid.lua";
     private static final String WEBCM_PATH = "/home/home.lua";

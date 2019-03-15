@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * This class allows deserializing {@link String}s to a requested type.
  */
 public class Deserializer {
-    private final static Logger LOG = LoggerFactory.getLogger(Deserializer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Deserializer.class);
 
     private final Serializer xmlSerializer;
 

@@ -33,6 +33,10 @@ import javax.net.ssl.TrustManager;
  */
 public class TrustSelfSignedCertificates {
 
+    private TrustSelfSignedCertificates() {
+        // Not instantiable
+    }
+
     public static SSLSocketFactory getUnsafeSslSocketFactory() {
         final SSLContext sslContext = getSSLContext("TLS");
         initializeSslContext(sslContext);
