@@ -43,6 +43,10 @@ public class Device {
     @Element(name = "name")
     private String name;
 
+    @Element(name = "batterylow", required = false)
+    private int batterylow;
+    @Element(name = "battery", required = false)
+    private int battery;
     @Element(name = "switch", required = false)
     private SwitchState switchState;
     @Element(name = "powermeter", required = false)
@@ -82,6 +86,14 @@ public class Device {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isBatterylow() {
+        return 1 == batterylow;
+    }
+
+    public int getBattery() {
+        return battery;
     }
 
     public SwitchState getSwitchState() {
