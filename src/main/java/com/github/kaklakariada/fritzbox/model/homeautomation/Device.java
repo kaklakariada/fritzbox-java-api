@@ -108,6 +108,10 @@ public class Device {
         return temperature;
     }
 
+    public Hkr getHkr() {
+        return hkr;
+    }
+
     @Override
     public String toString() {
         return "Device [identifier=" + identifier + ", id=" + id + ", functionBitmask=" + functionBitmask
