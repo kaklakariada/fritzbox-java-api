@@ -16,7 +16,7 @@ repositories {
 * Add dependency
 ```groovy
 dependencies {
-    compile 'com.github.kaklakariada:fritzbox-java-api:0.6.0'
+    compile 'com.github.kaklakariada:fritzbox-java-api:0.7.0'
 }
 ```
 
@@ -47,7 +47,7 @@ Install to local maven repository:
     bintrayApiKey = <apiKey>
     ```
 
-2. Increment version number in `build.gradle`, commit and push.
+2. Increment version number in `build.gradle` and `README.md`, commit and push.
 3. Run the following command:
 
     ```bash
