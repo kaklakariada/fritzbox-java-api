@@ -26,14 +26,14 @@ test {
 }
 
 dependencies {
-    compile 'com.squareup.okhttp3:okhttp:3.14.0'
-    compile 'com.subshell.simpleframework:simple-xml:2.9.0'
-    compile 'org.slf4j:slf4j-api:1.7.26'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.0'
+    implementation 'com.subshell.simpleframework:simple-xml:2.9.0'
+    implementation 'org.slf4j:slf4j-api:1.7.26'
     
-    runtime 'ch.qos.logback:logback-classic:1.2.3'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
     
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.25.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.25.0'
 }
 
 license {
