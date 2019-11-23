@@ -44,11 +44,23 @@ public class Hkr {
     @Element(name = "errorcode", required = false)
     private int errorcode;
 
+    @Element(name = "windowopenactiv", required = false)
+    private boolean windowopenactiv;
+
     @Element(name = "batterylow", required = false)
-    private int batterylow;
+    private boolean batterylow;
+
+    @Element(name = "battery", required = false)
+    private int battery;
 
     @Element(name = "nextchange", required = false)
     private NextChange nextChange;
+
+    @Element(name = "summeractive", required = false)
+    private boolean summeractive;
+
+    @Element(name = "holidayactive", required = false)
+    private boolean holidayactive;
 
     public int getTist() {
         return tist;
@@ -106,12 +118,28 @@ public class Hkr {
         this.errorcode = errorcode;
     }
 
-    public int getBatterylow() {
+    public boolean isWindowopenactiv() {
+        return windowopenactiv;
+    }
+
+    public void setWindowopenactiv(boolean windowopenactiv) {
+        this.windowopenactiv = windowopenactiv;
+    }
+
+    public boolean isBatterylow() {
         return batterylow;
     }
 
-    public void setBatterylow(int batterylow) {
+    public void setBatterylow(boolean batterylow) {
         this.batterylow = batterylow;
+    }
+
+    public int getBattery() {
+        return battery;
+    }
+
+    public void setBattery(int battery) {
+        this.battery = battery;
     }
 
     public NextChange getNextChange() {
@@ -120,6 +148,22 @@ public class Hkr {
 
     public void setNextChange(NextChange nextChange) {
         this.nextChange = nextChange;
+    }
+
+    public boolean isSummeractive() {
+        return summeractive;
+    }
+
+    public void setSummeractive(boolean summeractive) {
+        this.summeractive = summeractive;
+    }
+
+    public boolean isHolidayactive() {
+        return holidayactive;
+    }
+
+    public void setHolidayactive(boolean holidayactive) {
+        this.holidayactive = holidayactive;
     }
 
     @Override
