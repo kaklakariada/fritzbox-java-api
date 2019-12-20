@@ -6,4 +6,4 @@ bin/
 application.properties
 /gradle.properties
 .project
-.settings/org.eclipse.buildship.core.prefs
+.settings

@@ -31,6 +31,11 @@ public class FritzBoxTest {
         deviceListInfos.getDevices().stream().forEach(t -> {
             System.out.println("Identifier: " + t.getIdentifier() + " Name: " + t.getName() + " Temperature: " + t.getTemperature().getCelsius());
         });
+    }
 
+    @Test
+    public void readDevicesByIdentifierTest() {
+        HomeAutomation homeAutomation = HomeAutomation.connect(HTTP_FRITZ_BOX, "", PASSWORD);
+        System.out.println("Temperature: "+homeAutomation.getTemperature("11657 0071130"));
     }
 }
