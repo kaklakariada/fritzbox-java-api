@@ -5,6 +5,10 @@
 
 Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AHA-HTTP-Interface.pdf) inspired by grundid's [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api). This also runs on Android devices (see [Andect](https://github.com/kaklakariada/Andect)).
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
 ## Usage
 
 * Add jcenter maven repository:

@@ -17,6 +17,8 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import java.util.Optional;
+
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -44,9 +46,9 @@ public class Device {
     private String name;
 
     @Element(name = "batterylow", required = false)
-    private int batterylow;
+    private Integer batterylow;
     @Element(name = "battery", required = false)
-    private int battery;
+    private Integer battery;
     @Element(name = "switch", required = false)
     private SwitchState switchState;
     @Element(name = "powermeter", required = false)
@@ -88,12 +90,12 @@ public class Device {
         return name;
     }
 
-    public boolean isBatterylow() {
-        return 1 == batterylow;
+    public Optional<Boolean> isBatterylow() {
+        return Optional.ofNullable(batterylow).map(value -> 1 == value);
     }
 
-    public int getBattery() {
-        return battery;
+    public Optional<Integer> getBattery() {
+        return Optional.ofNullable(battery);
     }
 
     public SwitchState getSwitchState() {
