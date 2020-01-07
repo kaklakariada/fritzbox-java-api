@@ -20,9 +20,10 @@ package com.github.kaklakariada.fritzbox;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-
+@Ignore
 public class FritzBoxTest {
 
     private static final String PASSWORD = "";
