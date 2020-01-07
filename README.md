@@ -60,3 +60,9 @@ Install to local maven repository:
 
 4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
 5. Sign in at https://bintray.com/, go to https://bintray.com/kaklakariada/maven and publish the uploaded artifacts.
+
+## Notes by Plate
+### Syncing a fork
+1. [Configuring a remote for a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork)
+2. [Syncing a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
+
