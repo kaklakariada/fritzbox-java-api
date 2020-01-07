@@ -5,6 +5,10 @@
 
 Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AHA-HTTP-Interface.pdf) inspired by grundid's [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api). This also runs on Android devices (see [Andect](https://github.com/kaklakariada/Andect)).
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
 ## Usage
 
 * Add jcenter maven repository:
@@ -16,7 +20,7 @@ repositories {
 * Add dependency
 ```groovy
 dependencies {
-    compile 'com.github.kaklakariada:fritzbox-java-api:0.7.0'
+    compile 'com.github.kaklakariada:fritzbox-java-api:1.0.0'
 }
 ```
 
@@ -55,4 +59,4 @@ Install to local maven repository:
     ```
 
 4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
-5. Sign in at https://bintray.com/ and publish the uploaded artifacts.
+5. Sign in at https://bintray.com/, go to https://bintray.com/kaklakariada/maven and publish the uploaded artifacts.
