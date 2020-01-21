@@ -36,10 +36,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.1.0'
 }
 
-license {
-    header = file('gradle/license-header.txt')
-}
-
 task sourceJar(type: Jar) {
     from sourceSets.main.allJava
     classifier "sources"

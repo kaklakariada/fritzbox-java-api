@@ -17,13 +17,13 @@
  */
 package at.plate.michael.fritzbox;
 
-import com.github.kaklakariada.fritzbox.FritzBoxSession;
-import com.github.kaklakariada.fritzbox.HomeAutomation;
-import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
+import de.ingo.fritzbox.data.Call;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.List;
 
 public class CallServiceTest {
 
@@ -34,26 +34,28 @@ public class CallServiceTest {
         callService = new CallService(Config.getHttpFritzBox(), "", Config.getPassword());
     }
 
+    @After
+    public void tearDown() {
+        try {
+            callService.logout();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
-    public void getSessionIdTest() throws Exception{
+    public void getSessionIdTest() throws Exception {
         String sid = callService.getSid();
         Assert.assertNotNull(sid);
     }
 
     @Test
-    @Ignore
-    public void readAllDevicesTest() {
-        HomeAutomation homeAutomation = HomeAutomation.connect(Config.getHttpFritzBox(), "", Config.getPassword());
-        DeviceList deviceListInfos = homeAutomation.getDeviceListInfos();
-        deviceListInfos.getDevices().stream().forEach(t -> {
-            System.out.println("Identifier: " + t.getIdentifier() + " Name: " + t.getName() + " Temperature: " + t.getTemperature().getCelsius());
+    public void readCallerlist() throws Exception {
+        List<Call> callList = callService.getCallList();
+        callList.stream().forEach(c -> {
+            System.out.println(c.toString());
         });
+        Assert.assertFalse(callList.isEmpty());
     }
 
-    @Test
-    @Ignore
-    public void readDevicesByIdentifierTest() {
-        HomeAutomation homeAutomation = HomeAutomation.connect(Config.getHttpFritzBox(), "", Config.getPassword());
-        System.out.println("Temperature: " + homeAutomation.getTemperature("11657 0071130"));
-    }
 }

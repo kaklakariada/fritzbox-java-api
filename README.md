@@ -66,3 +66,5 @@ Install to local maven repository:
 1. [Configuring a remote for a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork)
 2. [Syncing a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
 
+### add source from another github repository
+1. [ ISchwarz23 / FritzBox-API ](https://github.com/ISchwarz23/FritzBox-API)
