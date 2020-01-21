@@ -18,24 +18,22 @@
 package at.plate.michael.fritzbox;
 
 import de.ingo.fritzbox.data.Call;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CallServiceTest {
 
     private static CallService callService;
 
-    @Before
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         callService = new CallService(Config.getHttpFritzBox(), "", Config.getPassword());
     }
 
-    @After
-    public void tearDown() {
+    @AfterAll
+    public static void tearDown() {
         try {
             callService.logout();
         } catch (Exception e) {
@@ -44,18 +42,20 @@ public class CallServiceTest {
     }
 
     @Test
+    @Order(1)
     public void getSessionIdTest() throws Exception {
         String sid = callService.getSid();
-        Assert.assertNotNull(sid);
+        Assertions.assertNotNull(sid);
     }
 
     @Test
+    @Order(2)
     public void readCallerlist() throws Exception {
         List<Call> callList = callService.getCallList();
         callList.stream().forEach(c -> {
             System.out.println(c.toString());
         });
-        Assert.assertFalse(callList.isEmpty());
+        Assertions.assertFalse(callList.isEmpty());
     }
 
 }

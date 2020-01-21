@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>at.plate.michael.github</groupId>
+    <artifactId>Fritz-Java-Api</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Fritz-Java-Api</name>
+    <version>1.0.1-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Junit 5 -->
+        <version.junit-platform-runner>1.5.2</version.junit-platform-runner>
+        <version.junit>5.5.2</version.junit>
+
+        <!-- opencsv -->
+        <version.opencsv>4.6</version.opencsv>
+
+        <!-- maven-compiler-plugin -->
+        <version.compiler.plugin>3.1</version.compiler.plugin>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.0.116:8081/repository/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.0.116:8081/repository/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>${version.junit-platform-runner}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${version.opencsv}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.subshell.simpleframework/simple-xml -->
+        <dependency>
+            <groupId>com.subshell.simpleframework</groupId>
+            <artifactId>simple-xml</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.1.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
