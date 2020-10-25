@@ -53,6 +53,8 @@ public class Device {
     private Integer battery;
     @Element(name = "switch", required = false)
     private SwitchState switchState;
+    @Element(name = "simpleonoff", required = false)
+    private SimpleOnOffState simpleOnOff;
     @Element(name = "powermeter", required = false)
     private PowerMeter powerMeter;
     @Element(name = "temperature", required = false)
@@ -120,11 +122,16 @@ public class Device {
         return hkr;
     }
 
+    public SimpleOnOffState getSimpleOnOff() {
+        return simpleOnOff;
+    }
+
     @Override
     public String toString() {
         return "Device [identifier=" + identifier + ", id=" + id + ", functionBitmask=" + functionBitmask
                 + ", firmwareVersion=" + firmwareVersion + ", manufacturer=" + manufacturer + ", productName="
-                + productName + ", present=" + present + ", name=" + name + ", switchState=" + switchState
+                + productName + ", present=" + present + ", txbusy=" + txbusy + ", name=" + name + ", batterylow="
+                + batterylow + ", battery=" + battery + ", switchState=" + switchState + ", simpleOnOff=" + simpleOnOff
                 + ", powerMeter=" + powerMeter + ", temperature=" + temperature + ", hkr=" + hkr + "]";
     }
 }
