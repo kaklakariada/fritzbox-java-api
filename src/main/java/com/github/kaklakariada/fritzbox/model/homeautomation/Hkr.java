@@ -47,6 +47,15 @@ public class Hkr {
     @Element(name = "windowopenactiv", required = false)
     private boolean windowopenactiv;
 
+    @Element(name = "windowopenactiveendtime", required = false)
+    private int windowopenactiveendtime;
+
+    @Element(name = "boostactive", required = false)
+    private boolean boostactive;
+
+    @Element(name = "boostactiveendtime", required = false)
+    private int boostactiveendtime;
+
     @Element(name = "batterylow", required = false)
     private boolean batterylow;
 
@@ -124,6 +133,30 @@ public class Hkr {
 
     public void setWindowopenactiv(boolean windowopenactiv) {
         this.windowopenactiv = windowopenactiv;
+    }
+
+    public int getWindowopenactiveendtime() {
+        return windowopenactiveendtime;
+    }
+
+    public void setWindowopenactiveendtime(int windowopenactiveendtime) {
+        this.windowopenactiveendtime = windowopenactiveendtime;
+    }
+
+    public boolean isBoostactive() {
+        return boostactive;
+    }
+
+    public void setBoostactive(boolean boostactive) {
+        this.boostactive = boostactive;
+    }
+
+    public int getBoostactiveendtime() {
+        return boostactiveendtime;
+    }
+
+    public void setBoostactiveendtime(int boostactiveendtime) {
+        this.boostactiveendtime = boostactiveendtime;
     }
 
     public boolean isBatterylow() {

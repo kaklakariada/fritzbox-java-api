@@ -42,6 +42,8 @@ public class Device {
 
     @Element(name = "present")
     private String present;
+    @Element(name = "txbusy")
+    private String txbusy;
     @Element(name = "name")
     private String name;
 
@@ -84,6 +86,10 @@ public class Device {
 
     public boolean isPresent() {
         return "1".equals(present);
+    }
+
+    public boolean isTxBusy() {
+        return "1".equals(txbusy);
     }
 
     public String getName() {

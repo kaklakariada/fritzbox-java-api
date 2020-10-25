@@ -34,6 +34,9 @@ public class DeviceList {
     @ElementList(name = "device", type = Device.class, inline = true)
     private List<Device> devices;
 
+    @Attribute(name = "fwversion")
+    private String firmwareVersion;
+
     public String getApiVersion() {
         return apiVersion;
     }
@@ -52,6 +55,10 @@ public class DeviceList {
         return devices.stream() //
                 .map(Device::getIdentifier) //
                 .collect(toList());
+    }
+
+    public String getFirmwareVersion() {
+        return firmwareVersion;
     }
 
     private static boolean identifierMatches(Device device, String identifier) {
