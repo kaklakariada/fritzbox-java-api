@@ -39,6 +39,7 @@ dependencies {
 
 license {
     header = file('gradle/license-header.txt')
+    exclude('**/deviceListPayload.xml')
 }
 
 task sourceJar(type: Jar) {
