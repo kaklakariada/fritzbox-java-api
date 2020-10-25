@@ -84,7 +84,7 @@ public class HttpTemplate {
 
     private <T> T post(Class<T> resultType, HttpUrl url) {
         final MediaType mediaType = MediaType.parse("application/xml");
-        final RequestBody emptyBody = RequestBody.create(mediaType, new byte[0]);
+        final RequestBody emptyBody = RequestBody.create(new byte[0], mediaType);
         final Request request = new Request.Builder().url(url).post(emptyBody).build();
         final Response response = execute(request);
         return parse(response, resultType);
