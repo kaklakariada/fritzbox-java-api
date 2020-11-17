@@ -17,16 +17,44 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "simpleonoff")
-public class SimpleOnOffState {
+@Root(name = "colorcontrol")
+public class ColorControl {
+    @Element(name = "hue", required = false)
+    private String hue;
 
-    @Element(name = "state", required = false)
-    private int state;
+    @Element(name = "saturation", required =  false)
+    private String saturation;
 
-    public int getState() {
-        return state;
+    @Element(name = "temperature", required = false)
+    private String temperature;
+
+    @Attribute(name = "supported_modes")
+    private String supportedModes;
+
+    @Attribute(name = "current_mode", required = false)
+    private String current_mode;
+
+    public String getHue() {
+        return hue;
+    }
+
+    public String getSaturation() {
+        return saturation;
+    }
+
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public String getSupportedModes() {
+        return supportedModes;
+    }
+
+    public String getCurrent_mode() {
+        return current_mode;
     }
 }

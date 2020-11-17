@@ -61,6 +61,12 @@ public class Device {
     private Temperature temperature;
     @Element(name = "hkr", required = false)
     private Hkr hkr;
+    @Element(name = "levelcontrol", required = false)
+    private LevelControl levelControl;
+    @Element(name = "colorcontrol", required = false)
+    private ColorControl colorControl;
+    @Element(name = "etsiunitinfo", required = false)
+    private EtsiUnitInfo etsiUnitInfo;
 
     public String getIdentifier() {
         return identifier;
@@ -124,6 +130,18 @@ public class Device {
 
     public SimpleOnOffState getSimpleOnOff() {
         return simpleOnOff;
+    }
+
+    public LevelControl getLevelControl() {
+        return levelControl;
+    }
+
+    public ColorControl getColorControl() {
+        return colorControl;
+    }
+
+    public EtsiUnitInfo getEtsiUnitInfo() {
+        return etsiUnitInfo;
     }
 
     @Override
