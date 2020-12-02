@@ -39,7 +39,6 @@ public class Deserializer {
     }
 
     public <T> T parse(String data, Class<T> resultType) {
-        //LOG.info("parsing data:"+data);
         if (resultType == String.class) {
             return resultType.cast(data);
         }
