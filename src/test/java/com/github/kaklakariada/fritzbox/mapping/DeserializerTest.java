@@ -30,8 +30,29 @@ import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 public class DeserializerTest {
 
     @Test
-    public void parseDeviceList() throws IOException {
-        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListPayload.xml")).stream()
+    public void parseDeviceListFritzDect200() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml")).stream()
+                .collect(joining("\n"));
+        new Deserializer().parse(fileContent, DeviceList.class);
+    }
+
+    @Test
+    public void parseDeviceListFritzDect301() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml")).stream()
+                .collect(joining("\n"));
+        new Deserializer().parse(fileContent, DeviceList.class);
+    }
+
+    @Test
+    public void parseDeviceListNotConnectedFritzDect500() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListNotConnectedFritzDect500Payload.xml")).stream()
+                .collect(joining("\n"));
+        new Deserializer().parse(fileContent, DeviceList.class);
+    }
+
+    @Test
+    public void parseDeviceListConnectedFritzDect500() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect500Payload.xml")).stream()
                 .collect(joining("\n"));
         new Deserializer().parse(fileContent, DeviceList.class);
     }

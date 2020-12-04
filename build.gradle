@@ -11,7 +11,7 @@ repositories {
 }
 
 group 'com.github.kaklakariada'
-version = '1.1.0'
+version = '1.2.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 tasks.withType(JavaCompile) {
@@ -39,7 +39,7 @@ dependencies {
 
 license {
     header = file('gradle/license-header.txt')
-    exclude('**/deviceListPayload.xml')
+    exclude('**/deviceList*Payload.xml')
 }
 
 task sourceJar(type: Jar) {

@@ -1,0 +1,24 @@
+<devicelist version="1" fwversion="7.21">
+    <device identifier="00000 0000000-1" id="2000" functionbitmask="237572" fwversion="0.0" manufacturer="AVM" productname="FRITZ!DECT 500">
+        <present>0</present>
+        <txbusy>0</txbusy>
+        <name>FRITZ!DECT 500 without power</name>
+        <simpleonoff>
+            <state/>
+        </simpleonoff>
+        <levelcontrol>
+            <level/>
+            <levelpercentage/>
+        </levelcontrol>
+        <colorcontrol supported_modes="0" current_mode="">
+            <hue/>
+            <saturation/>
+            <temperature/>
+        </colorcontrol>
+        <etsiunitinfo>
+            <etsideviceid>406</etsideviceid>
+            <unittype>278</unittype>
+            <interfaces>512,514,513</interfaces>
+        </etsiunitinfo>
+    </device>
+</devicelist>

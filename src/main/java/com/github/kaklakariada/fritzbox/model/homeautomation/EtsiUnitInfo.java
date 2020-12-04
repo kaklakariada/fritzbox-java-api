@@ -20,13 +20,27 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "simpleonoff")
-public class SimpleOnOffState {
+@Root(name = "etsiunitinfo")
+public class EtsiUnitInfo {
 
-    @Element(name = "state", required = false)
-    private int state;
+    @Element(name = "etsideviceid")
+    private int etsideviceid;
 
-    public int getState() {
-        return state;
+    @Element(name = "unittype")
+    private int unittype;
+
+    @Element(name = "interfaces")
+    private String interfaces;
+
+    public int getEtsideviceid() {
+        return etsideviceid;
+    }
+
+    public int getUnittype() {
+        return unittype;
+    }
+
+    public String getInterfaces() {
+        return interfaces;
     }
 }

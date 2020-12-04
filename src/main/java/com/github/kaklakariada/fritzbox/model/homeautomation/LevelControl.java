@@ -20,13 +20,20 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "simpleonoff")
-public class SimpleOnOffState {
+@Root(name = "levelcontrol")
+public class LevelControl {
 
-    @Element(name = "state", required = false)
-    private int state;
+    @Element(name = "level", required = false)
+    private int level;
 
-    public int getState() {
-        return state;
+    @Element(name = "levelpercentage", required = false)
+    private int levelpercentage;
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getLevelpercentage() {
+        return levelpercentage;
     }
 }
