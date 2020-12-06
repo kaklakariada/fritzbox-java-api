@@ -61,3 +61,4 @@ Install to local maven repository:
 
 4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
 5. Sign in at https://bintray.com/, go to https://bintray.com/kaklakariada/maven and publish the uploaded artifacts.
+6. The artifacts will be published at https://jcenter.bintray.com/com/github/kaklakariada/fritzbox-java-api
