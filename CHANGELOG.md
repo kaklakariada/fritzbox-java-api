@@ -6,11 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] - unreleased
 
-## [1.2.0] - 2020-12-06
+## [1.2.1] - 2020-12-06
 
 ### Added
 
 * [#16](https://github.com/kaklakariada/fritzbox-java-api/pull/16): Update for FRITZ-Dect 500 devices. Thanks to [SmokingDevices](https://github.com/SmokingDevices)!
+
+## [1.2.0] - 2020-12-06 - invalid
 
 ## [1.1.0] - 2020-10-25
 
