@@ -56,4 +56,12 @@ public class DeserializerTest {
                 .collect(joining("\n"));
         new Deserializer().parse(fileContent, DeviceList.class);
     }
+/*
+    @Test
+    public void parseDeviceListConnectedFritzDect440() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect440Payload.xml")).stream()
+                .collect(joining("\n"));
+        new Deserializer().parse(fileContent, DeviceList.class);
+    }
+*/
 }

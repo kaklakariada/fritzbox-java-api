@@ -17,11 +17,12 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import java.util.Optional;
-
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementArray;
 import org.simpleframework.xml.Root;
+
+import java.util.Optional;
 
 @Root(name = "device")
 public class Device {
@@ -67,6 +68,10 @@ public class Device {
     private ColorControl colorControl;
     @Element(name = "etsiunitinfo", required = false)
     private EtsiUnitInfo etsiUnitInfo;
+
+    @ElementArray(name = "button", required = false)
+    private Button[] buttons;
+
 
     public String getIdentifier() {
         return identifier;
@@ -142,6 +147,10 @@ public class Device {
 
     public EtsiUnitInfo getEtsiUnitInfo() {
         return etsiUnitInfo;
+    }
+
+    public Button[] getButtons() {
+        return buttons;
     }
 
     @Override

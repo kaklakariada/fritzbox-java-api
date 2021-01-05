@@ -1,0 +1,30 @@
+<devicelist version="1" fwversion="7.21">
+    <device identifier="09995 0610746" id="31" functionbitmask="288" fwversion="05.07" manufacturer="AVM"
+            productname="FRITZ!DECT 440">
+        <present>1</present>
+        <txbusy>0</txbusy>
+        <name>4erTaster WZ</name>
+        <battery>100</battery>
+        <batterylow>0</batterylow>
+        <temperature>
+            <celsius>200</celsius>
+            <offset>0</offset>
+        </temperature>
+        <button identifier="09995 0610746-1" id="5000">
+            <name>4erTaster WZ: Oben rechts</name>
+            <lastpressedtimestamp>1609861680</lastpressedtimestamp>
+        </button>
+        <button identifier="09995 0610746-3" id="5001">
+            <name>4erTaster WZ: Unten rechts</name>
+            <lastpressedtimestamp>1609860769</lastpressedtimestamp>
+        </button>
+        <button identifier="09995 0610746-5" id="5002">
+            <name>4erTaster WZ: Unten links</name>
+            <lastpressedtimestamp></lastpressedtimestamp>
+        </button>
+        <button identifier="09995 0610746-7" id="5003">
+            <name>4erTaster WZ: Oben links</name>
+            <lastpressedtimestamp>1609860177</lastpressedtimestamp>
+        </button>
+    </device>
+</devicelist>
