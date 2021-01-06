@@ -17,11 +17,9 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementArray;
-import org.simpleframework.xml.Root;
+import org.simpleframework.xml.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Root(name = "device")
@@ -69,8 +67,10 @@ public class Device {
     @Element(name = "etsiunitinfo", required = false)
     private EtsiUnitInfo etsiUnitInfo;
 
-    @ElementArray(name = "button", required = false)
-    private Button[] buttons;
+
+
+    @ElementList(name = "buttons", required = false)
+    private List<Button> buttons;
 
 
     public String getIdentifier() {
@@ -149,7 +149,7 @@ public class Device {
         return etsiUnitInfo;
     }
 
-    public Button[] getButtons() {
+    public List<Button> getButtons() {
         return buttons;
     }
 

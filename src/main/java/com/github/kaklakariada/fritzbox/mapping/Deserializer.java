@@ -38,7 +38,9 @@ public class Deserializer {
         this.xmlSerializer = xmlSerializer;
     }
 
-    public <T> T parse(String data, Class<T> resultType) {
+    public <T> T parse(String input, Class<T> resultType) {
+        String data = modifyInput2BeParseable(input);
+
         if (resultType == String.class) {
             return resultType.cast(data);
         }
@@ -59,4 +61,32 @@ public class Deserializer {
             throw new DeserializerException("Error parsing response body '" + data + "'", e);
         }
     }
+
+    //this is a ugly hack as i don't have a clue howto handle buttons without this
+    private String modifyInput2BeParseable (String input) {
+        StringBuilder result = new StringBuilder();
+        String[] devices = input.split("</device>");
+
+        for (String part : devices) {
+            if (part.contains("<button")) {
+                int start = part.indexOf("<button");
+                int end = part.lastIndexOf("</button>") + 9;
+                result.append(part.substring(0,start));
+                result.append("<buttons>");
+                result.append(part.substring(start, end));
+                result.append("</buttons>");
+                result.append(part.substring(end, part.length()));
+                result.append("</device>");
+                int i = 1;
+            } else if (part.contains("<device")) {
+                result.append(part);
+                result.append("</device>");
+            } else {
+                // the last part cannot be added with /device
+                result.append(part);
+            }
+        }
+        return result.toString();
+    }
+
 }
