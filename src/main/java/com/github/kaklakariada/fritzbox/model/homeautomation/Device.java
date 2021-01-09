@@ -66,12 +66,8 @@ public class Device {
     private ColorControl colorControl;
     @Element(name = "etsiunitinfo", required = false)
     private EtsiUnitInfo etsiUnitInfo;
-
-
-
     @ElementList(name = "buttons", required = false, inline = true)
     private List<Button> buttons;
-
 
     public String getIdentifier() {
         return identifier;
