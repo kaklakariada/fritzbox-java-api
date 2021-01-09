@@ -69,7 +69,7 @@ public class Device {
 
 
 
-    @ElementList(name = "buttons", required = false)
+    @ElementList(name = "buttons", required = false, inline = true)
     private List<Button> buttons;
 
 
