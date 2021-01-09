@@ -39,7 +39,6 @@ public class Deserializer {
     }
 
     public <T> T parse(String data, Class<T> resultType) {
-
         if (resultType == String.class) {
             return resultType.cast(data);
         }
@@ -60,6 +59,4 @@ public class Deserializer {
             throw new DeserializerException("Error parsing response body '" + data + "'", e);
         }
     }
-
-
 }
