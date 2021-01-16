@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] - unreleased
 
+## [1.2.2] - 2021-01-16
+
+### Added
+
+* [#17](https://github.com/kaklakariada/fritzbox-java-api/pull/17): Update for Fritz-Dect!4XX devices. Thanks to [SmokingDevices](https://github.com/SmokingDevices)!
+
 ## [1.2.1] - 2020-12-06
 
 ### Added

@@ -13,17 +13,20 @@ See [CHANGELOG.md](CHANGELOG.md).
 ## Usage
 
 * Add jcenter maven repository:
-```groovy
-repositories {
-    jcenter()
-}
-```
+
+    ```groovy
+    repositories {
+        jcenter()
+    }
+    ```
+
 * Add dependency
-```groovy
-dependencies {
-    compile 'com.github.kaklakariada:fritzbox-java-api:1.2.1'
-}
-```
+
+    ```groovy
+    dependencies {
+        compile 'com.github.kaklakariada:fritzbox-java-api:1.2.2'
+    }
+    ```
 
 ### Run sample program
 
