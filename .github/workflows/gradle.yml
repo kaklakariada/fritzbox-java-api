@@ -27,6 +27,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build --info --stacktrace --warning-mode all
     - name: Sonar analysis
+      if: ${{ env.SONAR_TOKEN != null }}
       run: |
         ./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io \
                             -Dsonar.organization=kaklakariada-github \
