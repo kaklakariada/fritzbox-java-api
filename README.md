@@ -2,7 +2,7 @@
 
 [![Java CI](https://github.com/kaklakariada/fritzbox-java-api/workflows/Java%20CI/badge.svg)](https://github.com/kaklakariada/fritzbox-java-api/actions?query=workflow%3A%22Java+CI%22)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.kaklakariada%3Afritzbox-java-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.kaklakariada%3Afritzbox-java-api)
-[![Download](https://api.bintray.com/packages/kaklakariada/maven/fritzbox-java-api/images/download.svg)](https://bintray.com/kaklakariada/maven/fritzbox-java-api/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.kaklakariada/fritzbox-java-api)](https://search.maven.org/artifact/com.github.kaklakariada/fritzbox-java-api)
 
 Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AHA-HTTP-Interface.pdf) inspired by grundid's [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api). This also runs on Android devices (see [Andect](https://github.com/kaklakariada/Andect)).
 
@@ -12,11 +12,11 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Usage
 
-* Add jcenter maven repository:
+* Add Maven Central maven repository:
 
     ```groovy
     repositories {
-        jcenter()
+        mavenCentral()
     }
     ```
 
@@ -46,22 +46,30 @@ Install to local maven repository:
 ./gradlew clean publishToMavenLocal
 ```
 
-## Publish to jcenter
+### Publish to Maven Central
 
-1. Add your bintray credentials to `~/.gradle/gradle.properties`:
+1. Add the following to your `~/.gradle/gradle.properties`:
 
     ```properties
-    bintrayUser = <user>
-    bintrayApiKey = <apiKey>
+    ossrhUsername=<your maven central username>
+    ossrhPassword=<your maven central passwort>
+
+    signing.keyId=<gpg key id (last 8 chars)>
+    signing.password=<gpg key password>
+    signing.secretKeyRingFile=<path to secret keyring file>
     ```
 
 2. Increment version number in `build.gradle` and `README.md`, update [CHANGELOG.md](CHANGELOG.md), commit and push.
 3. Run the following command:
 
     ```bash
-    $ ./gradlew clean check bintrayUpload --info
+    $ ./gradlew clean check build publish --info
     ```
 
 4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
-5. Sign in at https://bintray.com/, go to https://bintray.com/kaklakariada/maven and publish the uploaded artifacts.
-6. The artifacts will be published at https://jcenter.bintray.com/com/github/kaklakariada/fritzbox-java-api
+5. Release the artifacts at Maven Central:
+    1. Login at [oss.sonatype.org](https://oss.sonatype.org).
+    2. Go to the [staging repositories](https://oss.sonatype.org/#stagingRepositories).
+    3. Select repository named `comgithubkaklakariada-*` and click the "Close" button.
+    4. When closing was successfull, click the "Release" button.
+    5. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).

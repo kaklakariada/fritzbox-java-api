@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.3.0] - unreleased
+## [1.4.0] - unreleased
+
+## [1.3.0] - 2021-02-22
+
+### Breaking Changes
+
+* Requires Java 11 instead of Java 8
+* Moved from JCenter to Maven Central due to [deprecation of JCenter](https://jfrog.com/blog/into-the-sunset-bintray-jcenter-gocenter-and-chartcenter/). In your build script use
+
+    ```gradle
+    repositories {
+        mavenCentral()
+    }
+    ```
 
 ## [1.2.2] - 2021-01-16
 
