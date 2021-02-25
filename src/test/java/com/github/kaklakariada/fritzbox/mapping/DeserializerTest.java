@@ -22,6 +22,7 @@ import static java.util.stream.Collectors.joining;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import org.junit.Test;
 
 import com.github.kaklakariada.fritzbox.model.SessionInfo;
