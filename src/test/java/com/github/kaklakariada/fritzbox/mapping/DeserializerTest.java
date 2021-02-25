@@ -22,10 +22,9 @@ import static java.util.stream.Collectors.joining;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import com.github.kaklakariada.fritzbox.model.SessionInfo;
 import org.junit.Test;
 
+import com.github.kaklakariada.fritzbox.model.SessionInfo;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 
 public class DeserializerTest {
