@@ -38,6 +38,18 @@ public class ColorControl {
     @Attribute(name = "current_mode", required = false)
     private String current_mode;
 
+    @Attribute(name = "fullcolorsupport", required = false)
+    private String fullcolorsupport;
+
+    @Attribute(name = "mapped", required = false)
+    private String mapped;
+
+    @Element(name = "unmapped_hue", required = false)
+    private String unmapped_hue;
+
+    @Element(name = "unmapped_saturation", required = false)
+    private String unmapped_saturation;
+
     public String getHue() {
         return hue;
     }
@@ -56,5 +68,21 @@ public class ColorControl {
 
     public String getCurrent_mode() {
         return current_mode;
+    }
+
+    public String getFullcolorsupport() {
+        return fullcolorsupport;
+    }
+
+    public String getMapped() {
+        return mapped;
+    }
+
+    public String getUnmapped_hue() {
+        return unmapped_hue;
+    }
+
+    public String getUnmapped_saturation() {
+        return unmapped_saturation;
     }
 }

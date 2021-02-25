@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import com.github.kaklakariada.fritzbox.model.SessionInfo;
 import org.junit.Test;
 
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
@@ -78,4 +79,17 @@ public class DeserializerTest {
         new Deserializer().parse(fileContent, DeviceList.class);
     }
 
+    @Test
+    public void parseDeviceList() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceList.xml")).stream()
+                .collect(joining("\n"));
+        new Deserializer().parse(fileContent, DeviceList.class);
+    }
+
+    @Test
+    public void parseSessionInfo() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/SessionInfo.xml")).stream()
+                .collect(joining("\n"));
+        new Deserializer().parse(fileContent, SessionInfo.class);
+    }
 }
