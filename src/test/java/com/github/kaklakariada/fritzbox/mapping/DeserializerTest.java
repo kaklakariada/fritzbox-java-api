@@ -88,7 +88,7 @@ public class DeserializerTest {
 
     @Test
     public void parseSessionInfo() throws IOException {
-        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/SessionInfo.xml")).stream()
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/sessionInfo.xml")).stream()
                 .collect(joining("\n"));
         new Deserializer().parse(fileContent, SessionInfo.class);
     }
