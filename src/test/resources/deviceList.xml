@@ -18,11 +18,11 @@
 
 -->
 <devicelist version="1" fwversion="7.25">
-    <device identifier="08761 0014011" id="16" functionbitmask="35712" fwversion="04.16" manufacturer="AVM"
+    <device identifier="00000 0000001" id="16" functionbitmask="35712" fwversion="04.16" manufacturer="AVM"
             productname="FRITZ!DECT 200">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Erdgeschoss</name>
+        <name>Device1</name>
         <switch>
             <state>1</state>
             <mode>manuell</mode>
@@ -42,11 +42,11 @@
             <offset>0</offset>
         </temperature>
     </device>
-    <device identifier="08761 0015430" id="17" functionbitmask="35712" fwversion="04.16" manufacturer="AVM"
+    <device identifier="00000 0000002" id="17" functionbitmask="35712" fwversion="04.16" manufacturer="AVM"
             productname="FRITZ!DECT 200">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Obergeschoss</name>
+        <name>Device2</name>
         <switch>
             <state>1</state>
             <mode>manuell</mode>
@@ -66,11 +66,11 @@
             <offset>0</offset>
         </temperature>
     </device>
-    <device identifier="09995 0079863" id="20" functionbitmask="320" fwversion="04.94" manufacturer="AVM"
+    <device identifier="00000 0000003" id="20" functionbitmask="320" fwversion="04.94" manufacturer="AVM"
             productname="FRITZ!DECT 301">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Ankleide</name>
+        <name>Device3</name>
         <battery>70</battery>
         <batterylow>0</batterylow>
         <temperature>
@@ -99,11 +99,11 @@
             <holidayactive>0</holidayactive>
         </hkr>
     </device>
-    <device identifier="09995 0080915" id="21" functionbitmask="320" fwversion="04.94" manufacturer="AVM"
+    <device identifier="00000 0000004" id="21" functionbitmask="320" fwversion="04.94" manufacturer="AVM"
             productname="FRITZ!DECT 301">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Schlafzimmer</name>
+        <name>Device4</name>
         <battery>90</battery>
         <batterylow>0</batterylow>
         <temperature>
@@ -132,11 +132,11 @@
             <holidayactive>0</holidayactive>
         </hkr>
     </device>
-    <device identifier="11657 0125523" id="22" functionbitmask="35712" fwversion="04.17" manufacturer="AVM"
+    <device identifier="00000 0000005" id="22" functionbitmask="35712" fwversion="04.17" manufacturer="AVM"
             productname="FRITZ!DECT 210">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Garten</name>
+        <name>Device5</name>
         <switch>
             <state>1</state>
             <mode>manuell</mode>
@@ -156,11 +156,11 @@
             <offset>0</offset>
         </temperature>
     </device>
-    <device identifier="09995 0046922" id="23" functionbitmask="320" fwversion="04.94" manufacturer="AVM"
+    <device identifier="00000 0000006" id="23" functionbitmask="320" fwversion="04.94" manufacturer="AVM"
             productname="FRITZ!DECT 301">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Bad</name>
+        <name>Device6</name>
         <battery>70</battery>
         <batterylow>0</batterylow>
         <temperature>
@@ -189,11 +189,11 @@
             <holidayactive>0</holidayactive>
         </hkr>
     </device>
-    <device identifier="09995 0042119" id="24" functionbitmask="320" fwversion="04.94" manufacturer="AVM"
+    <device identifier="00000 0000007" id="24" functionbitmask="320" fwversion="04.94" manufacturer="AVM"
             productname="FRITZ!DECT 301">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Wohnzimmer</name>
+        <name>Device7</name>
         <battery>50</battery>
         <batterylow>0</batterylow>
         <temperature>
@@ -222,11 +222,11 @@
             <holidayactive>0</holidayactive>
         </hkr>
     </device>
-    <device identifier="11657 0141730" id="25" functionbitmask="35712" fwversion="04.17" manufacturer="AVM"
+    <device identifier="00000 0000008" id="25" functionbitmask="35712" fwversion="04.17" manufacturer="AVM"
             productname="FRITZ!DECT 210">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Garage</name>
+        <name>Device8</name>
         <switch>
             <state>0</state>
             <mode>auto</mode>
@@ -246,11 +246,11 @@
             <offset>0</offset>
         </temperature>
     </device>
-    <device identifier="09995 0365859" id="26" functionbitmask="320" fwversion="04.95" manufacturer="AVM"
+    <device identifier="00000 0000009" id="26" functionbitmask="320" fwversion="04.95" manufacturer="AVM"
             productname="FRITZ!DECT 301">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Gaestezimmer</name>
+        <name>Device9</name>
         <battery>50</battery>
         <batterylow>0</batterylow>
         <temperature>
@@ -279,11 +279,11 @@
             <holidayactive>0</holidayactive>
         </hkr>
     </device>
-    <device identifier="09995 0375159" id="27" functionbitmask="320" fwversion="04.95" manufacturer="AVM"
+    <device identifier="00000 0000010" id="27" functionbitmask="320" fwversion="04.95" manufacturer="AVM"
             productname="FRITZ!DECT 301">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Alte Kueche</name>
+        <name>Device10</name>
         <battery>40</battery>
         <batterylow>0</batterylow>
         <temperature>
@@ -312,11 +312,11 @@
             <holidayactive>0</holidayactive>
         </hkr>
     </device>
-    <device identifier="09995 0375082" id="28" functionbitmask="320" fwversion="04.95" manufacturer="AVM"
+    <device identifier="00000 0000011" id="28" functionbitmask="320" fwversion="04.95" manufacturer="AVM"
             productname="FRITZ!DECT 301">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Kueche</name>
+        <name>Device11</name>
         <battery>100</battery>
         <batterylow>0</batterylow>
         <temperature>
@@ -345,11 +345,11 @@
             <holidayactive>0</holidayactive>
         </hkr>
     </device>
-    <device identifier="11657 0297241" id="29" functionbitmask="35712" fwversion="04.17" manufacturer="AVM"
+    <device identifier="00000 0000012" id="29" functionbitmask="35712" fwversion="04.17" manufacturer="AVM"
             productname="FRITZ!DECT 210">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Garage2</name>
+        <name>Device12</name>
         <switch>
             <state>1</state>
             <mode>manuell</mode>
@@ -369,17 +369,17 @@
             <offset>0</offset>
         </temperature>
     </device>
-    <device identifier="13077 0025375" id="407" functionbitmask="1" fwversion="34.10.16.16.012" manufacturer="AVM"
+    <device identifier="00000 0000013" id="407" functionbitmask="1" fwversion="34.10.16.16.012" manufacturer="AVM"
             productname="FRITZ!DECT 500">
         <present>0</present>
         <txbusy>0</txbusy>
-        <name>Lampe Ankleide</name>
+        <name>Device13</name>
     </device>
-    <device identifier="13077 0025375-1" id="2000" functionbitmask="237572" fwversion="0.0" manufacturer="AVM"
+    <device identifier="00000 0000013-1" id="2000" functionbitmask="237572" fwversion="0.0" manufacturer="AVM"
             productname="FRITZ!DECT 500">
         <present>0</present>
         <txbusy>0</txbusy>
-        <name>Lampe Ankleide</name>
+        <name>Device13</name>
         <simpleonoff>
             <state></state>
         </simpleonoff>
@@ -400,11 +400,11 @@
             <interfaces>512,514,513</interfaces>
         </etsiunitinfo>
     </device>
-    <device identifier="11657 0297237" id="30" functionbitmask="35712" fwversion="04.17" manufacturer="AVM"
+    <device identifier="00000 0000014" id="30" functionbitmask="35712" fwversion="04.17" manufacturer="AVM"
             productname="FRITZ!DECT 210">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>Pool</name>
+        <name>Device14</name>
         <switch>
             <state>1</state>
             <mode>manuell</mode>
@@ -424,11 +424,11 @@
             <offset>0</offset>
         </temperature>
     </device>
-    <device identifier="09995 0610746" id="31" functionbitmask="1048864" fwversion="05.13" manufacturer="AVM"
+    <device identifier="00000 0000015" id="31" functionbitmask="1048864" fwversion="05.13" manufacturer="AVM"
             productname="FRITZ!DECT 440">
         <present>1</present>
         <txbusy>0</txbusy>
-        <name>4erTaster WZ</name>
+        <name>Device15</name>
         <battery>100</battery>
         <batterylow>0</batterylow>
         <temperature>
@@ -438,20 +438,20 @@
         <humidity>
             <rel_humidity>38</rel_humidity>
         </humidity>
-        <button identifier="09995 0610746-1" id="5000">
-            <name>4erTaster WZ: Oben rechts</name>
+        <button identifier="00000 0000015-1" id="5000">
+            <name>Device15: Oben rechts</name>
             <lastpressedtimestamp></lastpressedtimestamp>
         </button>
-        <button identifier="09995 0610746-3" id="5001">
-            <name>4erTaster WZ: Unten rechts</name>
+        <button identifier="00000 0000015-3" id="5001">
+            <name>Device15 Unten rechts</name>
             <lastpressedtimestamp></lastpressedtimestamp>
         </button>
-        <button identifier="09995 0610746-5" id="5002">
-            <name>4erTaster WZ: Unten links</name>
+        <button identifier="00000 0000015-5" id="5002">
+            <name>Device15: Unten links</name>
             <lastpressedtimestamp></lastpressedtimestamp>
         </button>
-        <button identifier="09995 0610746-7" id="5003">
-            <name>4erTaster WZ: Oben links</name>
+        <button identifier="00000 0000015-7" id="5003">
+            <name>Device15: Oben links</name>
             <lastpressedtimestamp></lastpressedtimestamp>
         </button>
     </device>
