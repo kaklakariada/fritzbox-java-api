@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import com.github.kaklakariada.fritzbox.model.SessionInfo;
@@ -90,6 +91,14 @@ public class DeserializerTest {
     public void parseSessionInfo() throws IOException {
         final String fileContent = Files.readAllLines(Paths.get("src/test/resources/sessionInfo.xml")).stream()
                 .collect(joining("\n"));
-        new Deserializer().parse(fileContent, SessionInfo.class);
+        SessionInfo sessionInfo = new Deserializer().parse(fileContent, SessionInfo.class);
+        TestCase.assertNotNull(sessionInfo.getUsers());
+        TestCase.assertEquals(3, sessionInfo.getUsers().size());
+        TestCase.assertEquals("UserA", sessionInfo.getUsers().get(0).getName());
+        TestCase.assertFalse(sessionInfo.getUsers().get(0).isLast());
+        TestCase.assertEquals("UserB", sessionInfo.getUsers().get(1).getName());
+        TestCase.assertFalse(sessionInfo.getUsers().get(1).isLast());
+        TestCase.assertEquals("UserC", sessionInfo.getUsers().get(2).getName());
+        TestCase.assertTrue(sessionInfo.getUsers().get(2).isLast());
     }
 }

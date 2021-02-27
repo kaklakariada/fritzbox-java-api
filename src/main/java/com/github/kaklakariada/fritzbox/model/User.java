@@ -18,13 +18,21 @@
 package com.github.kaklakariada.fritzbox.model;
 
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Text;
 
 public class User {
 
     @Attribute(name = "last", required = false)
-    public boolean last;
+    private int last;
+
+    @Text
+    private String name;
 
     public boolean isLast() {
-        return last;
+        return (last == 1);
+    }
+
+    public String getName() {
+        return name;
     }
 }
