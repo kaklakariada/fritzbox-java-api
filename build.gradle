@@ -122,4 +122,6 @@ signing {
 
 nexusStaging {
     packageGroup = project.group
+    username = getOptionalProperty("ossrhUsername")
+    password = getOptionalProperty("ossrhPassword")
 }
