@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.4.0] - unreleased
 
+* Added new fields to be compatible with Fritz!OS 7.25
+  * Device (Fritz!Dect440) serves now relative humidity
+  * ColorControl (Fritz!Dect500) got some more fields
+  * Added some getter for fields that did miss them
+
 ## [1.3.0] - 2021-02-22
 
 ### Breaking Changes
