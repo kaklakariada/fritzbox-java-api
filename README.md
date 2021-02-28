@@ -6,6 +6,16 @@
 
 Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AHA-HTTP-Interface.pdf) inspired by grundid's [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api). This also runs on Android devices (see [Andect](https://github.com/kaklakariada/Andect)).
 
+## Important: Migration to Maven Central
+
+Due to the [deprecation of JCenter](https://jfrog.com/blog/into-the-sunset-bintray-jcenter-gocenter-and-chartcenter/) new versions will be published to [Maven Central](https://search.maven.org/artifact/com.github.kaklakariada/fritzbox-java-api). In your build script please use
+
+```groovy
+repositories {
+    mavenCentral()
+}
+```
+
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md).
@@ -24,7 +34,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
     ```groovy
     dependencies {
-        compile 'com.github.kaklakariada:fritzbox-java-api:1.3.0'
+        compile 'com.github.kaklakariada:fritzbox-java-api:1.3.1'
     }
     ```
 
@@ -63,13 +73,8 @@ Install to local maven repository:
 3. Run the following command:
 
     ```bash
-    $ ./gradlew clean check build publish --info
+    $ ./gradlew clean check build publish closeAndReleaseRepository --info
     ```
 
 4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
-5. Release the artifacts at Maven Central:
-    1. Login at [oss.sonatype.org](https://oss.sonatype.org).
-    2. Go to the [staging repositories](https://oss.sonatype.org/#stagingRepositories).
-    3. Select repository named `comgithubkaklakariada-*` and click the "Close" button.
-    4. When closing was successfull, click the "Release" button.
-    5. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).
+5. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).
