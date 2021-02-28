@@ -27,7 +27,7 @@ public class PowerMeterAssert extends AbstractObjectAssert<PowerMeterAssert, Pow
 
     private static final String ERROR_MESSAGE = "Expected %s to be <%s> but was <%s> (%s)";
 
-    public PowerMeterAssert(PowerMeter actual) {
+    PowerMeterAssert(PowerMeter actual) {
         super(actual, PowerMeterAssert.class);
     }
 

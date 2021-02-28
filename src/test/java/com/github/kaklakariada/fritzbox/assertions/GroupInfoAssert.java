@@ -30,7 +30,7 @@ public class GroupInfoAssert extends AbstractObjectAssert<GroupInfoAssert, Group
 
     private static final String ERROR_MESSAGE = "Expected %s to be <%s> but was <%s> (%s)";
 
-    public GroupInfoAssert(GroupInfo actual) {
+    GroupInfoAssert(GroupInfo actual) {
         super(actual, GroupInfoAssert.class);
     }
 

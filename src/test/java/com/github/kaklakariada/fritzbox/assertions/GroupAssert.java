@@ -27,7 +27,7 @@ public class GroupAssert extends AbstractObjectAssert<GroupAssert, Group> {
 
     private static final String ERROR_MESSAGE = "Expected %s to be <%s> but was <%s> (%s)";
 
-    public GroupAssert(Group actual) {
+    GroupAssert(Group actual) {
         super(actual, GroupAssert.class);
     }
 

@@ -27,7 +27,7 @@ public class SwitchStateAssert extends AbstractObjectAssert<SwitchStateAssert, S
 
     private static final String ERROR_MESSAGE = "Expected %s to be <%s> but was <%s> (%s)";
 
-    public SwitchStateAssert(SwitchState actual) {
+    SwitchStateAssert(SwitchState actual) {
         super(actual, SwitchStateAssert.class);
     }
 

@@ -26,7 +26,7 @@ public class DeviceListAssert extends AbstractObjectAssert<DeviceListAssert, Dev
 
     private static final String ERROR_MESSAGE = "Expected %s to be <%s> but was <%s> (%s)";
 
-    public DeviceListAssert(DeviceList actual) {
+    DeviceListAssert(DeviceList actual) {
         super(actual, DeviceListAssert.class);
     }
 
