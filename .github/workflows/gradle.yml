@@ -44,7 +44,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Publish Test Report
       uses: scacap/action-surefire-report@v1
-      if: ${{ always() && secrets.GITHUB_TOKEN != null }}
+      if: always()
       with:
         report_paths: '**/build/test-results/*/TEST-*.xml'
         github_token: ${{ secrets.GITHUB_TOKEN }}
