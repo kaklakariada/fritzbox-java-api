@@ -41,7 +41,7 @@ public class Device {
 
     @Element(name = "present")
     private String present;
-    @Element(name = "txbusy")
+    @Element(name = "txbusy", required = false)
     private String txbusy;
     @Element(name = "name")
     private String name;

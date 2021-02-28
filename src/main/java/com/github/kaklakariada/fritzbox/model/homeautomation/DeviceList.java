@@ -34,7 +34,11 @@ public class DeviceList {
     @ElementList(name = "device", type = Device.class, inline = true)
     private List<Device> devices;
 
-    @Attribute(name = "fwversion")
+    @ElementList(name = "group", type = Group.class, inline = true, required = false)
+    private List<Group> groups;
+
+
+    @Attribute(name = "fwversion", required = false, empty = "n/a")
     private String firmwareVersion;
 
     public String getApiVersion() {
@@ -43,6 +47,10 @@ public class DeviceList {
 
     public List<Device> getDevices() {
         return devices;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
     }
 
     public Device getDeviceByIdentifier(String identifier) {
@@ -67,6 +75,13 @@ public class DeviceList {
 
     private static String normalizeIdentifier(String identifier) {
         return identifier.replace(" ", "");
+    }
+
+    public Group getGroupById(String id) {
+        return groups.stream()
+                .filter(group -> group.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

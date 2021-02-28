@@ -48,11 +48,13 @@ dependencies {
     
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.mockito:mockito-core:3.5.15'
+    testImplementation 'org.assertj:assertj-core:3.19.0'
 }
 
 license {
     header = file('gradle/license-header.txt')
     exclude('**/deviceList*Payload.xml')
+    exclude('devicelist6840.xml')
 }
 
 jacocoTestReport {
