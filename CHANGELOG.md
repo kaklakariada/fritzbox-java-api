@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.4.0] - unreleased
 
+### Added
+
+* [#19](https://github.com/kaklakariada/fritzbox-java-api/pull/19) Support for device groups
+
 ## [1.3.1] - 2021-02-26
 
 * No changes, update deployment to Maven Central
