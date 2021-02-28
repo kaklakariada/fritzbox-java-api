@@ -17,17 +17,32 @@
  */
 package com.github.kaklakariada.fritzbox.mapping;
 
+import static com.github.kaklakariada.fritzbox.assertions.HomeAutomationAssertions.assertThat;
 import static java.util.stream.Collectors.joining;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
+import com.github.kaklakariada.fritzbox.model.homeautomation.Group;
+import com.github.kaklakariada.fritzbox.model.homeautomation.GroupInfo;
+import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
+import com.github.kaklakariada.fritzbox.model.homeautomation.SwitchState;
 
 public class DeserializerTest {
+
+    private static DeviceList deviceList6840 = null;
+
+    @BeforeClass
+    public static void setupDeviceList6840() throws IOException {
+        final String fileContent6840 = String.join("\n", Files.readAllLines(Paths.get("src/test/resources/devicelist6840.xml")));
+        deviceList6840 = new Deserializer().parse(fileContent6840, DeviceList.class);
+        assertThat(deviceList6840).hasGroupsSize(2);
+    }
 
     @Test
     public void parseDeviceListFritzDect200() throws IOException {
@@ -76,6 +91,63 @@ public class DeserializerTest {
         final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListAllTogetherPayload.xml")).stream()
                 .collect(joining("\n"));
         new Deserializer().parse(fileContent, DeviceList.class);
+    }
+
+    @Test
+    public void parseDeviceGroup() {
+        //given
+        Group group = deviceList6840.getGroupById("900");
+        //then
+        assertThat(group)
+                .hasName("PV")
+                .hasPresent("1");
+    }
+
+    @Test
+    public void parseDeviceGroupSwitch() {
+        //given
+        Group group = deviceList6840.getGroupById("900");
+
+        //when
+        SwitchState switchState = group.getSwitchState();
+
+        //then
+        assertThat(switchState)
+                .isOn(true)
+                .isDeviceLocked(false)
+                .isLocked(false)
+                .hasMode(SwitchState.SwitchMode.MANUAL);
+
+    }
+
+    @Test
+    public void parseDeviceGroupPowerMeter() {
+        //given
+        Group group = deviceList6840.getGroupById("900");
+
+        //when
+        PowerMeter powerMeter = group.getPowerMeter();
+
+        //then
+        assertThat(powerMeter)
+                .hasEnergyWattHours(875112)
+                .hasPowerMilliWatt(38480);
+
+    }
+
+    @Test
+    public void parseDeviceGroupGroupInfo() {
+        //given
+        Group group = deviceList6840.getGroupById("900");
+
+        //when
+        GroupInfo groupInfo = group.getGroupInfo();
+
+        //then
+        assertThat(groupInfo)
+                .hasMasterDeviceId("0")
+                .containsAllMembers("16");
+
     }
 
 }

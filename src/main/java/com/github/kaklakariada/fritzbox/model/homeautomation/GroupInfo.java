@@ -17,38 +17,33 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "powermeter", strict = false)
-public class PowerMeter {
+@Root(name="groupinfo")
+public class GroupInfo {
 
-    @Element(name = "voltage", required = false)
-    private int voltageMilliVolt;
-    @Element(name = "power", required = false)
-    private int powerMilliWatt;
-    @Element(name = "energy", required = false)
-    private int energyWattHours;
+    @Element(name="masterdeviceid")
+    private String masterDeviceId;
 
-    public float getVoltageVolt() {
-        return voltageMilliVolt / 1000F;
+    /**
+     * Comma seperated list of devices identfied by their id.
+     */
+    @Element(name="members")
+    private String members;
+
+    public String getMasterDeviceId() {
+        return masterDeviceId;
     }
 
-    public float getPowerWatt() {
-        return powerMilliWatt / 1000F;
+    public String getMembers() {
+        return members;
     }
 
-    public int getEnergyWattHours() {
-        return energyWattHours;
-    }
-
-    public int getPowerMilliWatt() {
-        return powerMilliWatt;
-    }
-
-    @Override
-    public String toString() {
-        return "PowerMeter [voltage=" + getVoltageVolt() + ", energyWattHours=" + energyWattHours + ", powerWatt="
-                + getPowerWatt() + "]";
+    public List<String> getMemberList() {
+        return Arrays.asList(this.members.split(","));
     }
 }
