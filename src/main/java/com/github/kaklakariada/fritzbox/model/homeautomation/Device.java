@@ -68,6 +68,8 @@ public class Device {
     private EtsiUnitInfo etsiUnitInfo;
     @ElementList(name = "buttons", required = false, inline = true)
     private List<Button> buttons;
+    @Element(name = "humidity", required = false)
+    private Humidity humidity;
 
     public String getIdentifier() {
         return identifier;
@@ -147,6 +149,22 @@ public class Device {
 
     public List<Button> getButtons() {
         return buttons;
+    }
+
+    public String getPresent() {
+        return present;
+    }
+
+    public String getTxbusy() {
+        return txbusy;
+    }
+
+    public Integer getBatterylow() {
+        return batterylow;
+    }
+
+    public Humidity getHumidity() {
+        return humidity;
     }
 
     @Override

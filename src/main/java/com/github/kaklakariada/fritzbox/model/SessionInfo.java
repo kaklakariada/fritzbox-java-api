@@ -38,6 +38,9 @@ public class SessionInfo {
     @ElementList(name = "Rights", inline = false, required = false)
     private List<UserRight> rights;
 
+    @ElementList(name = "Users", inline = false, required = false)
+    private List<User> users;
+
     public String getSid() {
         return sid;
     }
@@ -52,6 +55,10 @@ public class SessionInfo {
 
     public List<UserRight> getRights() {
         return rights;
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 
     @Override

@@ -24,9 +24,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import junit.framework.TestCase;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.github.kaklakariada.fritzbox.model.SessionInfo;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 import com.github.kaklakariada.fritzbox.model.homeautomation.Group;
 import com.github.kaklakariada.fritzbox.model.homeautomation.GroupInfo;
@@ -94,6 +96,26 @@ public class DeserializerTest {
     }
 
     @Test
+    public void parseDeviceList() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceList.xml")).stream()
+                .collect(joining("\n"));
+        new Deserializer().parse(fileContent, DeviceList.class);
+    }
+
+    @Test
+    public void parseSessionInfo() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/sessionInfo.xml")).stream()
+                .collect(joining("\n"));
+        SessionInfo sessionInfo = new Deserializer().parse(fileContent, SessionInfo.class);
+        TestCase.assertNotNull(sessionInfo.getUsers());
+        TestCase.assertEquals(3, sessionInfo.getUsers().size());
+        TestCase.assertEquals("UserA", sessionInfo.getUsers().get(0).getName());
+        TestCase.assertFalse(sessionInfo.getUsers().get(0).isLast());
+        TestCase.assertEquals("UserB", sessionInfo.getUsers().get(1).getName());
+        TestCase.assertFalse(sessionInfo.getUsers().get(1).isLast());
+        TestCase.assertEquals("UserC", sessionInfo.getUsers().get(2).getName());
+        TestCase.assertTrue(sessionInfo.getUsers().get(2).isLast());
+    }
     public void parseDeviceGroup() {
         //given
         Group group = deviceList6840.getGroupById("900");
