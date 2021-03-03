@@ -4,10 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.0] - unreleased
+## [1.5.0] - unreleased
+
+## [1.4.0] - 2021-03-03
 
 ### Added
-* [#18] Added new fields to be compatible with Fritz!OS 7.25
+* [#18](https://github.com/kaklakariada/fritzbox-java-api/pull/18) Added new fields to be compatible with Fritz!OS 7.25
   * Device (Fritz!Dect440) serves now relative humidity
   * ColorControl (Fritz!Dect500) got some more fields
   * Added some getter for fields that did miss them
