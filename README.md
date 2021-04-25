@@ -34,7 +34,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
     ```groovy
     dependencies {
-        compile 'com.github.kaklakariada:fritzbox-java-api:1.3.1'
+        compile 'com.github.kaklakariada:fritzbox-java-api:1.4.0'
     }
     ```
 
