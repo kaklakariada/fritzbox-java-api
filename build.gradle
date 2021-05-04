@@ -3,9 +3,9 @@ plugins {
     id "signing"
     id "maven-publish"
     id "jacoco"
-    id "com.github.hierynomus.license" version "0.15.0"
-    id "org.sonarqube" version "3.1.1"
-    id "io.codearte.nexus-staging" version "0.22.0"
+    id "com.github.hierynomus.license" version "0.16.1"
+    id "org.sonarqube" version "3.2.0"
+    id "io.codearte.nexus-staging" version "0.30.0"
 }
 
 repositories {
@@ -40,14 +40,14 @@ test {
 }
 
 dependencies {
-    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.subshell.simpleframework:simple-xml:2.9.0'
     implementation 'org.slf4j:slf4j-api:1.7.30'
     
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
     
-    testImplementation 'junit:junit:4.13.1'
-    testImplementation 'org.mockito:mockito-core:3.5.15'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:3.9.0'
     testImplementation 'org.assertj:assertj-core:3.19.0'
 }
 
