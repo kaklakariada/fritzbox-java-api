@@ -31,7 +31,7 @@ jobs:
       with:
         java-version: 11
     - name: Build with Gradle
-      run: ./gradlew clean build --info --stacktrace --warning-mode all
+      run: ./gradlew clean build --info --warning-mode all
     - name: Publish Test Report
       uses: scacap/action-surefire-report@v1
       if: always()
@@ -44,7 +44,7 @@ jobs:
         ./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io \
                             -Dsonar.organization=kaklakariada-github \
                             -Dsonar.login=$SONAR_TOKEN \
-                            --info --stacktrace --warning-mode=summary
+                            --info --warning-mode=summary
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
