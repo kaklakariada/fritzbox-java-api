@@ -42,7 +42,7 @@ test {
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.subshell.simpleframework:simple-xml:2.9.0'
-    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-api:1.7.31'
     
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
     
