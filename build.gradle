@@ -6,6 +6,7 @@ plugins {
     id "com.github.hierynomus.license" version "0.16.1"
     id "org.sonarqube" version "3.3"
     id "io.codearte.nexus-staging" version "0.30.0"
+    id "com.github.ben-manes.versions" version "0.39.0"
 }
 
 repositories {
@@ -42,9 +43,9 @@ test {
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.subshell.simpleframework:simple-xml:2.9.0'
-    implementation 'org.slf4j:slf4j-api:1.7.31'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
     
-    runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.5'
     
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.11.2'
@@ -59,7 +60,7 @@ license {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
+        xml.required = true
     }
 }
 
@@ -126,4 +127,17 @@ nexusStaging {
     packageGroup = project.group
     username = getOptionalProperty("ossrhUsername")
     password = getOptionalProperty("ossrhPassword")
+}
+
+def isNonStable = { String version ->
+  def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+  def regex = /^[0-9,.v-]+(-r)?$/
+  return !stableKeyword && !(version ==~ regex)
+}
+
+tasks.named("dependencyUpdates").configure {
+  gradleReleaseChannel = "current"
+  rejectVersionIf {
+    isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
+  }
 }
