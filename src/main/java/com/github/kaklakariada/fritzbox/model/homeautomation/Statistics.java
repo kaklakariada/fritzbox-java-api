@@ -17,26 +17,41 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import java.util.List;
-
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Text;
 
-@Root(name = "humidity")
-public class Humidity implements StatisticsInterface {
+@Root(name = "stats")
+public class Statistics {
 
-    @Element(name = "rel_humidity", required = false)
-    private int relHumidity;
+    private MEASUREMENT_UNIT measurementUnit;
 
-    @ElementList(name = "stats", required = false, inline = true)
-    private List<Statistics> stats;
+    @Attribute(name = "count", required = false)
+    private int count;
 
-    public int getRelHumidity() {
-        return relHumidity;
+    @Attribute(name = "grid", required = false)
+    private int grid;
+
+    @Text()
+    private String csvValues;
+
+    public int getCount() {
+        return count;
     }
 
-    public List<Statistics> getStats() {
-        return getStats(stats, this.getClass()) ;
+    public int getGrid() {
+        return grid;
+    }
+
+    public String getCsvValues() {
+        return csvValues;
+    }
+
+    public MEASUREMENT_UNIT getMeasurementUnit() {
+        return measurementUnit;
+    }
+
+    public void setMeasurementUnit(final MEASUREMENT_UNIT measurementUnit) {
+        this.measurementUnit = measurementUnit;
     }
 }

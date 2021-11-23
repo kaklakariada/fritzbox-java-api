@@ -19,22 +19,14 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import java.util.List;
 
-import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-@Root(name = "humidity")
-public class Humidity implements StatisticsInterface {
-
-    @Element(name = "rel_humidity", required = false)
-    private int relHumidity;
+@Root(name = "voltage")
+public class Voltage implements StatisticsInterface {
 
     @ElementList(name = "stats", required = false, inline = true)
     private List<Statistics> stats;
-
-    public int getRelHumidity() {
-        return relHumidity;
-    }
 
     public List<Statistics> getStats() {
         return getStats(stats, this.getClass()) ;

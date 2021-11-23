@@ -22,16 +22,24 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
 import com.github.kaklakariada.fritzbox.model.homeautomation.Device;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
+import com.github.kaklakariada.fritzbox.model.homeautomation.Energy;
+import com.github.kaklakariada.fritzbox.model.homeautomation.MEASUREMENT_UNIT;
 import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
+import com.github.kaklakariada.fritzbox.model.homeautomation.Statistics;
 
 public class TestDriver {
     private static final Logger LOG = LoggerFactory.getLogger(TestDriver.class);
@@ -62,6 +70,7 @@ public class TestDriver {
         final String ain = ids.get(0);
 
         // testEnergyStats(homeAutomation, devices.getDevices().get(0).getId());
+        testEnergyStatsNew(homeAutomation, ain);
         testHomeAutomation(homeAutomation, ain);
     }
 
@@ -71,6 +80,44 @@ public class TestDriver {
             final String energyStatistics = service.getEnergyStatistics(deviceId, timeRange);
             LOG.debug("Statistics {}: {}", timeRange, energyStatistics);
         }
+    }
+
+    private static void testEnergyStatsNew(HomeAutomation homeAutomation, String ain) {
+        final Optional<Energy> energy = homeAutomation.getBasicStatistics(ain).getEnergy();
+        if (energy.isEmpty()) {
+            LOG.error("No Statistics for energy consumption gathered");
+            return;
+        }
+        Optional<Statistics> dailyEnergy = energy.get().getStats()
+                .stream()
+                .filter(stats -> stats.getGrid() == 86400)
+                .findAny();
+        if (dailyEnergy.isEmpty()) {
+            LOG.error("No Statistics for energy consumption 'per day' gathered");
+            return;
+        }
+        MEASUREMENT_UNIT measurementUnit = dailyEnergy.get().getMeasurementUnit();
+        List<Double> dailyConsumption = Arrays.asList(dailyEnergy.get().getCsvValues().split(","))
+                .stream()
+                .map(aDay -> {
+                    if (StringUtils.isNumeric(aDay.trim())) {
+                        Integer intValue =  Integer.valueOf(aDay.trim());
+                        Double doubleValue = Double.valueOf(intValue*measurementUnit.getPrescision());
+                        return doubleValue;
+                    }
+                    return null;
+                })
+                .collect(Collectors.toList());
+
+        StringBuffer sb = new StringBuffer();
+        for (final Double dailyValue : dailyConsumption) {
+            if (dailyValue != null) {
+            sb.append(dailyValue).append(measurementUnit.getUnit()).append(" ");
+            } else {
+                sb.append("-").append(" ");
+            }
+        }
+        LOG.debug("Statistics dails energy consumption: {}", sb.toString());
     }
 
     private static void testHomeAutomation(final HomeAutomation homeAutomation, final String ain)
@@ -83,6 +130,7 @@ public class TestDriver {
         LOG.info("Switch {} has used {}Wh", ain, homeAutomation.getSwitchEnergyWattHour(ain));
         LOG.info("Switch {} has name '{}'", ain, homeAutomation.getSwitchName(ain));
         LOG.info("Switch {} has temperature {}°C", ain, homeAutomation.getTemperature(ain));
+        LOG.info("Switch {} statistics '{}'", ain, homeAutomation.getBasicStatistics(ain));
 
         while (true) {
             final List<Device> devices = homeAutomation.getDeviceListInfos().getDevices();
