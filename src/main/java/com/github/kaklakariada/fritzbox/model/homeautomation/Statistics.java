@@ -17,6 +17,12 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
@@ -43,10 +49,36 @@ public class Statistics {
         return grid;
     }
 
+    /**
+     * provide the gathered data as provided by Fritz!Box
+     * @return
+     */
     public String getCsvValues() {
         return csvValues;
     }
 
+    /**
+     * provide the gathered data as computed as meant to be used by AVM
+     * @return
+     */
+    public List<Optional<Number>> getValues() {
+        List<Optional<Number>> valueComputed = Arrays.asList(getCsvValues().split(","))
+                .stream()
+                .map(aValue -> Optional.ofNullable(computeValue(aValue)))
+                .collect(Collectors.toList());
+        return valueComputed;
+    }
+
+    /**
+     * provide the measurement unit to be used with the statistics.<p>
+     * Consists of:
+     * <li>measurment unit [V, W, Wh, %]</li>
+     * <li>precision as double to multiply with the gathered Integer</li>
+     * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided
+     * by the statistics must be multiplied by the precision which gives us 237.123 V.
+     * 
+     * @return
+     */
     public MEASUREMENT_UNIT getMeasurementUnit() {
         return measurementUnit;
     }
@@ -54,4 +86,20 @@ public class Statistics {
     public void setMeasurementUnit(final MEASUREMENT_UNIT measurementUnit) {
         this.measurementUnit = measurementUnit;
     }
+
+    private Number computeValue(String aValue) {
+        Number numberValue = null;
+        if (StringUtils.isNumeric(aValue.trim())) {
+            Integer intValue =  Integer.valueOf(aValue.trim());
+            if (measurementUnit.getPrescision() instanceof Double) {
+                numberValue = Double.valueOf(intValue*(Double)measurementUnit.getPrescision());
+            } else {
+                numberValue = Integer.valueOf(intValue*(Integer)measurementUnit.getPrescision());
+            }
+            return numberValue;
+        } 
+        return null;
+    }
+
+
 }

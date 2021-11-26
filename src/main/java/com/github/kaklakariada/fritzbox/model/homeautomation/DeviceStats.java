@@ -40,19 +40,19 @@ public class DeviceStats {
     @Element(name = "humidity", type = Humidity.class, required = false)
     private Humidity humidity;
 
-    public Optional<Temperature> getTemperature() {
+    public Optional<AbstractDeviceStatistics> getTemperature() {
         return Optional.ofNullable(temperature);
     }
-    public Optional<Voltage> getVoltage() {
+    public Optional<AbstractDeviceStatistics> getVoltage() {
         return Optional.ofNullable(voltage);
     }
-    public Optional<Power> getPower() {
+    public Optional<AbstractDeviceStatistics> getPower() {
         return Optional.ofNullable(power);
     }
-    public Optional<Energy> getEnergy() {
+    public Optional<AbstractDeviceStatistics> getEnergy() {
         return Optional.ofNullable(energy);
     }
-    public Optional<Humidity> getHumidity() {
+    public Optional<AbstractDeviceStatistics> getHumidity() {
         return Optional.ofNullable(humidity);
     }
 

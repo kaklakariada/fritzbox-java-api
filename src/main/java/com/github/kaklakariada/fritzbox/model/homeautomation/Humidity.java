@@ -24,7 +24,7 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root(name = "humidity")
-public class Humidity implements StatisticsInterface {
+public class Humidity  extends AbstractDeviceStatistics {
 
     @Element(name = "rel_humidity", required = false)
     private int relHumidity;
@@ -37,6 +37,6 @@ public class Humidity implements StatisticsInterface {
     }
 
     public List<Statistics> getStats() {
-        return getStats(stats, this.getClass()) ;
+        return getStats(stats, MEASUREMENT_UNIT.getMatchingMeasurementUnit(this.getClass())) ;
     }
 }

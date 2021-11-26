@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
+import com.github.kaklakariada.fritzbox.model.homeautomation.AbstractDeviceStatistics;
 import com.github.kaklakariada.fritzbox.model.homeautomation.Device;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 import com.github.kaklakariada.fritzbox.model.homeautomation.Energy;
@@ -71,6 +72,7 @@ public class TestDriver {
 
         // testEnergyStats(homeAutomation, devices.getDevices().get(0).getId());
         testEnergyStatsNew(homeAutomation, ain);
+        testVoltageStatsNew(homeAutomation, ain);
         testHomeAutomation(homeAutomation, ain);
     }
 
@@ -83,42 +85,55 @@ public class TestDriver {
     }
 
     private static void testEnergyStatsNew(HomeAutomation homeAutomation, String ain) {
-        final Optional<Energy> energy = homeAutomation.getBasicStatistics(ain).getEnergy();
+        final Optional<AbstractDeviceStatistics> energy = homeAutomation.getBasicStatistics(ain).getEnergy();
         if (energy.isEmpty()) {
             LOG.error("No Statistics for energy consumption gathered");
             return;
         }
-        Optional<Statistics> dailyEnergy = energy.get().getStats()
-                .stream()
-                .filter(stats -> stats.getGrid() == 86400)
-                .findAny();
+        Optional<Statistics> dailyEnergy = energy.get().getStatisticsByGrid(86400);
         if (dailyEnergy.isEmpty()) {
             LOG.error("No Statistics for energy consumption 'per day' gathered");
             return;
         }
         MEASUREMENT_UNIT measurementUnit = dailyEnergy.get().getMeasurementUnit();
-        List<Double> dailyConsumption = Arrays.asList(dailyEnergy.get().getCsvValues().split(","))
-                .stream()
-                .map(aDay -> {
-                    if (StringUtils.isNumeric(aDay.trim())) {
-                        Integer intValue =  Integer.valueOf(aDay.trim());
-                        Double doubleValue = Double.valueOf(intValue*measurementUnit.getPrescision());
-                        return doubleValue;
-                    }
-                    return null;
-                })
-                .collect(Collectors.toList());
+        List<Optional<Number>> dailyConsumption = dailyEnergy.get().getValues();
 
         StringBuffer sb = new StringBuffer();
-        for (final Double dailyValue : dailyConsumption) {
-            if (dailyValue != null) {
-            sb.append(dailyValue).append(measurementUnit.getUnit()).append(" ");
+        for (final Optional<Number> dailyValue : dailyConsumption) {
+            if (dailyValue.isPresent()) {
+            sb.append(dailyValue.get()).append(measurementUnit.getUnit()).append(" ");
             } else {
                 sb.append("-").append(" ");
             }
         }
-        LOG.debug("Statistics dails energy consumption: {}", sb.toString());
+        LOG.debug("Statistics daily energy consumption: {}", sb.toString());
     }
+    
+    private static void testVoltageStatsNew(HomeAutomation homeAutomation, String ain) {
+        final Optional<AbstractDeviceStatistics> power = homeAutomation.getBasicStatistics(ain).getPower();
+        if (power.isEmpty()) {
+            LOG.error("No Statistics for power consumption gathered");
+            return;
+        }
+        Optional<Statistics> sixMinsVoltage = power.get().getStatisticsByGrid(10);
+        if (sixMinsVoltage.isEmpty()) {
+            LOG.error("No Statistics for power consumption 'per 10 seconds interval' gathered");
+            return;
+        }
+        MEASUREMENT_UNIT measurementUnit = sixMinsVoltage.get().getMeasurementUnit();
+        List<Optional<Number>> sixMinutestConsumption = sixMinsVoltage.get().getValues();
+
+        StringBuffer sb = new StringBuffer();
+        for (final Optional<Number> intervalValue : sixMinutestConsumption) {
+            if (intervalValue.isPresent()) {
+            sb.append(intervalValue.get()).append(measurementUnit.getUnit()).append(" ");
+            } else {
+                sb.append("-").append(" ");
+            }
+        }
+        LOG.debug("Statistics power detetcted: {}", sb.toString());
+    }
+
 
     private static void testHomeAutomation(final HomeAutomation homeAutomation, final String ain)
             throws InterruptedException {

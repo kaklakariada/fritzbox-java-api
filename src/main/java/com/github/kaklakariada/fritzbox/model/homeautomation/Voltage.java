@@ -23,12 +23,12 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root(name = "voltage")
-public class Voltage implements StatisticsInterface {
+public class Voltage extends AbstractDeviceStatistics {
 
     @ElementList(name = "stats", required = false, inline = true)
     private List<Statistics> stats;
 
     public List<Statistics> getStats() {
-        return getStats(stats, this.getClass()) ;
+        return getStats(stats, MEASUREMENT_UNIT.getMatchingMeasurementUnit(this.getClass())) ;
     }
 }

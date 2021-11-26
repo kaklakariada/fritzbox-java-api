@@ -24,7 +24,7 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root(name = "temperature")
-public class Temperature implements StatisticsInterface {
+public class Temperature extends AbstractDeviceStatistics {
 
     @Element(name = "celsius", required = false)
     private int deciCelsius;
@@ -40,7 +40,7 @@ public class Temperature implements StatisticsInterface {
     }
 
     public List<Statistics> getStats() {
-        return getStats(stats, this.getClass()) ;
+        return getStats(stats, MEASUREMENT_UNIT.getMatchingMeasurementUnit(this.getClass())) ;
     }
 
     @Override
