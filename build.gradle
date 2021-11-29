@@ -41,15 +41,15 @@ test {
 }
 
 dependencies {
-    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.subshell.simpleframework:simple-xml:2.9.0'
     implementation 'org.slf4j:slf4j-api:1.7.32'
     
-    runtimeOnly 'ch.qos.logback:logback-classic:1.2.5'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.7'
     
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:3.11.2'
-    testImplementation 'org.assertj:assertj-core:3.20.2'
+    testImplementation 'org.mockito:mockito-core:4.1.0'
+    testImplementation 'org.assertj:assertj-core:3.21.0'
 }
 
 license {
