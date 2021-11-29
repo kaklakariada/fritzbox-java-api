@@ -10,37 +10,49 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [11, 17]
+    env:
+      DEFAULT_JAVA: 17
 
     steps:
     - uses: actions/checkout@v1
+    
     - uses: actions/cache@v1
       with:
         path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+        key: ${{ runner.os }}-java-${{ matrix.java }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: |
-          ${{ runner.os }}-gradle-
+          ${{ runner.os }}-java-${{ matrix.java }}-gradle-
+    
     - name: Cache SonarQube packages
       uses: actions/cache@v2
       with:
         path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
+        key: ${{ runner.os }}-java-${{ matrix.java }}-sonar
+        restore-keys: ${{ runner.os }}-java-${{ matrix.java }}-sonar
+
     - uses: gradle/wrapper-validation-action@v1
-    - name: Set up JDK 11
+
+    - name: Setup Java ${{ matrix.java }}
       uses: actions/setup-java@v2
       with:
-        distribution: 'adopt'
-        java-version: 11
+        distribution: 'temurin'
+        java-version: ${{ matrix.java }}
+
     - name: Build with Gradle
       run: ./gradlew clean build --info --warning-mode all
-    - name: Publish Test Report
+
+    - name: Publish Test Report for Java ${{ matrix.java }}
       uses: scacap/action-surefire-report@v1
       if: always()
       with:
         report_paths: '**/build/test-results/*/TEST-*.xml'
         github_token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Sonar analysis
-      if: ${{ env.SONAR_TOKEN != null }}
+      if: ${{ env.DEFAULT_JAVA == matrix.java && env.SONAR_TOKEN != null }}
       run: |
         ./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io \
                             -Dsonar.organization=kaklakariada-github \
@@ -49,6 +61,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     - name: Publish Test Report
       uses: scacap/action-surefire-report@v1
       if: ${{ always() && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]' }}
