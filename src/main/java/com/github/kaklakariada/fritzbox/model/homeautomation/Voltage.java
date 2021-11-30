@@ -24,11 +24,16 @@ import org.simpleframework.xml.Root;
 
 @Root(name = "voltage")
 public class Voltage extends AbstractDeviceStatistics {
-
+    
     @ElementList(name = "stats", required = false, inline = true)
     private List<Statistics> stats;
 
     public List<Statistics> getStats() {
-        return getStats(stats, MEASUREMENT_UNIT.getMatchingMeasurementUnit(this.getClass())) ;
+        return getStats(stats, MeasurementUnit.getMatchingMeasurementUnit(this.getClass())) ;
+    }
+    
+    @Override
+    protected List<String> statisticsToString() {
+        return statisticsToString(MeasurementUnit.getMatchingMeasurementUnit(this.getClass()).name());
     }
 }

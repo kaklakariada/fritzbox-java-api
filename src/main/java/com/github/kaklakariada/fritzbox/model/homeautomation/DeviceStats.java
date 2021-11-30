@@ -17,6 +17,8 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.simpleframework.xml.Element;
@@ -57,19 +59,27 @@ public class DeviceStats {
     }
 
 
-    //        @Override
-    //        public String toString() {
-    //            final StringBuffer sb = new StringBuffer();
-    //            sb.append(String.format("Temperature %s values",
-    //                    temperature != null ? temperature.getStats().getCount() : "none"));
-    //            sb.append(", ");
-    //            sb.append(String.format("Voltage %s values", voltage != null ? voltage.getStats().getCount() : "none"));
-    //            sb.append(", ");
-    //            sb.append(String.format("Power %s values", power != null ? power.getStats().getCount() : "none"));
-    //            sb.append(", ");
-    //            sb.append(String.format("Energy %s values", energy != null ? energy.getStats().get(0).getCount() : "none"));
-    //            sb.append(", ");
-    //            sb.append(String.format("Humidity %s values", humidity != null ? humidity.getStats().getCount() : "none"));
-    //            return "Basic Device Statistcs [" + sb.toString() + "]";
-    //        }
+    @Override
+    public String toString() {
+        List<String> allStatistics = new ArrayList<>();
+        if (getTemperature().isPresent()) {
+            allStatistics.addAll(getTemperature().get().statisticsToString());
+        }
+        if (getVoltage().isPresent()) {
+            allStatistics.addAll(getVoltage().get().statisticsToString());
+        }
+        if (getPower().isPresent()) {
+            allStatistics.addAll(getPower().get().statisticsToString());
+        }
+        if (getEnergy().isPresent()) {
+            allStatistics.addAll(getEnergy().get().statisticsToString());
+        }
+        if (getHumidity().isPresent()) {
+            allStatistics.addAll(getHumidity().get().statisticsToString());
+        }
+        final StringBuffer sb = new StringBuffer();
+        sb.append(" ---> ").append("\n\n\tStatistics").append("\n\t==========\n");
+        allStatistics.forEach(stats -> sb.append("\t").append(stats).append("\n"));
+        return sb.toString();
+    }
 }

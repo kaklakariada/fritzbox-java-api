@@ -22,14 +22,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +32,7 @@ import com.github.kaklakariada.fritzbox.EnergyStatisticsService.EnergyStatsTimeR
 import com.github.kaklakariada.fritzbox.model.homeautomation.AbstractDeviceStatistics;
 import com.github.kaklakariada.fritzbox.model.homeautomation.Device;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
-import com.github.kaklakariada.fritzbox.model.homeautomation.Energy;
-import com.github.kaklakariada.fritzbox.model.homeautomation.MEASUREMENT_UNIT;
+import com.github.kaklakariada.fritzbox.model.homeautomation.MeasurementUnit;
 import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
 import com.github.kaklakariada.fritzbox.model.homeautomation.Statistics;
 
@@ -95,7 +89,7 @@ public class TestDriver {
             LOG.error("No Statistics for energy consumption 'per day' gathered");
             return;
         }
-        MEASUREMENT_UNIT measurementUnit = dailyEnergy.get().getMeasurementUnit();
+        MeasurementUnit measurementUnit = dailyEnergy.get().getMeasurementUnit();
         List<Optional<Number>> dailyConsumption = dailyEnergy.get().getValues();
 
         StringBuffer sb = new StringBuffer();
@@ -120,7 +114,7 @@ public class TestDriver {
             LOG.error("No Statistics for power consumption 'per 10 seconds interval' gathered");
             return;
         }
-        MEASUREMENT_UNIT measurementUnit = sixMinsVoltage.get().getMeasurementUnit();
+        MeasurementUnit measurementUnit = sixMinsVoltage.get().getMeasurementUnit();
         List<Optional<Number>> sixMinutestConsumption = sixMinsVoltage.get().getValues();
 
         StringBuffer sb = new StringBuffer();

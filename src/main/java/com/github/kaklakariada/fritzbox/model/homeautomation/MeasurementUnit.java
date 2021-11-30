@@ -17,18 +17,22 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import com.github.kaklakariada.fritzbox.MissingClassException;
+
 /**
  * provide the measurement unit to be used with the statistics.<p>
  * Consists of:
+ * <ul>
  * <li>measurment unit [V, W, Wh, %]</li>
- * <li>precision as double to multiply with the gathered Integer</li>
+ * <li>precision as double to multiply with the gathered Integerv
+ * </ul>
  * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided
  * by the statistics must be multiplied by the precision which gives us 237.123 V.
  * 
  * @author Ulrich Schmidt(Gombers)
  *
  */
-public enum MEASUREMENT_UNIT {
+public enum MeasurementUnit {
     TEMPERATURE("C", 0.1, Temperature.class), 
     VOLTAGE("V", 0.001, Voltage.class), 
     POWER("W", 0.01, Power.class), 
@@ -39,7 +43,7 @@ public enum MEASUREMENT_UNIT {
     private final Number precision;
     private final Class mapper;
 
-    MEASUREMENT_UNIT(String unit, Number precision, Class mapper) {
+    MeasurementUnit(String unit, Number precision, Class mapper) {
         this.unit = unit;
         this.precision = precision;
         this.mapper = mapper;
@@ -57,15 +61,12 @@ public enum MEASUREMENT_UNIT {
         return mapper;
     }
 
-    public static MEASUREMENT_UNIT getMatchingMeasurementUnit(Class caller) {
-        for (MEASUREMENT_UNIT iterator : MEASUREMENT_UNIT.values()) {
+    public static MeasurementUnit getMatchingMeasurementUnit(Class caller) {
+        for (MeasurementUnit iterator : MeasurementUnit.values()) {
             if (caller.getSimpleName().equals(iterator.getMapper().getSimpleName())) {
                 return iterator;
             }
         }
-        return null;
-
+        throw  new MissingClassException(String.format("Could not detect enum of type 'MeasurementUnit' associated to class '%s'", caller.toString()));
     }
-
-
 }

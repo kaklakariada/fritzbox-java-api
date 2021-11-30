@@ -27,7 +27,7 @@ public class Alert {
     private int state;
 
     @Element(name = "lastalertchgtimestamp", required = false)
-    private long lastalertchgtimestamp;
+    private long lastAlertChgTimestamp;
 
     public int getState() {
         return state;
@@ -37,11 +37,11 @@ public class Alert {
         this.state = state;
     }
 
-    public long getlastalertchgtimestamp() {
-        return lastalertchgtimestamp;
+    public long getLastAlertChgTimestamp() {
+        return lastAlertChgTimestamp;
     }
 
-    public void setlastalertchgtimestamp(long lastalertchgtimestamp) {
-        this.lastalertchgtimestamp = lastalertchgtimestamp;
+    public void setLastAlertChgTimestamp(long lastAlertChgTimestamp) {
+        this.lastAlertChgTimestamp = lastAlertChgTimestamp;
     }
 }

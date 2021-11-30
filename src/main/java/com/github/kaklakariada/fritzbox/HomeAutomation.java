@@ -99,8 +99,7 @@ public class HomeAutomation {
     }
 
     public DeviceStats getBasicStatistics(String deviceAin) {
-        final DeviceStats statsXml = executeDeviceCommand(deviceAin, "getbasicdevicestats", null, DeviceStats.class);
-        return statsXml;
+        return executeDeviceCommand(deviceAin, "getbasicdevicestats", null, DeviceStats.class);
     }
 
     public Float getSwitchPowerWatt(String deviceAin) {

@@ -18,14 +18,13 @@
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import java.util.List;
-
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root(name = "temperature")
 public class Temperature extends AbstractDeviceStatistics {
-
+    
     @Element(name = "celsius", required = false)
     private int deciCelsius;
 
@@ -40,11 +39,18 @@ public class Temperature extends AbstractDeviceStatistics {
     }
 
     public List<Statistics> getStats() {
-        return getStats(stats, MEASUREMENT_UNIT.getMatchingMeasurementUnit(this.getClass())) ;
+        return getStats(stats, MeasurementUnit.getMatchingMeasurementUnit(this.getClass())) ;
     }
 
     @Override
     public String toString() {
-        return "Temperatur [celsius=" + getCelsius() + "]";
+        return "Temperature [celsius=" + getCelsius() + "]";
     }
+    
+    @Override
+    protected List<String> statisticsToString() {
+        return statisticsToString(MeasurementUnit.getMatchingMeasurementUnit(this.getClass()).name());
+    }
+
+   
 }

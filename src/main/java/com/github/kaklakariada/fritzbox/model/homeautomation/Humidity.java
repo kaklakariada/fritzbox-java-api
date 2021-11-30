@@ -25,7 +25,7 @@ import org.simpleframework.xml.Root;
 
 @Root(name = "humidity")
 public class Humidity  extends AbstractDeviceStatistics {
-
+    
     @Element(name = "rel_humidity", required = false)
     private int relHumidity;
 
@@ -37,6 +37,12 @@ public class Humidity  extends AbstractDeviceStatistics {
     }
 
     public List<Statistics> getStats() {
-        return getStats(stats, MEASUREMENT_UNIT.getMatchingMeasurementUnit(this.getClass())) ;
+        return getStats(stats, MeasurementUnit.getMatchingMeasurementUnit(this.getClass())) ;
     }
+    
+    @Override
+    protected List<String> statisticsToString() {
+        return statisticsToString(MeasurementUnit.getMatchingMeasurementUnit(this.getClass()).name());
+    }
+
 }

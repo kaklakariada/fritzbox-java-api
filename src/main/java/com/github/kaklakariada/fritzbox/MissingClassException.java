@@ -15,33 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.kaklakariada.fritzbox.model.homeautomation;
+package com.github.kaklakariada.fritzbox;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+public class MissingClassException extends RuntimeException {
 
-@Root(name = "blind")
-public class Blind {
+    private static final long serialVersionUID = 1L;
 
-    @Element(name = "endpositionsset", required = false)
-    private int endPositionsSet;
-
-    @Element(name = "mode", required = false)
-    private String mode;
-
-    public int getEndPositionsSet() {
-        return endPositionsSet;
+    public MissingClassException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public void setEndPositionsSet(int endPositionsSet) {
-        this.endPositionsSet = endPositionsSet;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public void setMode(String mode) {
-        this.mode = mode;
+    public MissingClassException(String message) {
+        super(message);
     }
 }

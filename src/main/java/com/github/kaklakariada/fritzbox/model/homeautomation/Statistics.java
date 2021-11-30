@@ -30,7 +30,7 @@ import org.simpleframework.xml.Text;
 @Root(name = "stats")
 public class Statistics {
 
-    private MEASUREMENT_UNIT measurementUnit;
+    private MeasurementUnit measurementUnit;
 
     @Attribute(name = "count", required = false)
     private int count;
@@ -50,7 +50,7 @@ public class Statistics {
     }
 
     /**
-     * provide the gathered data as provided by Fritz!Box
+     * Provide the gathered data as provided by Fritz!Box
      * @return
      */
     public String getCsvValues() {
@@ -58,19 +58,18 @@ public class Statistics {
     }
 
     /**
-     * provide the gathered data as computed as meant to be used by AVM
+     * Provide the gathered data as computed as meant to be used by AVM
      * @return
      */
     public List<Optional<Number>> getValues() {
-        List<Optional<Number>> valueComputed = Arrays.asList(getCsvValues().split(","))
+        return Arrays.asList(getCsvValues().split(","))
                 .stream()
                 .map(aValue -> Optional.ofNullable(computeValue(aValue)))
                 .collect(Collectors.toList());
-        return valueComputed;
     }
 
     /**
-     * provide the measurement unit to be used with the statistics.<p>
+     * Provide the measurement unit to be used with the statistics.<p>
      * Consists of:
      * <li>measurment unit [V, W, Wh, %]</li>
      * <li>precision as double to multiply with the gathered Integer</li>
@@ -79,11 +78,11 @@ public class Statistics {
      * 
      * @return
      */
-    public MEASUREMENT_UNIT getMeasurementUnit() {
+    public MeasurementUnit getMeasurementUnit() {
         return measurementUnit;
     }
 
-    public void setMeasurementUnit(final MEASUREMENT_UNIT measurementUnit) {
+    public void setMeasurementUnit(final MeasurementUnit measurementUnit) {
         this.measurementUnit = measurementUnit;
     }
 
