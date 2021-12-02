@@ -17,12 +17,12 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
@@ -56,12 +56,24 @@ public class Statistics {
     public String getCsvValues() {
         return csvValues;
     }
+    
+    /**
+     * Just for unit test provided. 
+     * Therefore it is set to protected
+     * @return
+     */
+    protected void setCsvValues(String csvValues) {
+        this.csvValues = csvValues;
+    }
 
     /**
      * Provide the gathered data as computed as meant to be used by AVM
      * @return
      */
     public List<Optional<Number>> getValues() {
+        if (getCsvValues() == null) {
+            return new ArrayList<>();
+        }
         return Arrays.asList(getCsvValues().split(","))
                 .stream()
                 .map(aValue -> Optional.ofNullable(computeValue(aValue)))
@@ -71,8 +83,10 @@ public class Statistics {
     /**
      * Provide the measurement unit to be used with the statistics.<p>
      * Consists of:
+     * <ul>
      * <li>measurment unit [V, W, Wh, %]</li>
      * <li>precision as double to multiply with the gathered Integer</li>
+     * </ul>
      * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided
      * by the statistics must be multiplied by the precision which gives us 237.123 V.
      * 
@@ -86,18 +100,30 @@ public class Statistics {
         this.measurementUnit = measurementUnit;
     }
 
-    private Number computeValue(String aValue) {
+    protected Number computeValue(String aValue) {
         Number numberValue = null;
-        if (StringUtils.isNumeric(aValue.trim())) {
+        if (isIntegerNumber(aValue)) {
             Integer intValue =  Integer.valueOf(aValue.trim());
             if (measurementUnit.getPrescision() instanceof Double) {
                 numberValue = Double.valueOf(intValue*(Double)measurementUnit.getPrescision());
             } else {
-                numberValue = Integer.valueOf(intValue*(Integer)measurementUnit.getPrescision());
+                numberValue = Integer.valueOf(intValue  * (Integer)measurementUnit.getPrescision());
             }
             return numberValue;
         } 
         return null;
+    }
+    
+    protected boolean isIntegerNumber(String aValue) {
+        if (aValue == null) {
+            return false;
+        }
+        try {
+            Integer.parseInt(aValue.trim());
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
 
