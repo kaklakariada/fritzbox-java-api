@@ -19,14 +19,6 @@ public class StatisticsTest {
     }
     
     @Test
-    public void isIntegerNumberTest() {
-        assertEquals("Test null", false, statistics.isIntegerNumber(null));
-        assertEquals("Test Integer", true, statistics.isIntegerNumber("1"));
-        assertEquals("Test Double", false, statistics.isIntegerNumber("1.1"));
-        assertEquals("Test Double", false, statistics.isIntegerNumber("1.1D"));
-    }
-    
-    @Test
     public void computeValueTest() {
         assertEquals("Test null", null, statistics.computeValue(null));
         assertEquals("Test Integer", Double.valueOf(0.02), statistics.computeValue("2"));
@@ -38,16 +30,31 @@ public class StatisticsTest {
     public void getCsvValuesTest() {
         statistics.setCsvValues(null);
         List<Optional<Number>> result = statistics.getValues();
-        assertEquals("Number of entries", 0, result.size());
+        assertEquals("(1) Number of entries", 0, result.size());
         
         statistics.setCsvValues("");
         result = statistics.getValues();
-        assertEquals("Number of entries", 1, result.size());
-        assertEquals("First number", Optional.empty(), result.get(0));
+        assertEquals("(2) Number of entries", 1, result.size());
+        assertEquals("(2) First number", Optional.empty(), result.get(0));
         
         statistics.setCsvValues("1111, 22222");
         result = statistics.getValues();
-        assertEquals("Number of entries", 2, result.size());
-        assertEquals("First number", Double.valueOf(11.11), result.get(0).get());
+        assertEquals("(3) Number of entries", 2, result.size());
+        assertEquals("(3) First number", Double.valueOf(11.11), result.get(0).get());
+        
+        statistics.setCsvValues("1111,,22222,-");
+        result = statistics.getValues();
+        assertEquals("(4) Number of entries", 4, result.size());
+        assertEquals("(4) First number", Double.valueOf(11.11), result.get(0).get());
+        assertEquals("(4) Second number is empty", true, result.get(1).isEmpty());
+        assertEquals("(4) Third number", Double.valueOf(222.22), result.get(2).get());
+        assertEquals("(4) Fourth number is empty", true, result.get(3).isEmpty());
+        
+        statistics.setCsvValues(",1111,-");
+        result = statistics.getValues();
+        assertEquals("(5) Number of entries", 3, result.size());
+        assertEquals("(5) First number is empty", true, result.get(0).isEmpty());
+        assertEquals("(5) Second number", Double.valueOf(11.11), result.get(1).get());
+        assertEquals("(5) Third number is empty", true, result.get(2).isEmpty());
     }
 }

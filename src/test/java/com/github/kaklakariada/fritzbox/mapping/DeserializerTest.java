@@ -112,6 +112,15 @@ public class DeserializerTest {
                 .collect(joining("\n"));
         new Deserializer().parse(fileContent, DeviceList.class);
     }
+    
+    
+    @Test
+    public void parseDeviceListAllTogetherWithBlind() throws IOException {
+        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/FritzOS29/deviceListAllTogetherWithBlind.xml"))
+                .stream()
+                .collect(joining("\n"));
+        new Deserializer().parse(fileContent, DeviceList.class);
+    }
 
     @Test
     public void parseDeviceStatsFritzDect200() throws IOException {

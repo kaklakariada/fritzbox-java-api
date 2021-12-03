@@ -27,6 +27,8 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
 
+import com.github.kaklakariada.fritzbox.helper.StringHelper;
+
 @Root(name = "stats")
 public class Statistics {
 
@@ -102,7 +104,7 @@ public class Statistics {
 
     protected Number computeValue(String aValue) {
         Number numberValue = null;
-        if (isIntegerNumber(aValue)) {
+        if (StringHelper.isIntegerNumber(aValue)) {
             Integer intValue =  Integer.valueOf(aValue.trim());
             if (measurementUnit.getPrescision() instanceof Double) {
                 numberValue = Double.valueOf(intValue*(Double)measurementUnit.getPrescision());
@@ -113,18 +115,4 @@ public class Statistics {
         } 
         return null;
     }
-    
-    protected boolean isIntegerNumber(String aValue) {
-        if (aValue == null) {
-            return false;
-        }
-        try {
-            Integer.parseInt(aValue.trim());
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
-
 }
