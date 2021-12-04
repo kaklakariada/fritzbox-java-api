@@ -19,6 +19,10 @@ package com.github.kaklakariada.fritzbox.helper;
 
 public class StringHelper {
     
+    private StringHelper(){
+        // Not instantiable
+    }
+    
     /**
      * <p>Note that the method does not allow for a leading sign, either positive or negative.</p>
      * 
@@ -79,8 +83,6 @@ public class StringHelper {
      *
      * @param cs  the CharSequence to check, may be null
      * @return {@code true} if only contains digits, and is non-null
-     * @since 3.0 Changed signature from isNumeric(String) to isNumeric(CharSequence)
-     * @since 3.0 Changed "" to return false and not true
      */
     public static boolean isNumeric(final CharSequence cs) {
         if (isEmpty(cs)) {
@@ -109,13 +111,9 @@ public class StringHelper {
      * StringUtils.isEmpty("  bob  ") = false
      * </pre>
      *
-     * <p>NOTE: This method changed in Lang version 2.0.
-     * It no longer trims the CharSequence.
-     * That functionality is available in isBlank().</p>
      *
      * @param cs  the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is empty or null
-     * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
      */
     public static boolean isEmpty(final CharSequence cs) {
         return cs == null || cs.length() == 0;

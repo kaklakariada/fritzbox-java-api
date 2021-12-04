@@ -41,9 +41,9 @@ public enum MeasurementUnit {
 
     private final String unit;
     private final Number precision;
-    private final Class mapper;
+    private final Class<?> mapper;
 
-    MeasurementUnit(String unit, Number precision, Class mapper) {
+    MeasurementUnit(String unit, Number precision, Class<?> mapper) {
         this.unit = unit;
         this.precision = precision;
         this.mapper = mapper;
@@ -57,13 +57,13 @@ public enum MeasurementUnit {
         return precision;
     }
 
-    public Class getMapper() {
+    public Class<?> getMapper() {
         return mapper;
     }
 
-    public static MeasurementUnit getMatchingMeasurementUnit(Class caller) {
+    public static MeasurementUnit getMatchingMeasurementUnit(Class<?> caller) {
         for (MeasurementUnit iterator : MeasurementUnit.values()) {
-            if (caller.getSimpleName().equals(iterator.getMapper().getSimpleName())) {
+            if (caller.isAssignableFrom(iterator.getMapper())) {
                 return iterator;
             }
         }

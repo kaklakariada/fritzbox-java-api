@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.5.0] - unreleased
+## [1.6.0] - unreleased
+
+## [1.5.0] - 2021-12-04
+
+### Added
+
+* [#34](https://github.com/kaklakariada/fritzbox-java-api/pull/34) Support new device "Blind" and suppy device statistics (thanks to [@JunkerMartin](https://github.com/JunkerMartin) for his contribution!)
 
 ### Updated
 

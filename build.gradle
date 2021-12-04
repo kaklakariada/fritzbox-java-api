@@ -25,6 +25,7 @@ java {
 }
 
 javadoc {
+    failOnError = false
     options.addBooleanOption('html5', true)
 }
 
@@ -56,6 +57,7 @@ license {
     header = file('gradle/license-header.txt')
     exclude('**/deviceList*Payload.xml')
     exclude('devicelist6840.xml')
+    exclude('**/FritzOS29/*.xml')
 }
 
 jacocoTestReport {
