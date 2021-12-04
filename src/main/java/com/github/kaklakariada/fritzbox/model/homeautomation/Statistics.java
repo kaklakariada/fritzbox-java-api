@@ -53,16 +53,15 @@ public class Statistics {
 
     /**
      * Provide the gathered data as provided by Fritz!Box
+     * 
      * @return
      */
     public String getCsvValues() {
         return csvValues;
     }
-    
+
     /**
-     * Just for unit test provided. 
-     * Therefore it is set to protected
-     * @return
+     * Just for unit test provided. Therefore it is set to protected
      */
     protected void setCsvValues(String csvValues) {
         this.csvValues = csvValues;
@@ -70,6 +69,7 @@ public class Statistics {
 
     /**
      * Provide the gathered data as computed as meant to be used by AVM
+     * 
      * @return
      */
     public List<Optional<Number>> getValues() {
@@ -83,14 +83,15 @@ public class Statistics {
     }
 
     /**
-     * Provide the measurement unit to be used with the statistics.<p>
+     * Provide the measurement unit to be used with the statistics.
+     * <p>
      * Consists of:
      * <ul>
      * <li>measurment unit [V, W, Wh, %]</li>
      * <li>precision as double to multiply with the gathered Integer</li>
      * </ul>
-     * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided
-     * by the statistics must be multiplied by the precision which gives us 237.123 V.
+     * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided by the
+     * statistics must be multiplied by the precision which gives us 237.123 V.
      * 
      * @return
      */
@@ -105,14 +106,14 @@ public class Statistics {
     protected Number computeValue(String aValue) {
         Number numberValue = null;
         if (StringHelper.isIntegerNumber(aValue)) {
-            Integer intValue =  Integer.valueOf(aValue.trim());
+            Integer intValue = Integer.valueOf(aValue.trim());
             if (measurementUnit.getPrescision() instanceof Double) {
-                numberValue = Double.valueOf(intValue*(Double)measurementUnit.getPrescision());
+                numberValue = Double.valueOf(intValue * (Double) measurementUnit.getPrescision());
             } else {
-                numberValue = Integer.valueOf(intValue  * (Integer)measurementUnit.getPrescision());
+                numberValue = Integer.valueOf(intValue * (Integer) measurementUnit.getPrescision());
             }
             return numberValue;
-        } 
+        }
         return null;
     }
 }
