@@ -25,6 +25,7 @@ java {
 }
 
 javadoc {
+    failOnError = false
     options.addBooleanOption('html5', true)
 }
 

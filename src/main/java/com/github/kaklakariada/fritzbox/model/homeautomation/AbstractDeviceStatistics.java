@@ -23,24 +23,12 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractDeviceStatistics {
 
-    /**
-     * Supply grids used to gather statistics
-     * 
-     * @return List<Integer>
-     */
-    public List<Integer> getGridList() {
-        return getStats()
-                .stream()
-                .map(stats -> stats.getGrid())
-                .collect(Collectors.toList());
-    };
-
-    /**
+     /**
      * Supply the Statistics gathered for a chosen grid
      * 
      * @param grid
      *                 grid
-     * @return Optional<Statistics> - avoid NPE is no statistics present
+     * @return Optional - avoid NPE if no statistics present
      */
     public Optional<Statistics> getStatisticsByGrid(final int grid) {
         return getStats()
@@ -52,7 +40,7 @@ public abstract class AbstractDeviceStatistics {
     /**
      * All classes implementing this abstract class need to provide a "getStats"-method
      * 
-     * @return List<Statistics>
+     * @return List
      */
     public abstract List<Statistics> getStats();
 
@@ -60,9 +48,9 @@ public abstract class AbstractDeviceStatistics {
      * AVM gathers just integer numbers. We know the precision only from documentation, it is never provided by returned
      * responses from Fritz!Box. So we add this information here to the statistics.
      * 
-     * @param stats
-     * @param measurementUnit
-     * @return List<Statistics>
+     * @param stats statistics to which to add the measurment unit
+     * @param measurementUnit the unit to add to the statistics
+     * @return statistics with measurement units
      */
     protected List<Statistics> getStats(final List<Statistics> stats, final MeasurementUnit measurementUnit) {
         return stats
@@ -77,11 +65,12 @@ public abstract class AbstractDeviceStatistics {
     /**
      * All classes implementing this abstract class need to provide a "statisticsToString"-method
      * 
-     * @return List<Statistics>
+     * @return List
      */
     protected abstract List<String> statisticsToString();
 
     /**
+     * @param type statistics type
      * @return statistics as one line per grid
      */
     protected List<String> statisticsToString(final String type) {
@@ -92,13 +81,13 @@ public abstract class AbstractDeviceStatistics {
     }
 
     /**
-     * Form a line from a single statistic
+     * Form a line from a single statistic.
      * 
-     * @param type
-     * @param statistics
+     * @param type statistics type
+     * @param statistics statistic to convert to {@link String}
      * @return statistic as a line
      */
-    protected String statisticsToString(final String type, final Statistics statistics) {
+    private String statisticsToString(final String type, final Statistics statistics) {
         return String.format("[%s] count=%s,grid=%s values=[%s]", type, statistics.getCount(), statistics.getGrid(),
                 statistics.getCsvValues());
     }
