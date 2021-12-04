@@ -35,7 +35,7 @@ public abstract class AbstractDeviceStatistics {
                 .stream()
                 .filter(stats -> stats.getGrid() == grid)
                 .findAny();
-    };
+    }
 
     /**
      * All classes implementing this abstract class need to provide a "getStats"-method
