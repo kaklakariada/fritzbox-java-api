@@ -17,40 +17,31 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import java.util.List;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-@Root(name = "temperature")
-public class Temperature extends AbstractDeviceStatistics {
-    
-    @Element(name = "celsius", required = false)
-    private int deciCelsius;
+@Root(name = "blind")
+public class Blind {
 
-    @Element(name = "offset", required = false)
-    private int offsetDeciCelsius;
+    @Element(name = "endpositionsset", required = false)
+    private int endPositionsSet;
 
-    @ElementList(name = "stats", required = false, inline=true)
-    private List<Statistics> stats;
+    @Element(name = "mode", required = false)
+    private String mode;
 
-    public float getCelsius() {
-        return (deciCelsius + offsetDeciCelsius) / 10F;
+    public int getEndPositionsSet() {
+        return endPositionsSet;
     }
 
-    public List<Statistics> getStats() {
-        return getStats(stats, MeasurementUnit.getMatchingMeasurementUnit(this.getClass())) ;
+    public void setEndPositionsSet(int endPositionsSet) {
+        this.endPositionsSet = endPositionsSet;
     }
 
-    @Override
-    public String toString() {
-        return "Temperature [celsius=" + getCelsius() + "]";
-    }
-    
-    @Override
-    protected List<String> statisticsToString() {
-        return statisticsToString(MeasurementUnit.getMatchingMeasurementUnit(this.getClass()).name());
+    public String getMode() {
+        return mode;
     }
 
-   
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
 }

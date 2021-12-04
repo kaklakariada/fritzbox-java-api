@@ -17,40 +17,31 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import java.util.List;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-@Root(name = "temperature")
-public class Temperature extends AbstractDeviceStatistics {
-    
-    @Element(name = "celsius", required = false)
-    private int deciCelsius;
+@Root(name = "alert")
+public class Alert {
 
-    @Element(name = "offset", required = false)
-    private int offsetDeciCelsius;
+    @Element(name = "state", required = false)
+    private int state;
 
-    @ElementList(name = "stats", required = false, inline=true)
-    private List<Statistics> stats;
+    @Element(name = "lastalertchgtimestamp", required = false)
+    private long lastAlertChgTimestamp;
 
-    public float getCelsius() {
-        return (deciCelsius + offsetDeciCelsius) / 10F;
+    public int getState() {
+        return state;
     }
 
-    public List<Statistics> getStats() {
-        return getStats(stats, MeasurementUnit.getMatchingMeasurementUnit(this.getClass())) ;
+    public void setState(int state) {
+        this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "Temperature [celsius=" + getCelsius() + "]";
-    }
-    
-    @Override
-    protected List<String> statisticsToString() {
-        return statisticsToString(MeasurementUnit.getMatchingMeasurementUnit(this.getClass()).name());
+    public long getLastAlertChgTimestamp() {
+        return lastAlertChgTimestamp;
     }
 
-   
+    public void setLastAlertChgTimestamp(long lastAlertChgTimestamp) {
+        this.lastAlertChgTimestamp = lastAlertChgTimestamp;
+    }
 }

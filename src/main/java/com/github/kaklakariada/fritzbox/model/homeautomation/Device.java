@@ -17,10 +17,13 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import org.simpleframework.xml.*;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
 @Root(name = "device")
 public class Device {
@@ -70,6 +73,10 @@ public class Device {
     private List<Button> buttons;
     @Element(name = "humidity", required = false)
     private Humidity humidity;
+    @Element(name = "blind", required = false)
+    private Blind blind;
+    @Element(name = "alert", required = false)
+    private Alert alert;
 
     public String getIdentifier() {
         return identifier;
@@ -116,7 +123,7 @@ public class Device {
     }
 
     public SwitchState getSwitchState() {
-        return switchState.isNull() ? null : switchState;
+        return switchState == null || switchState.isNull() ? null : switchState;
     }
 
     public PowerMeter getPowerMeter() {
@@ -129,6 +136,14 @@ public class Device {
 
     public Hkr getHkr() {
         return hkr;
+    }
+
+    public Blind getBlind() {
+        return blind;
+    }
+
+    public Alert getAlert() {
+        return alert;
     }
 
     public SimpleOnOffState getSimpleOnOff() {

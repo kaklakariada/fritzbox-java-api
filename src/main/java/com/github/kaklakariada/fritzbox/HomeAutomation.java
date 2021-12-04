@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import com.github.kaklakariada.fritzbox.http.QueryParameters;
 import com.github.kaklakariada.fritzbox.http.QueryParameters.Builder;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
+import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceStats;
 
 public class HomeAutomation {
 
@@ -95,6 +96,10 @@ public class HomeAutomation {
     public Float getTemperature(String deviceAin) {
         final Integer centiDegree = executeDeviceCommand(deviceAin, "gettemperature", null, Integer.class);
         return centiDegree == null ? null : centiDegree / 10F;
+    }
+
+    public DeviceStats getBasicStatistics(String deviceAin) {
+        return executeDeviceCommand(deviceAin, "getbasicdevicestats", null, DeviceStats.class);
     }
 
     public Float getSwitchPowerWatt(String deviceAin) {
