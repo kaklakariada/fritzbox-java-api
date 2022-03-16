@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.fritzbox.http.QueryParameters;
 import com.github.kaklakariada.fritzbox.http.QueryParameters.Builder;
+import com.github.kaklakariada.fritzbox.model.homeautomation.Device;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceStats;
 
@@ -50,6 +51,10 @@ public class HomeAutomation {
         LOG.trace("Found {} devices, devicelist version: {}", deviceList.getDevices().size(),
                 deviceList.getApiVersion());
         return deviceList;
+    }
+    
+    public Device getDeviceInfos(String deviceAin) {
+        return executeDeviceCommand(deviceAin, "getdeviceinfos", null, Device.class);
     }
 
     private <T> T executeCommand(String command, Class<T> resultType) {
