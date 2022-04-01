@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     
-    - uses: actions/cache@v1
+    - uses: actions/cache@v3.0.1
       with:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-java-${{ matrix.java }}-gradle-${{ hashFiles('**/*.gradle') }}
@@ -27,7 +27,7 @@ jobs:
           ${{ runner.os }}-java-${{ matrix.java }}-gradle-
     
     - name: Cache SonarQube packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3.0.1
       with:
         path: ~/.sonar/cache
         key: ${{ runner.os }}-java-${{ matrix.java }}-sonar
