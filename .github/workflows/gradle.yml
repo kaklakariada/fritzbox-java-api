@@ -17,29 +17,24 @@ jobs:
       DEFAULT_JAVA: 17
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     
-    - uses: actions/cache@v1
+    - name: Setup Java ${{ matrix.java }}
+      uses: actions/setup-java@v3
       with:
-        path: ~/.gradle/caches
-        key: ${{ runner.os }}-java-${{ matrix.java }}-gradle-${{ hashFiles('**/*.gradle') }}
-        restore-keys: |
-          ${{ runner.os }}-java-${{ matrix.java }}-gradle-
-    
+        distribution: 'temurin'
+        java-version: ${{ matrix.java }}
+        cache: 'gradle'
+
+
     - name: Cache SonarQube packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.sonar/cache
         key: ${{ runner.os }}-java-${{ matrix.java }}-sonar
         restore-keys: ${{ runner.os }}-java-${{ matrix.java }}-sonar
 
     - uses: gradle/wrapper-validation-action@v1
-
-    - name: Setup Java ${{ matrix.java }}
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'temurin'
-        java-version: ${{ matrix.java }}
 
     - name: Build with Gradle
       run: ./gradlew clean build --info --warning-mode all

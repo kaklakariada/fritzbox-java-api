@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.6.0] - unreleased
 
-* [#39](https://github.com/kaklakariada/fritzbox-java-api/pull/39) Add new command "getdeviceinfo" (thanks to [@odin568](https://github.com/odin568))https://github.com/kaklakariada/fritzbox-java-api/pull/39
+### Added
+
+* [#39](https://github.com/kaklakariada/fritzbox-java-api/pull/39) Add new command "getdeviceinfo" (thanks to [@odin568](https://github.com/odin568))
+
+### Updated
+
+* [#45](https://github.com/kaklakariada/fritzbox-java-api/pull/45) Upgrade dependencies
 
 ## [1.5.0] - 2021-12-04
 
