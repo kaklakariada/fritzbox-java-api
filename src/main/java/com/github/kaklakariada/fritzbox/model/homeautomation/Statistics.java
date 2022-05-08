@@ -23,11 +23,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.github.kaklakariada.fritzbox.helper.StringHelper;
+
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
-
-import com.github.kaklakariada.fritzbox.helper.StringHelper;
 
 @Root(name = "stats")
 public class Statistics {
@@ -54,23 +54,23 @@ public class Statistics {
     /**
      * Provide the gathered data as provided by Fritz!Box
      * 
-     * @return
+     * @return data provided by the Fritz!Box
      */
     public String getCsvValues() {
         return csvValues;
     }
 
     /**
-     * Just for unit test provided. Therefore it is set to protected
+     * Just for unit test provided. Therefore it is set to package private.
      */
-    protected void setCsvValues(String csvValues) {
+    void setCsvValues(final String csvValues) {
         this.csvValues = csvValues;
     }
 
     /**
      * Provide the gathered data as computed as meant to be used by AVM
      * 
-     * @return
+     * @return the gathered data
      */
     public List<Optional<Number>> getValues() {
         if (getCsvValues() == null) {
@@ -93,7 +93,7 @@ public class Statistics {
      * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided by the
      * statistics must be multiplied by the precision which gives us 237.123 V.
      * 
-     * @return
+     * @return the measurement unit
      */
     public MeasurementUnit getMeasurementUnit() {
         return measurementUnit;
@@ -103,10 +103,10 @@ public class Statistics {
         this.measurementUnit = measurementUnit;
     }
 
-    protected Number computeValue(String aValue) {
+    protected Number computeValue(final String aValue) {
         Number numberValue = null;
         if (StringHelper.isIntegerNumber(aValue)) {
-            Integer intValue = Integer.valueOf(aValue.trim());
+            final Integer intValue = Integer.valueOf(aValue.trim());
             if (measurementUnit.getPrescision() instanceof Double) {
                 numberValue = Double.valueOf(intValue * (Double) measurementUnit.getPrescision());
             } else {

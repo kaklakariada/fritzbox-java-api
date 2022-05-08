@@ -18,13 +18,15 @@
 package com.github.kaklakariada.fritzbox.helper;
 
 public class StringHelper {
-    
-    private StringHelper(){
+
+    private StringHelper() {
         // Not instantiable
     }
-    
+
     /**
-     * <p>Note that the method does not allow for a leading sign, either positive or negative.</p>
+     * <p>
+     * Note that the method does not allow for a leading sign, either positive or negative.
+     * </p>
      * 
      * <pre>
      * StringUtils.isIntegerNumber(null)  = false
@@ -38,7 +40,8 @@ public class StringHelper {
      * </pre>
      * 
      * 
-     * @param cs  the String to check, may be null
+     * @param cs
+     *               the String to check, may be null
      * @return {@code true} if only contains digits or is enclosed by blanks, and is non-null
      */
     public static boolean isIntegerNumber(final String cs) {
@@ -52,20 +55,24 @@ public class StringHelper {
         }
         return true;
     }
-    
+
     /**
-     * <h4>Code copied 'as is' from apache-commons-lang3, class StringUtils.isNumeric()</h4>
+     * <b>Code copied 'as is' from apache-commons-lang3, class StringUtils.isNumeric()</b>
      * 
-     * <p>Checks if the CharSequence contains only Unicode digits.
-     * A decimal point is not a Unicode digit and returns false.</p>
+     * <p>
+     * Checks if the CharSequence contains only Unicode digits. A decimal point is not a Unicode digit and returns
+     * false.
+     * </p>
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code false}.</p>
+     * <p>
+     * {@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.
+     * </p>
      *
-     * <p>Note that the method does not allow for a leading sign, either positive or negative.
-     * Also, if a String passes the numeric test, it may still generate a NumberFormatException
-     * when parsed by Integer.parseInt or Long.parseLong, e.g. if the value is outside the range
-     * for int or long respectively.</p>
+     * <p>
+     * Note that the method does not allow for a leading sign, either positive or negative. Also, if a String passes the
+     * numeric test, it may still generate a NumberFormatException when parsed by Integer.parseInt or Long.parseLong,
+     * e.g. if the value is outside the range for int or long respectively.
+     * </p>
      *
      * <pre>
      * StringUtils.isNumeric(null)   = false
@@ -81,7 +88,8 @@ public class StringHelper {
      * StringUtils.isNumeric("+123") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs
+     *               the CharSequence to check, may be null
      * @return {@code true} if only contains digits, and is non-null
      */
     public static boolean isNumeric(final CharSequence cs) {
@@ -96,12 +104,13 @@ public class StringHelper {
         }
         return true;
     }
-    
-    
+
     /**
-     * <h4>Code copied 'as is' from apache-commons-lang3, class StringUtils.isEmpty()</h4>
+     * <b>Code copied 'as is' from apache-commons-lang3, class StringUtils.isEmpty()</b>
      * 
-     * <p>Checks if a CharSequence is empty ("") or null.</p>
+     * <p>
+     * Checks if a CharSequence is empty ("") or null.
+     * </p>
      *
      * <pre>
      * StringUtils.isEmpty(null)      = true
@@ -112,7 +121,8 @@ public class StringHelper {
      * </pre>
      *
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs
+     *               the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is empty or null
      */
     public static boolean isEmpty(final CharSequence cs) {
