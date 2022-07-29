@@ -24,6 +24,8 @@ import org.simpleframework.xml.Root;
 @Root(name = "group")
 public class Group {
 
+    @Attribute(name = "synchronized", required = false)
+    private String isSynchronized;
     @Attribute(name = "identifier")
     private String identifier;
     @Attribute(name = "id")
@@ -38,14 +40,22 @@ public class Group {
     private String productName;
     @Element(name = "present")
     private String present;
+    @Element(name = "txbusy", required = false)
+    private String txBusy;
     @Element(name = "name")
     private String name;
     @Element(name = "switch", required = false)
     private SwitchState switchState;
+    @Element(name = "simpleonoff", required = false)
+    private SimpleOnOffState simpleOnOff;
     @Element(name = "powermeter", required = false)
     private PowerMeter powerMeter;
     @Element(name = "groupinfo", required = false)
     private GroupInfo groupInfo;
+
+    public boolean isSynchronized() {
+        return "1".equals(isSynchronized);
+    }
 
     public String getId() {
         return id;
@@ -71,12 +81,20 @@ public class Group {
         return present;
     }
 
+    public boolean isTxBusy() {
+        return "1".equals(txBusy);
+    }
+
     public String getName() {
         return name;
     }
 
     public SwitchState getSwitchState() {
         return switchState;
+    }
+
+    public SimpleOnOffState getSimpleOnOff() {
+        return simpleOnOff;
     }
 
     public PowerMeter getPowerMeter() {
