@@ -44,8 +44,14 @@ public class Group {
     private SwitchState switchState;
     @Element(name = "powermeter", required = false)
     private PowerMeter powerMeter;
+    @Element(name = "hkr", required = false)
+    private Hkr hkr;
     @Element(name = "groupinfo", required = false)
     private GroupInfo groupInfo;
+    @Attribute(name = "synchronized", required = false)
+    private int sync;
+    @Element(name = "txbusy")
+    private String txbusy;
 
     public String getId() {
         return id;
@@ -83,11 +89,23 @@ public class Group {
         return powerMeter;
     }
 
+    public Hkr getHkr() {
+        return hkr;
+    }
+
     public String getIdentifier() {
         return identifier;
     }
 
     public GroupInfo getGroupInfo() {
         return groupInfo;
+    }
+
+    public int getSync() {
+        return sync;
+    }
+
+    public String getTxbusy() {
+        return txbusy;
     }
 }
