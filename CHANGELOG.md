@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * [#39](https://github.com/kaklakariada/fritzbox-java-api/pull/39) Add new command "getdeviceinfo" (thanks to [@odin568](https://github.com/odin568))
 * [#46](https://github.com/kaklakariada/fritzbox-java-api/pull/46) https://github.com/kaklakariada/fritzbox-java-api/pull/46 (thanks to [TDesjardins](https://github.com/TDesjardins))
+* [#47](https://github.com/kaklakariada/fritzbox-java-api/pull/47) Add hkr attribute supported by FritzOS 7.29 (thanks to [philippn](https://github.com/philippn))
 
 ### Updated
 

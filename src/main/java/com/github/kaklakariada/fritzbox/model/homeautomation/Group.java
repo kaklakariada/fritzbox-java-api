@@ -50,6 +50,8 @@ public class Group {
     private SimpleOnOffState simpleOnOff;
     @Element(name = "powermeter", required = false)
     private PowerMeter powerMeter;
+    @Element(name = "hkr", required = false)
+    private Hkr hkr;
     @Element(name = "groupinfo", required = false)
     private GroupInfo groupInfo;
 
@@ -99,6 +101,10 @@ public class Group {
 
     public PowerMeter getPowerMeter() {
         return powerMeter;
+    }
+
+    public Hkr getHkr() {
+        return hkr;
     }
 
     public String getIdentifier() {
