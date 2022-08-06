@@ -29,4 +29,9 @@ public class SimpleOnOffState {
     public int getState() {
         return state;
     }
+
+    @Override
+    public String toString() {
+        return "SimpleOnOffState [state=" + state + "]";
+    }
 }
