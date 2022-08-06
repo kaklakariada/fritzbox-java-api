@@ -21,10 +21,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,14 +39,9 @@ import com.github.kaklakariada.fritzbox.model.homeautomation.Statistics;
 public class TestDriver {
     private static final Logger LOG = LoggerFactory.getLogger(TestDriver.class);
 
-    public static void main(String[] args) throws InterruptedException {
-        final Properties config = readConfig(Paths.get("application.properties"));
-        final String url = config.getProperty("fritzbox.url");
-        final String username = config.getProperty("fritzbox.username", null);
-        final String password = config.getProperty("fritzbox.password");
-
-        LOG.info("Logging in to '{}' with username '{}'", url, username);
-        final HomeAutomation homeAutomation = HomeAutomation.connect(url, username, password);
+    public static void main(final String[] args) throws InterruptedException {
+        final Config config = Config.read();
+        final HomeAutomation homeAutomation = HomeAutomation.connect(config);
 
         final DeviceList devices = homeAutomation.getDeviceListInfos();
         LOG.info("Found {} devices", devices.getDevices().size());
@@ -70,7 +65,7 @@ public class TestDriver {
         testHomeAutomation(homeAutomation, ain);
     }
 
-    private static void testEnergyStats(HomeAutomation homeAutomation, String deviceId) {
+    private static void testEnergyStats(final HomeAutomation homeAutomation, final String deviceId) {
         final EnergyStatisticsService service = homeAutomation.getEnergyStatistics();
         for (final EnergyStatsTimeRange timeRange : EnergyStatsTimeRange.values()) {
             final String energyStatistics = service.getEnergyStatistics(deviceId, timeRange);
@@ -78,49 +73,49 @@ public class TestDriver {
         }
     }
 
-    private static void testEnergyStatsNew(HomeAutomation homeAutomation, String ain) {
+    private static void testEnergyStatsNew(final HomeAutomation homeAutomation, final String ain) {
         final Optional<AbstractDeviceStatistics> energy = homeAutomation.getBasicStatistics(ain).getEnergy();
         if (energy.isEmpty()) {
             LOG.error("No Statistics for energy consumption gathered");
             return;
         }
-        Optional<Statistics> dailyEnergy = energy.get().getStatisticsByGrid(86400);
+        final Optional<Statistics> dailyEnergy = energy.get().getStatisticsByGrid(86400);
         if (dailyEnergy.isEmpty()) {
             LOG.error("No Statistics for energy consumption 'per day' gathered");
             return;
         }
-        MeasurementUnit measurementUnit = dailyEnergy.get().getMeasurementUnit();
-        List<Optional<Number>> dailyConsumption = dailyEnergy.get().getValues();
+        final MeasurementUnit measurementUnit = dailyEnergy.get().getMeasurementUnit();
+        final List<Optional<Number>> dailyConsumption = dailyEnergy.get().getValues();
 
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         for (final Optional<Number> dailyValue : dailyConsumption) {
             if (dailyValue.isPresent()) {
-            sb.append(dailyValue.get()).append(measurementUnit.getUnit()).append(" ");
+                sb.append(dailyValue.get()).append(measurementUnit.getUnit()).append(" ");
             } else {
                 sb.append("-").append(" ");
             }
         }
         LOG.debug("Statistics daily energy consumption: {}", sb.toString());
     }
-    
-    private static void testVoltageStatsNew(HomeAutomation homeAutomation, String ain) {
+
+    private static void testVoltageStatsNew(final HomeAutomation homeAutomation, final String ain) {
         final Optional<AbstractDeviceStatistics> power = homeAutomation.getBasicStatistics(ain).getPower();
         if (power.isEmpty()) {
             LOG.error("No Statistics for power consumption gathered");
             return;
         }
-        Optional<Statistics> sixMinsVoltage = power.get().getStatisticsByGrid(10);
+        final Optional<Statistics> sixMinsVoltage = power.get().getStatisticsByGrid(10);
         if (sixMinsVoltage.isEmpty()) {
             LOG.error("No Statistics for power consumption 'per 10 seconds interval' gathered");
             return;
         }
-        MeasurementUnit measurementUnit = sixMinsVoltage.get().getMeasurementUnit();
-        List<Optional<Number>> sixMinutestConsumption = sixMinsVoltage.get().getValues();
+        final MeasurementUnit measurementUnit = sixMinsVoltage.get().getMeasurementUnit();
+        final List<Optional<Number>> sixMinutestConsumption = sixMinsVoltage.get().getValues();
 
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         for (final Optional<Number> intervalValue : sixMinutestConsumption) {
             if (intervalValue.isPresent()) {
-            sb.append(intervalValue.get()).append(measurementUnit.getUnit()).append(" ");
+                sb.append(intervalValue.get()).append(measurementUnit.getUnit()).append(" ");
             } else {
                 sb.append("-").append(" ");
             }
@@ -128,11 +123,10 @@ public class TestDriver {
         LOG.debug("Statistics power detetcted: {}", sb.toString());
     }
 
-
     private static void testHomeAutomation(final HomeAutomation homeAutomation, final String ain)
             throws InterruptedException {
-        homeAutomation.switchPowerState(ain, false);
-        homeAutomation.togglePowerState(ain);
+        // homeAutomation.switchPowerState(ain, false);
+        // homeAutomation.togglePowerState(ain);
         LOG.info("Switch {} has present state '{}'", ain, homeAutomation.getSwitchPresent(ain));
         LOG.info("Switch {} has state '{}'", ain, homeAutomation.getSwitchState(ain));
         LOG.info("Switch {} uses {}W", ain, homeAutomation.getSwitchPowerWatt(ain));
@@ -163,7 +157,7 @@ public class TestDriver {
                 powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
     }
 
-    private static Properties readConfig(Path path) {
+    private static Properties readConfig(final Path path) {
         final Properties config = new Properties();
         final Path absolutePath = path.toAbsolutePath();
         LOG.debug("Reading config from file {}", absolutePath);

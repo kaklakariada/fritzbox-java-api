@@ -35,16 +35,19 @@ import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
 public class TestBlind extends AbstractTestHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestBlind.class);
+    private static final int WAIT_SECONDS = 20;
 
     private final HomeAutomation homeAutomation;
 
-    final int waitSeconds = 20;
-
     public TestBlind() throws InterruptedException {
-        this.homeAutomation = TestLogin.login();
+        this.homeAutomation = HomeAutomation.connect(Config.read());
 
         // make sure to set back blind to original state
         final List<Device> blindDevices = getBlindDevices();
+        if (blindDevices.isEmpty()) {
+            LOG.warn("No blind devices found");
+            return;
+        }
         final int wasPercenClosed = blindDevices.get(0).getLevelControl().getLevelpercentage();
 
         toggleBlindOpenClose();
@@ -66,8 +69,7 @@ public class TestBlind extends AbstractTestHelper {
         toggleBlindOpenClose(blindDevices.get(0));
 
         // Start move back
-        LOG.info("Wait {} seconds", waitSeconds);
-        Thread.sleep(waitSeconds * 1000);
+        sleep();
         LOG.info("");
         LOG.info("Status after change");
         blindDevices = getBlindDevices();
@@ -76,10 +78,14 @@ public class TestBlind extends AbstractTestHelper {
 
         // Show status at end of test
         LOG.info("");
-        LOG.info("Wait {} seconds", waitSeconds);
-        Thread.sleep(waitSeconds * 1000);
+        sleep();
         blindDevices = getBlindDevices();
         showStatus(blindDevices);
+    }
+
+    private void sleep() throws InterruptedException {
+        LOG.info("Wait {} seconds", WAIT_SECONDS);
+        Thread.sleep(WAIT_SECONDS * 1000L);
     }
 
     private void toggleBlindOpenClose(final Device blind) {
@@ -107,9 +113,7 @@ public class TestBlind extends AbstractTestHelper {
 
         setPercentOpen(blindDevices.get(0), newPercenClosed);
 
-        // Start move back
-        LOG.info("Wait {} seconds", waitSeconds);
-        Thread.sleep(waitSeconds * 1000);
+        sleep();
         LOG.info("");
         LOG.info("Status after change");
         blindDevices = getBlindDevices();
@@ -118,13 +122,12 @@ public class TestBlind extends AbstractTestHelper {
 
         // Show status at end of test
         LOG.info("");
-        LOG.info("Wait {} seconds", waitSeconds);
-        Thread.sleep(waitSeconds * 1000);
+        sleep();
         blindDevices = getBlindDevices();
         showStatus(blindDevices);
     }
 
-    private void setPercentOpen(final Device blind, int percent) {
+    private void setPercentOpen(final Device blind, final int percent) {
         final String ain = getAin(blind.getIdentifier());
         final String newLevel = String.valueOf(percent);
 
@@ -136,11 +139,10 @@ public class TestBlind extends AbstractTestHelper {
 
     private List<Device> getBlindDevices() {
         final DeviceList devices = homeAutomation.getDeviceListInfos();
-        final List<Device> hkrDevices = devices.getDevices()
+        return devices.getDevices()
                 .stream()
                 .filter(device -> device.getBlind() != null)
                 .collect(Collectors.toList());
-        return hkrDevices;
     }
 
     private void showStatus(final List<Device> blindDevices) {
@@ -153,8 +155,7 @@ public class TestBlind extends AbstractTestHelper {
         });
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(final String[] args) throws InterruptedException {
         new TestBlind();
     }
-
 }

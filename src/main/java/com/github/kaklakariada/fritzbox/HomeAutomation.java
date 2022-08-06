@@ -36,21 +36,26 @@ public class HomeAutomation {
 
     private final FritzBoxSession session;
 
-    private enum ParamName {
+    private enum Param {
         PARAM("param"), LEVEL("level"), TARGET("target");
 
-        private String paramName;
+        private final String name;
 
-        ParamName(String paramName) {
-            this.paramName = paramName;
+        Param(final String name) {
+            this.name = name;
         }
     }
 
-    private HomeAutomation(FritzBoxSession fritzbox) {
+    private HomeAutomation(final FritzBoxSession fritzbox) {
         this.session = fritzbox;
     }
 
-    public static HomeAutomation connect(String baseUrl, String username, String password) {
+    public static HomeAutomation connect(final Config config) {
+        return connect(config.getUrl(), config.getUsername(), config.getPassword());
+    }
+
+    public static HomeAutomation connect(final String baseUrl, final String username, final String password) {
+        LOG.info("Logging in to '{}' with username '{}'", baseUrl, username);
         final FritzBoxSession session = new FritzBoxSession(baseUrl);
         session.login(username, password);
         return new HomeAutomation(session);
@@ -62,33 +67,37 @@ public class HomeAutomation {
                 deviceList.getApiVersion());
         return deviceList;
     }
-    
-    public Device getDeviceInfos(String deviceAin) {
-        return executeDeviceCommand(deviceAin, "getdeviceinfos", null, Device.class);
+
+    public Device getDeviceInfos(final String deviceAin) {
+        return executeDeviceCommand(deviceAin, "getdeviceinfos", Param.PARAM, null, Device.class);
     }
 
-    private <T> T executeCommand(String command, Class<T> resultType) {
+    private <T> T executeCommand(final String command, final Class<T> resultType) {
         final QueryParameters parameters = QueryParameters.builder().add("switchcmd", command).build();
         return session.getAutenticated(HOME_AUTOMATION_PATH, parameters, resultType);
     }
 
-    private <T> T executeParamCommand(String deviceAin, String command, String parameter, Class<T> responseType) {
-        return executeDeviceCommand(deviceAin, command, ParamName.PARAM, parameter, responseType);
+    private <T> T executeParamCommand(final String deviceAin, final String command, final String parameter,
+            final Class<T> responseType) {
+        return executeDeviceCommand(deviceAin, command, Param.PARAM, parameter, responseType);
     }
 
-    private <T> T executeLevelCommand(String deviceAin, String command, String parameter, Class<T> responseType) {
-        return executeDeviceCommand(deviceAin, command, ParamName.LEVEL, parameter, responseType);
+    private <T> T executeLevelCommand(final String deviceAin, final String command, final String parameter,
+            final Class<T> responseType) {
+        return executeDeviceCommand(deviceAin, command, Param.LEVEL, parameter, responseType);
     }
 
-    private <T> T executeTargetCommand(String deviceAin, String command, String parameter, Class<T> responseType) {
-        return executeDeviceCommand(deviceAin, command, ParamName.TARGET, parameter, responseType);
+    private <T> T executeTargetCommand(final String deviceAin, final String command, final String parameter,
+            final Class<T> responseType) {
+        return executeDeviceCommand(deviceAin, command, Param.TARGET, parameter, responseType);
     }
 
-    private <T> T executeDeviceCommand(String deviceAin, String command, ParamName paramName, String parameter,
-            Class<T> responseType) {
+    private <T> T executeDeviceCommand(final String deviceAin, final String command, final Param paramName,
+            final String parameter,
+            final Class<T> responseType) {
         final Builder paramBuilder = QueryParameters.builder().add("ain", deviceAin).add("switchcmd", command);
         if (parameter != null) {
-            paramBuilder.add(paramName.paramName, parameter);
+            paramBuilder.add(paramName.name, parameter);
         }
         return session.getAutenticated(HOME_AUTOMATION_PATH, paramBuilder.build(), responseType);
     }
@@ -100,58 +109,58 @@ public class HomeAutomation {
         return idList;
     }
 
-    public void switchPowerState(String deviceAin, boolean on) {
+    public void switchPowerState(final String deviceAin, final boolean on) {
         final String command = on ? "setswitchon" : "setswitchoff";
         executeParamCommand(deviceAin, command, null, Boolean.class);
     }
 
-    public void togglePowerState(String deviceAin) {
+    public void togglePowerState(final String deviceAin) {
         executeParamCommand(deviceAin, "setswitchtoggle", null, Boolean.class);
     }
 
-    public void setHkrTsoll(String deviceAin, String tsoll) {
+    public void setHkrTsoll(final String deviceAin, final String tsoll) {
         executeParamCommand(deviceAin, "sethkrtsoll", tsoll, Boolean.class);
     }
 
-    public void setBlind(String deviceAin, String target) {
+    public void setBlind(final String deviceAin, final String target) {
         executeTargetCommand(deviceAin, "setblind", target, Boolean.class);
     }
 
-    public void setLevel(String deviceAin, String level) {
+    public void setLevel(final String deviceAin, final String level) {
         executeLevelCommand(deviceAin, "setlevel", level, Boolean.class);
     }
 
-    public void setLevelPercentage(String deviceAin, String level) {
+    public void setLevelPercentage(final String deviceAin, final String level) {
         executeLevelCommand(deviceAin, "setlevelpercentage", level, Boolean.class);
     }
 
-    public boolean getSwitchState(String deviceAin) {
+    public boolean getSwitchState(final String deviceAin) {
         return executeParamCommand(deviceAin, "getswitchstate", null, Boolean.class);
     }
 
-    public boolean getSwitchPresent(String deviceAin) {
+    public boolean getSwitchPresent(final String deviceAin) {
         return executeParamCommand(deviceAin, "getswitchpresent", null, Boolean.class);
     }
 
-    public String getSwitchName(String deviceAin) {
+    public String getSwitchName(final String deviceAin) {
         return executeParamCommand(deviceAin, "getswitchname", null, String.class);
     }
 
-    public Float getTemperature(String deviceAin) {
+    public Float getTemperature(final String deviceAin) {
         final Integer centiDegree = executeParamCommand(deviceAin, "gettemperature", null, Integer.class);
         return centiDegree == null ? null : centiDegree / 10F;
     }
 
-    public DeviceStats getBasicStatistics(String deviceAin) {
+    public DeviceStats getBasicStatistics(final String deviceAin) {
         return executeParamCommand(deviceAin, "getbasicdevicestats", null, DeviceStats.class);
     }
 
-    public Float getSwitchPowerWatt(String deviceAin) {
+    public Float getSwitchPowerWatt(final String deviceAin) {
         final Integer powerMilliWatt = executeParamCommand(deviceAin, "getswitchpower", null, Integer.class);
         return powerMilliWatt == null ? null : powerMilliWatt / 1000F;
     }
 
-    public Integer getSwitchEnergyWattHour(String deviceAin) {
+    public Integer getSwitchEnergyWattHour(final String deviceAin) {
         return executeParamCommand(deviceAin, "getswitchenergy", null, Integer.class);
     }
 

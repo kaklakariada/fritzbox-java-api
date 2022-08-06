@@ -39,11 +39,16 @@ public class TestHkrDriver extends AbstractTestHelper {
     private final HomeAutomation homeAutomation;
 
     public TestHkrDriver() {
-        this.homeAutomation = TestLogin.login();
+        this.homeAutomation = HomeAutomation.connect(Config.read());
 
         LOG.info("");
         LOG.info("Initial temperature");
         List<Device> hkrDevices = getHkrDevices();
+
+        if (hkrDevices.isEmpty()) {
+            LOG.warn("No HKR devices found");
+            return;
+        }
         showTemperatures(hkrDevices);
 
         final String ain = hkrDevices.get(0).getIdentifier().replaceAll("\\s*", "");
@@ -88,7 +93,7 @@ public class TestHkrDriver extends AbstractTestHelper {
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new TestHkrDriver();
     }
 
