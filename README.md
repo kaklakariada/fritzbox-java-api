@@ -22,6 +22,8 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Usage
 
+### Gradle
+
 * Add Maven Central maven repository:
 
     ```groovy
@@ -34,9 +36,19 @@ See [CHANGELOG.md](CHANGELOG.md).
 
     ```groovy
     dependencies {
-        compile 'com.github.kaklakariada:fritzbox-java-api:1.5.0'
+        compile 'com.github.kaklakariada:fritzbox-java-api:1.6.0'
     }
     ```
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>com.github.kaklakariada</groupId>
+  <artifactId>fritzbox-java-api</artifactId>
+  <version>1.6.0</version>
+</dependency>
+```
 
 ### Run sample program
 

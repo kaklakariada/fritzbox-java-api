@@ -4,7 +4,7 @@ plugins {
     id "maven-publish"
     id "jacoco"
     id "com.github.hierynomus.license" version "0.16.1"
-    id "org.sonarqube" version "3.3"
+    id "org.sonarqube" version "3.4.0.2513"
     id "io.codearte.nexus-staging" version "0.30.0"
     id "com.github.ben-manes.versions" version "0.42.0"
 }
@@ -14,7 +14,7 @@ repositories {
 }
 
 group 'com.github.kaklakariada'
-version = '1.5.0'
+version = '1.6.0'
 
 java {
     toolchain {
@@ -42,15 +42,15 @@ test {
 }
 
 dependencies {
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.subshell.simpleframework:simple-xml:2.9.0'
     implementation 'org.slf4j:slf4j-api:1.7.36'
     
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.11'
     
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:4.5.1'
-    testImplementation 'org.assertj:assertj-core:3.22.0'
+    testImplementation 'org.mockito:mockito-core:4.6.1'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
 license {
