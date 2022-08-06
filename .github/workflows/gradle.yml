@@ -56,10 +56,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-    - name: Publish Test Report
-      uses: scacap/action-surefire-report@v1
-      if: ${{ always() && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]' }}
-      with:
-        report_paths: '**/build/test-results/*/TEST-*.xml'
-        github_token: ${{ secrets.GITHUB_TOKEN }}
