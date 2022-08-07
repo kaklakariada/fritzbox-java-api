@@ -15,23 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.kaklakariada.fritzbox.model.homeautomation;
+package com.github.kaklakariada.fritzbox.login;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+public interface ChallengeResponse {
+    String calculateResponse(final String challenge, final String password);
 
-@Root(name = "simpleonoff")
-public class SimpleOnOffState {
-
-    @Element(name = "state", required = false)
-    private int state;
-
-    public int getState() {
-        return state;
-    }
-
-    @Override
-    public String toString() {
-        return "SimpleOnOffState [state=" + state + "]";
+    static ChallengeResponse getAlgorithm(final String challenge) {
+        if (challenge.startsWith("2$")) {
+            return new Pbkdf2ChallengeResponse();
+        } else {
+            return new Md5LoginChallengeResponse(new Md5Service());
+        }
     }
 }

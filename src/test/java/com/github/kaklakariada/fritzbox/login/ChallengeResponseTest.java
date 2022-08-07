@@ -15,23 +15,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.kaklakariada.fritzbox.model.homeautomation;
+package com.github.kaklakariada.fritzbox.login;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@Root(name = "simpleonoff")
-public class SimpleOnOffState {
+import org.junit.Test;
 
-    @Element(name = "state", required = false)
-    private int state;
-
-    public int getState() {
-        return state;
+public class ChallengeResponseTest {
+    @Test
+    public void md5() {
+        assertThat(ChallengeResponse.getAlgorithm("challenge")).isInstanceOf(Md5LoginChallengeResponse.class);
     }
 
-    @Override
-    public String toString() {
-        return "SimpleOnOffState [state=" + state + "]";
+    @Test
+    public void pbkdf3() {
+        assertThat(ChallengeResponse.getAlgorithm("2$challenge")).isInstanceOf(Pbkdf2ChallengeResponse.class);
     }
 }
