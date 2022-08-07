@@ -19,6 +19,7 @@ package com.github.kaklakariada.fritzbox.mapping;
 
 import static com.github.kaklakariada.fritzbox.assertions.HomeAutomationAssertions.assertThat;
 import static java.util.stream.Collectors.joining;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,9 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.github.kaklakariada.fritzbox.model.SessionInfo;
@@ -41,86 +42,70 @@ import com.github.kaklakariada.fritzbox.model.homeautomation.SwitchState;
 
 class DeserializerTest {
 
-    private static DeviceList deviceList6840 = null;
-
-    @BeforeAll
-    static void setupDeviceList6840() throws IOException {
-        final String fileContent6840 = String.join("\n",
-                Files.readAllLines(Paths.get("src/test/resources/devicelist6840.xml")));
-        deviceList6840 = new Deserializer().parse(fileContent6840, DeviceList.class);
-        assertThat(deviceList6840).hasGroupsSize(2);
-    }
-
     @Test
     void parseDeviceListFritzDect200() throws IOException {
-        final String fileContent = Files
-                .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml")).stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(
+                Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml"));
+        assertThat(deviceList.getDevices()).hasSize(1);
     }
 
     @Test
     void parseDeviceListFritzDect301() throws IOException {
-        final String fileContent = Files
-                .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml")).stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(
+                Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml"));
+        assertThat(deviceList.getDevices()).hasSize(1);
     }
 
     @Test
     void parseDeviceListNotConnectedFritzDect500() throws IOException {
-        final String fileContent = Files
-                .readAllLines(Paths.get("src/test/resources/deviceListNotConnectedFritzDect500Payload.xml")).stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(
+                Paths.get("src/test/resources/deviceListNotConnectedFritzDect500Payload.xml"));
+        assertThat(deviceList.getDevices()).hasSize(1);
     }
 
     @Test
     void parseDeviceListConnectedFritzDect500() throws IOException {
-        final String fileContent = Files
-                .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect500Payload.xml")).stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(
+                Paths.get("src/test/resources/deviceListConnectedFritzDect500Payload.xml"));
+        assertThat(deviceList.getDevices()).hasSize(1);
     }
 
     @Test
     void parseDeviceListConnectedFritzDect440() throws IOException {
-        final String fileContent = Files
-                .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect440Payload.xml")).stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(
+                Paths.get("src/test/resources/deviceListConnectedFritzDect440Payload.xml"));
+        assertThat(deviceList.getDevices()).hasSize(1);
     }
 
     @Test
     void parseDeviceListConnectedFritzDect440x2() throws IOException {
-        final String fileContent = Files
-                .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect440x2Payload.xml")).stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(
+                Paths.get("src/test/resources/deviceListConnectedFritzDect440x2Payload.xml"));
+        assertThat(deviceList.getDevices()).hasSize(2);
     }
 
     @Test
     void parseDeviceListAllTogether() throws IOException {
-        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListAllTogetherPayload.xml"))
-                .stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(Paths.get("src/test/resources/deviceListAllTogetherPayload.xml"));
+        assertThat(deviceList.getDevices()).hasSize(5);
     }
 
     @Test
     void parseDeviceList() throws IOException {
-        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceList.xml")).stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(Paths.get("src/test/resources/deviceList.xml"));
+        assertThat(deviceList.getDevices()).hasSize(16);
     }
 
     @Test
     void parseDeviceListAllTogetherWithBlind() throws IOException {
-        final String fileContent = Files
-                .readAllLines(Paths.get("src/test/resources/FritzOS29/deviceListAllTogetherWithBlind.xml"))
-                .stream()
-                .collect(joining("\n"));
-        new Deserializer().parse(fileContent, DeviceList.class);
+        final DeviceList deviceList = parseDeviceList(
+                Paths.get("src/test/resources/FritzOS29/deviceListAllTogetherWithBlind.xml"));
+        assertThat(deviceList.getDevices()).hasSize(8);
+    }
+
+    DeviceList parseDeviceList(final Path file) throws IOException {
+        final String content = Files.readString(file);
+        return new Deserializer().parse(content, DeviceList.class);
     }
 
     @Test
@@ -155,9 +140,9 @@ class DeserializerTest {
         assertTrue(sessionInfo.getUsers().get(2).isLast());
     }
 
-    void parseDeviceGroup() {
+    void parseDeviceGroup() throws IOException {
         // given
-        final Group group = deviceList6840.getGroupById("900");
+        final Group group = getDeviceList6840().getGroupById("900");
         // then
         assertThat(group)
                 .hasName("PV")
@@ -165,9 +150,9 @@ class DeserializerTest {
     }
 
     @Test
-    void parseDeviceGroupSwitch() {
+    void parseDeviceGroupSwitch() throws IOException {
         // given
-        final Group group = deviceList6840.getGroupById("900");
+        final Group group = getDeviceList6840().getGroupById("900");
 
         // when
         final SwitchState switchState = group.getSwitchState();
@@ -182,9 +167,9 @@ class DeserializerTest {
     }
 
     @Test
-    void parseDeviceGroupPowerMeter() {
+    void parseDeviceGroupPowerMeter() throws IOException {
         // given
-        final Group group = deviceList6840.getGroupById("900");
+        final Group group = getDeviceList6840().getGroupById("900");
 
         // when
         final PowerMeter powerMeter = group.getPowerMeter();
@@ -197,9 +182,9 @@ class DeserializerTest {
     }
 
     @Test
-    void parseDeviceGroupGroupInfo() {
+    void parseDeviceGroupGroupInfo() throws IOException {
         // given
-        final Group group = deviceList6840.getGroupById("900");
+        final Group group = getDeviceList6840().getGroupById("900");
 
         // when
         final GroupInfo groupInfo = group.getGroupInfo();
@@ -211,4 +196,7 @@ class DeserializerTest {
 
     }
 
+    DeviceList getDeviceList6840() throws IOException {
+        return parseDeviceList(Paths.get("src/test/resources/devicelist6840.xml"));
+    }
 }
