@@ -17,13 +17,13 @@
  */
 package com.github.kaklakariada.fritzbox.login;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class Md5LoginChallengeResponseTest {
+class Md5LoginChallengeResponseTest {
     @Test
-    public void test() {
+    void test() {
         final String response = new Md5LoginChallengeResponse(new Md5Service()).calculateResponse("challenge",
                 "password");
         assertEquals("challenge-086fa48e27e8826c94437d10380e11ba", response);

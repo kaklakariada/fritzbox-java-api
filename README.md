@@ -52,7 +52,13 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ### Run sample program
 
-1. Copy file `application.properties.template` to `application.properties` and enter settings for your device.
+1. Create file `application.properties` with the following content and enter settings for your device:
+
+    ``` properties
+    fritzbox.url = https://fritz.box
+    fritzbox.username = user
+    fritzbox.password = secret
+    ```
 2. Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/master/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
 
 ## Development
@@ -60,13 +66,19 @@ See [CHANGELOG.md](CHANGELOG.md).
 ### Generate / update license header
 
 ```bash
-$ ./gradlew licenseFormat
+./gradlew licenseFormat
 ```
 
 ### Check if dependencies are up-to-date
 
 ```bash
-$ ./gradlew dependencyUpdates
+./gradlew dependencyUpdates
+```
+
+### Check dependencies for vulnerabilities
+
+```bash
+./gradlew ossIndexAudit
 ```
 
 ### Building
@@ -93,7 +105,7 @@ Install to local maven repository:
 3. Run the following command:
 
     ```bash
-    $ ./gradlew clean check build publish closeAndReleaseRepository --info
+    ./gradlew clean check build publish closeAndReleaseRepository --info
     ```
 
 4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.

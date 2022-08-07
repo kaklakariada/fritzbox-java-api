@@ -17,15 +17,15 @@
  */
 package com.github.kaklakariada.fritzbox.login;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class Pbkdf2ChallengeResponseTest {
+class Pbkdf2ChallengeResponseTest {
 
     @Test
-    public void test() {
+    void test() {
         assertEquals(
                 "91a3f9eca12316c9461667af0fe36d2f$00e538d77b29ee7ea349a8604dc48570024d9084e5082ebe3d3540a441ea6108",
                 calculate(
@@ -33,7 +33,7 @@ public class Pbkdf2ChallengeResponseTest {
     }
 
     @Test
-    public void invalidFormat() {
+    void invalidFormat() {
         assertThrows(IllegalArgumentException.class, () -> calculate("invalid", "password"));
     }
 

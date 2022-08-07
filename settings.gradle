@@ -1,1 +1,7 @@
 rootProject.name='fritzbox-java-api'
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}

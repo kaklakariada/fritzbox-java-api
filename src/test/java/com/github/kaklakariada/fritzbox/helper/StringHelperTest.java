@@ -17,36 +17,35 @@
  */
 package com.github.kaklakariada.fritzbox.helper;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class StringHelperTest {
+class StringHelperTest {
 
     @Test
-    public void isIntegerNumberTest() {
-        assertFalse("Test null", StringHelper.isIntegerNumber(null));
-        assertFalse("Test empty", StringHelper.isIntegerNumber(""));
-        assertFalse("Test blank", StringHelper.isIntegerNumber(" "));
-        assertTrue("Test numeric enclosed by blank", StringHelper.isIntegerNumber(" 1 "));
-        assertFalse("Test numeric enclosing blank", StringHelper.isIntegerNumber("1 1"));
-        assertTrue("Test Unicode", StringHelper.isIntegerNumber("\u0967\u0968\u0969"));
-        assertTrue("Test Integer", StringHelper.isIntegerNumber("1"));
-        assertFalse("Test Double", StringHelper.isIntegerNumber("1.1"));
-        assertFalse("Test Double", StringHelper.isIntegerNumber("1.1D"));
+    void isIntegerNumberTest() {
+        assertFalse(StringHelper.isIntegerNumber(null), "Test null");
+        assertFalse(StringHelper.isIntegerNumber(""), "Test empty");
+        assertFalse(StringHelper.isIntegerNumber(" "), "Test blank");
+        assertTrue(StringHelper.isIntegerNumber(" 1 "), "Test numeric enclosed by blank");
+        assertFalse(StringHelper.isIntegerNumber("1 1"), "Test numeric enclosing blank");
+        assertTrue(StringHelper.isIntegerNumber("\u0967\u0968\u0969"), "Test Unicode");
+        assertTrue(StringHelper.isIntegerNumber("1"), "Test Integer");
+        assertFalse(StringHelper.isIntegerNumber("1.1"), "Test Double");
+        assertFalse(StringHelper.isIntegerNumber("1.1D"), "Test Double");
     }
 
     @Test
-    public void isNumericTest() {
-        assertFalse("Test null", StringHelper.isNumeric(null));
-        assertFalse("Test empty", StringHelper.isNumeric(""));
-        assertFalse("Test blank", StringHelper.isNumeric(""));
-        assertFalse("Test numeric blank", StringHelper.isNumeric(" 1 "));
-        assertTrue("Test Unicode", StringHelper.isNumeric("\u0967\u0968\u0969"));
-        assertTrue("Test empty", StringHelper.isNumeric("1"));
-        assertFalse("Test Double", StringHelper.isNumeric("1.1"));
-        assertFalse("Test Double", StringHelper.isNumeric("1.1D"));
+    void isNumericTest() {
+        assertFalse(StringHelper.isNumeric(null), "Test null");
+        assertFalse(StringHelper.isNumeric(""), "Test empty");
+        assertFalse(StringHelper.isNumeric(""), "Test blank");
+        assertFalse(StringHelper.isNumeric(" 1 "), "Test numeric blank");
+        assertTrue(StringHelper.isNumeric("\u0967\u0968\u0969"), "Test Unicode");
+        assertTrue(StringHelper.isNumeric("1"), "Test empty");
+        assertFalse(StringHelper.isNumeric("1.1"), "Test Double");
+        assertFalse(StringHelper.isNumeric("1.1D"), "Test Double");
     }
-
 }

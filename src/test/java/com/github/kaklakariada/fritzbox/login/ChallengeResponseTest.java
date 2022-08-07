@@ -19,16 +19,16 @@ package com.github.kaklakariada.fritzbox.login;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ChallengeResponseTest {
+class ChallengeResponseTest {
     @Test
-    public void md5() {
+    void md5() {
         assertThat(ChallengeResponse.getAlgorithm("challenge")).isInstanceOf(Md5LoginChallengeResponse.class);
     }
 
     @Test
-    public void pbkdf3() {
+    void pbkdf3() {
         assertThat(ChallengeResponse.getAlgorithm("2$challenge")).isInstanceOf(Pbkdf2ChallengeResponse.class);
     }
 }

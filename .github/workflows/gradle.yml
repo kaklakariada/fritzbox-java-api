@@ -39,13 +39,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build --info --warning-mode all
 
-    - name: Publish Test Report for Java ${{ matrix.java }}
-      uses: scacap/action-surefire-report@v1
-      if: always()
-      with:
-        report_paths: '**/build/test-results/*/TEST-*.xml'
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Sonar analysis
       if: ${{ env.DEFAULT_JAVA == matrix.java && env.SONAR_TOKEN != null }}
       run: |
