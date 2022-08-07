@@ -17,10 +17,11 @@
  */
 package com.github.kaklakariada.fritzbox.login;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class Pbkdf2ChallengeResponseTest {
 

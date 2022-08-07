@@ -19,14 +19,17 @@ package com.github.kaklakariada.fritzbox.mapping;
 
 import static com.github.kaklakariada.fritzbox.assertions.HomeAutomationAssertions.assertThat;
 import static java.util.stream.Collectors.joining;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import com.github.kaklakariada.fritzbox.model.SessionInfo;
 import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
@@ -36,13 +39,11 @@ import com.github.kaklakariada.fritzbox.model.homeautomation.GroupInfo;
 import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
 import com.github.kaklakariada.fritzbox.model.homeautomation.SwitchState;
 
-import junit.framework.TestCase;
-
 public class DeserializerTest {
 
     private static DeviceList deviceList6840 = null;
 
-    @BeforeClass
+    @BeforeAll
     public static void setupDeviceList6840() throws IOException {
         final String fileContent6840 = String.join("\n",
                 Files.readAllLines(Paths.get("src/test/resources/devicelist6840.xml")));
@@ -112,11 +113,11 @@ public class DeserializerTest {
                 .collect(joining("\n"));
         new Deserializer().parse(fileContent, DeviceList.class);
     }
-    
-    
+
     @Test
     public void parseDeviceListAllTogetherWithBlind() throws IOException {
-        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/FritzOS29/deviceListAllTogetherWithBlind.xml"))
+        final String fileContent = Files
+                .readAllLines(Paths.get("src/test/resources/FritzOS29/deviceListAllTogetherWithBlind.xml"))
                 .stream()
                 .collect(joining("\n"));
         new Deserializer().parse(fileContent, DeviceList.class);
@@ -124,16 +125,19 @@ public class DeserializerTest {
 
     @Test
     public void parseDeviceStatsFritzDect200() throws IOException {
-        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/FritzOS29/devicestatsFritzDect200.xml"))
+        final String fileContent = Files
+                .readAllLines(Paths.get("src/test/resources/FritzOS29/devicestatsFritzDect200.xml"))
                 .stream()
                 .collect(joining("\n"));
         final DeviceStats stats = new Deserializer().parse(fileContent, DeviceStats.class);
-        assertEquals("Temperature has just one statistics Element", 1, stats.getTemperature().get().getStats().size());
-        assertEquals("Temperature statistics have unit precision '0.1'", Double.valueOf(0.1), stats.getTemperature().get().getStats().get(0).getMeasurementUnit().getPrescision());
-   
-        assertEquals("Energy has two statistics Element", 2, stats.getEnergy().get().getStats().size());
-        
-        assertEquals("Humidity is missing", false, stats.getHumidity().isPresent());
+        assertEquals(1, stats.getTemperature().get().getStats().size(), "Temperature has just one statistics Element");
+        assertEquals(Double.valueOf(0.1),
+                stats.getTemperature().get().getStats().get(0).getMeasurementUnit().getPrescision(),
+                "Temperature statistics have unit precision '0.1'");
+
+        assertEquals(2, stats.getEnergy().get().getStats().size(), "Energy has two statistics Element");
+
+        assertEquals(false, stats.getHumidity().isPresent(), "Humidity is missing");
     }
 
     @Test
@@ -141,14 +145,14 @@ public class DeserializerTest {
         final String fileContent = Files.readAllLines(Paths.get("src/test/resources/sessionInfo.xml")).stream()
                 .collect(joining("\n"));
         final SessionInfo sessionInfo = new Deserializer().parse(fileContent, SessionInfo.class);
-        TestCase.assertNotNull(sessionInfo.getUsers());
-        TestCase.assertEquals(3, sessionInfo.getUsers().size());
-        TestCase.assertEquals("UserA", sessionInfo.getUsers().get(0).getName());
-        TestCase.assertFalse(sessionInfo.getUsers().get(0).isLast());
-        TestCase.assertEquals("UserB", sessionInfo.getUsers().get(1).getName());
-        TestCase.assertFalse(sessionInfo.getUsers().get(1).isLast());
-        TestCase.assertEquals("UserC", sessionInfo.getUsers().get(2).getName());
-        TestCase.assertTrue(sessionInfo.getUsers().get(2).isLast());
+        assertNotNull(sessionInfo.getUsers());
+        assertEquals(3, sessionInfo.getUsers().size());
+        assertEquals("UserA", sessionInfo.getUsers().get(0).getName());
+        assertFalse(sessionInfo.getUsers().get(0).isLast());
+        assertEquals("UserB", sessionInfo.getUsers().get(1).getName());
+        assertFalse(sessionInfo.getUsers().get(1).isLast());
+        assertEquals("UserC", sessionInfo.getUsers().get(2).getName());
+        assertTrue(sessionInfo.getUsers().get(2).isLast());
     }
 
     public void parseDeviceGroup() {
