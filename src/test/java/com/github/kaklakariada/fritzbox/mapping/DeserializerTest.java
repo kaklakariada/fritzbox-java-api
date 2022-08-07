@@ -3,16 +3,16 @@
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU General  License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU General  License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU General  License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.github.kaklakariada.fritzbox.mapping;
@@ -39,12 +39,12 @@ import com.github.kaklakariada.fritzbox.model.homeautomation.GroupInfo;
 import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
 import com.github.kaklakariada.fritzbox.model.homeautomation.SwitchState;
 
-public class DeserializerTest {
+class DeserializerTest {
 
     private static DeviceList deviceList6840 = null;
 
     @BeforeAll
-    public static void setupDeviceList6840() throws IOException {
+    static void setupDeviceList6840() throws IOException {
         final String fileContent6840 = String.join("\n",
                 Files.readAllLines(Paths.get("src/test/resources/devicelist6840.xml")));
         deviceList6840 = new Deserializer().parse(fileContent6840, DeviceList.class);
@@ -52,7 +52,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceListFritzDect200() throws IOException {
+    void parseDeviceListFritzDect200() throws IOException {
         final String fileContent = Files
                 .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml")).stream()
                 .collect(joining("\n"));
@@ -60,7 +60,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceListFritzDect301() throws IOException {
+    void parseDeviceListFritzDect301() throws IOException {
         final String fileContent = Files
                 .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml")).stream()
                 .collect(joining("\n"));
@@ -68,7 +68,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceListNotConnectedFritzDect500() throws IOException {
+    void parseDeviceListNotConnectedFritzDect500() throws IOException {
         final String fileContent = Files
                 .readAllLines(Paths.get("src/test/resources/deviceListNotConnectedFritzDect500Payload.xml")).stream()
                 .collect(joining("\n"));
@@ -76,7 +76,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceListConnectedFritzDect500() throws IOException {
+    void parseDeviceListConnectedFritzDect500() throws IOException {
         final String fileContent = Files
                 .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect500Payload.xml")).stream()
                 .collect(joining("\n"));
@@ -84,7 +84,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceListConnectedFritzDect440() throws IOException {
+    void parseDeviceListConnectedFritzDect440() throws IOException {
         final String fileContent = Files
                 .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect440Payload.xml")).stream()
                 .collect(joining("\n"));
@@ -92,7 +92,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceListConnectedFritzDect440x2() throws IOException {
+    void parseDeviceListConnectedFritzDect440x2() throws IOException {
         final String fileContent = Files
                 .readAllLines(Paths.get("src/test/resources/deviceListConnectedFritzDect440x2Payload.xml")).stream()
                 .collect(joining("\n"));
@@ -100,7 +100,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceListAllTogether() throws IOException {
+    void parseDeviceListAllTogether() throws IOException {
         final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceListAllTogetherPayload.xml"))
                 .stream()
                 .collect(joining("\n"));
@@ -108,14 +108,14 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceList() throws IOException {
+    void parseDeviceList() throws IOException {
         final String fileContent = Files.readAllLines(Paths.get("src/test/resources/deviceList.xml")).stream()
                 .collect(joining("\n"));
         new Deserializer().parse(fileContent, DeviceList.class);
     }
 
     @Test
-    public void parseDeviceListAllTogetherWithBlind() throws IOException {
+    void parseDeviceListAllTogetherWithBlind() throws IOException {
         final String fileContent = Files
                 .readAllLines(Paths.get("src/test/resources/FritzOS29/deviceListAllTogetherWithBlind.xml"))
                 .stream()
@@ -124,7 +124,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceStatsFritzDect200() throws IOException {
+    void parseDeviceStatsFritzDect200() throws IOException {
         final String fileContent = Files
                 .readAllLines(Paths.get("src/test/resources/FritzOS29/devicestatsFritzDect200.xml"))
                 .stream()
@@ -141,7 +141,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseSessionInfo() throws IOException {
+    void parseSessionInfo() throws IOException {
         final String fileContent = Files.readAllLines(Paths.get("src/test/resources/sessionInfo.xml")).stream()
                 .collect(joining("\n"));
         final SessionInfo sessionInfo = new Deserializer().parse(fileContent, SessionInfo.class);
@@ -155,7 +155,7 @@ public class DeserializerTest {
         assertTrue(sessionInfo.getUsers().get(2).isLast());
     }
 
-    public void parseDeviceGroup() {
+    void parseDeviceGroup() {
         // given
         final Group group = deviceList6840.getGroupById("900");
         // then
@@ -165,7 +165,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceGroupSwitch() {
+    void parseDeviceGroupSwitch() {
         // given
         final Group group = deviceList6840.getGroupById("900");
 
@@ -182,7 +182,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceGroupPowerMeter() {
+    void parseDeviceGroupPowerMeter() {
         // given
         final Group group = deviceList6840.getGroupById("900");
 
@@ -197,7 +197,7 @@ public class DeserializerTest {
     }
 
     @Test
-    public void parseDeviceGroupGroupInfo() {
+    void parseDeviceGroupGroupInfo() {
         // given
         final Group group = deviceList6840.getGroupById("900");
 

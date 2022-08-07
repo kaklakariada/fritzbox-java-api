@@ -3,16 +3,16 @@
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU General  License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU General  License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU General  License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
@@ -25,18 +25,18 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class StatisticsTest {
+class StatisticsTest {
 
     private static Statistics statistics;
 
     @BeforeAll
-    public static void setupStatistics() {
+    static void setupStatistics() {
         statistics = new Statistics();
         statistics.setMeasurementUnit(MeasurementUnit.POWER);
     }
 
     @Test
-    public void computeValueTest() {
+    void computeValueTest() {
         assertEquals(null, statistics.computeValue(null), "Test null");
         assertEquals(Double.valueOf(0.02), statistics.computeValue("2"), "Test Integer");
         assertEquals(null, statistics.computeValue("1.1"), "Test Double");
@@ -44,7 +44,7 @@ public class StatisticsTest {
     }
 
     @Test
-    public void getCsvValuesTest() {
+    void getCsvValuesTest() {
         statistics.setCsvValues(null);
         List<Optional<Number>> result = statistics.getValues();
         assertEquals(0, result.size(), "(1) Number of entries");
