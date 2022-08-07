@@ -66,13 +66,19 @@ See [CHANGELOG.md](CHANGELOG.md).
 ### Generate / update license header
 
 ```bash
-$ ./gradlew licenseFormat
+./gradlew licenseFormat
 ```
 
 ### Check if dependencies are up-to-date
 
 ```bash
-$ ./gradlew dependencyUpdates
+./gradlew dependencyUpdates
+```
+
+### Check dependencies for vulnerabilities
+
+```bash
+./gradlew ossIndexAudit
 ```
 
 ### Building
@@ -99,7 +105,7 @@ Install to local maven repository:
 3. Run the following command:
 
     ```bash
-    $ ./gradlew clean check build publish closeAndReleaseRepository --info
+    ./gradlew clean check build publish closeAndReleaseRepository --info
     ```
 
 4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
