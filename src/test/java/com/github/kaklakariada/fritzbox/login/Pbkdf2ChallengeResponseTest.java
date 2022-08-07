@@ -17,14 +17,27 @@
  */
 package com.github.kaklakariada.fritzbox.login;
 
-public interface ChallengeResponse {
-    String calculateResponse(final String challenge, final String password);
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
-    static ChallengeResponse getAlgorithm(final String challenge) {
-        if (challenge.startsWith("2$")) {
-            return new Pbkdf2ChallengeResponse();
-        } else {
-            return new Md5LoginChallengeResponse(new Md5Service());
-        }
+import org.junit.Test;
+
+public class Pbkdf2ChallengeResponseTest {
+
+    @Test
+    public void test() {
+        assertEquals(
+                "91a3f9eca12316c9461667af0fe36d2f$00e538d77b29ee7ea349a8604dc48570024d9084e5082ebe3d3540a441ea6108",
+                calculate(
+                        "2$60000$58e7348c30c8376903802c21f9730310$6000$91a3f9eca12316c9461667af0fe36d2f", "password"));
+    }
+
+    @Test
+    public void invalidFormat() {
+        assertThrows(IllegalArgumentException.class, () -> calculate("invalid", "password"));
+    }
+
+    private String calculate(final String challenge, final String password) {
+        return new Pbkdf2ChallengeResponse().calculateResponse(challenge, password);
     }
 }

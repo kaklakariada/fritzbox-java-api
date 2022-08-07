@@ -17,14 +17,18 @@
  */
 package com.github.kaklakariada.fritzbox.login;
 
-public interface ChallengeResponse {
-    String calculateResponse(final String challenge, final String password);
+import static org.assertj.core.api.Assertions.assertThat;
 
-    static ChallengeResponse getAlgorithm(final String challenge) {
-        if (challenge.startsWith("2$")) {
-            return new Pbkdf2ChallengeResponse();
-        } else {
-            return new Md5LoginChallengeResponse(new Md5Service());
-        }
+import org.junit.Test;
+
+public class ChallengeResponseTest {
+    @Test
+    public void md5() {
+        assertThat(ChallengeResponse.getAlgorithm("challenge")).isInstanceOf(Md5LoginChallengeResponse.class);
+    }
+
+    @Test
+    public void pbkdf3() {
+        assertThat(ChallengeResponse.getAlgorithm("2$challenge")).isInstanceOf(Pbkdf2ChallengeResponse.class);
     }
 }

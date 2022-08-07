@@ -15,17 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.kaklakariada.fritzbox;
+package com.github.kaklakariada.fritzbox.login;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Md5Service {
+class Md5Service {
 
     private static final Charset CHARSET_UTF_16LE = Charset.forName("utf-16le");
 
-    public String md5(final String s) {
+    String md5(final String s) {
         final MessageDigest digest = getMd5MessageDigest();
         final byte[] binary = digest.digest(s.getBytes(CHARSET_UTF_16LE));
         return buildHexString(binary);

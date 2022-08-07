@@ -6,14 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.7.0] - unreleased
 
+### Added
+
+* [#29](https://github.com/kaklakariada/fritzbox-java-api/issues/29) Add support for login via Pbkdf2 challenge-response (propsed by [@linnex81](https://github.com/linnex81))
+
 ## [1.6.0] - 2021-12-04
 
 ### Added
 
 * [#39](https://github.com/kaklakariada/fritzbox-java-api/pull/39) Add new command "getdeviceinfo" (thanks to [@odin568](https://github.com/odin568))
-* [#46](https://github.com/kaklakariada/fritzbox-java-api/pull/46) Add additional attributes to group (thanks to [TDesjardins](https://github.com/TDesjardins))
-* [#47](https://github.com/kaklakariada/fritzbox-java-api/pull/47) Add hkr attribute supported by FritzOS 7.29 (thanks to [philippn](https://github.com/philippn))
-* [#38](https://github.com/kaklakariada/fritzbox-java-api/pull/38) Add commands to set status for hkr (tsoll) and for blind (open, close etc.) (thanks to [JunkerMartin](https://github.com/JunkerMartin))
+* [#46](https://github.com/kaklakariada/fritzbox-java-api/pull/46) Add additional attributes to group (thanks to [@TDesjardins](https://github.com/TDesjardins))
+* [#47](https://github.com/kaklakariada/fritzbox-java-api/pull/47) Add hkr attribute supported by FritzOS 7.29 (thanks to [@philippn](https://github.com/philippn))
+* [#38](https://github.com/kaklakariada/fritzbox-java-api/pull/38) Add commands to set status for hkr (tsoll) and for blind (open, close etc.) (thanks to [@JunkerMartin](https://github.com/JunkerMartin))
 
 ### Updated
 
