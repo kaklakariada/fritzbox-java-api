@@ -52,7 +52,13 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ### Run sample program
 
-1. Copy file `application.properties.template` to `application.properties` and enter settings for your device.
+1. Create file `application.properties` with the following content and enter settings for your device:
+
+    ``` properties
+    fritzbox.url = https://fritz.box
+    fritzbox.username = user
+    fritzbox.password = secret
+    ```
 2. Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/master/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
 
 ## Development
