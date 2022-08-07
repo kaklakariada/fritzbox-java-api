@@ -33,12 +33,12 @@ class Md5Service {
     @SuppressWarnings("squid:S1643")
     private String buildHexString(final byte[] data) {
         final StringBuilder hexString = new StringBuilder();
-        for (final byte aMessageDigest : data) {
-            String h = Integer.toHexString(0xFF & aMessageDigest);
-            while (h.length() < 2) {
-                h = "0" + h;
+        for (final byte digit : data) {
+            String hex = Integer.toHexString(0xFF & digit);
+            while (hex.length() < 2) {
+                hex = "0" + hex;
             }
-            hexString.append(h);
+            hexString.append(hex);
         }
         return hexString.toString();
     }

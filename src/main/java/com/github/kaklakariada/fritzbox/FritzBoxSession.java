@@ -39,8 +39,8 @@ public class FritzBoxSession {
 
     private final HttpTemplate httpTemplate;
 
-    FritzBoxSession(final String baseUrl) {
-        this(new HttpTemplate(baseUrl));
+    FritzBoxSession(final String baseUrl, final String certificatChecksum) {
+        this(HttpTemplate.create(baseUrl, certificatChecksum));
     }
 
     FritzBoxSession(final HttpTemplate httpTemplate) {

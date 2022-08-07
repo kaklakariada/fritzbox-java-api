@@ -61,8 +61,8 @@ public class TestDriver {
 
         // testEnergyStats(homeAutomation, devices.getDevices().get(0).getId());
         testEnergyStatsNew(homeAutomation, ain);
-        testVoltageStatsNew(homeAutomation, ain);
-        testHomeAutomation(homeAutomation, ain);
+        // testVoltageStatsNew(homeAutomation, ain);
+        // testHomeAutomation(homeAutomation, ain);
     }
 
     private static void testEnergyStats(final HomeAutomation homeAutomation, final String deviceId) {

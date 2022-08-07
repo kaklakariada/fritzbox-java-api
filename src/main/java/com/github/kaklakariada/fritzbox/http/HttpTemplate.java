@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import com.github.kaklakariada.fritzbox.FritzBoxException;
 import com.github.kaklakariada.fritzbox.mapping.Deserializer;
 
+import okhttp3.CertificatePinner;
 import okhttp3.HttpUrl;
 import okhttp3.HttpUrl.Builder;
 import okhttp3.MediaType;
@@ -45,44 +46,52 @@ public class HttpTemplate {
     private final HttpUrl baseUrl;
     private final Deserializer deserializer;
 
-    public HttpTemplate(String baseUrl) {
-        this(createUnsafeOkHttpClient(), new Deserializer(), HttpUrl.parse(baseUrl));
+    public static HttpTemplate create(final String baseUrl, final String certificatChecksum) {
+        final HttpUrl url = HttpUrl.parse(baseUrl);
+        return new HttpTemplate(createUnsafeOkHttpClient(url, certificatChecksum), new Deserializer(), url);
     }
 
-    HttpTemplate(OkHttpClient httpClient, Deserializer deserializer, HttpUrl baseUrl) {
+    HttpTemplate(final OkHttpClient httpClient, final Deserializer deserializer, final HttpUrl baseUrl) {
         this.httpClient = httpClient;
         this.deserializer = deserializer;
         this.baseUrl = baseUrl;
     }
 
-    private static OkHttpClient createUnsafeOkHttpClient() {
+    private static OkHttpClient createUnsafeOkHttpClient(final HttpUrl url, final String certificatChecksum) {
         final okhttp3.OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.sslSocketFactory(TrustSelfSignedCertificates.getUnsafeSslSocketFactory(), new NullTrustManager());
-        builder.hostnameVerifier(new NullHostnameVerifier());
+        // builder.hostnameVerifier(new NullHostnameVerifier());
+        if (certificatChecksum != null) {
+            LOG.info("Pin certificate for host {} to checksum {}", url.host(), certificatChecksum);
+            final CertificatePinner certificatePinner = new CertificatePinner.Builder()
+                    .add(url.host(), certificatChecksum)
+                    .build();
+            builder.certificatePinner(certificatePinner);
+        }
         return builder.build();
     }
 
-    public <T> T get(String path, Class<T> resultType) {
+    public <T> T get(final String path, final Class<T> resultType) {
         return get(path, QueryParameters.builder().build(), resultType);
     }
 
-    public <T> T get(String path, QueryParameters parameters, Class<T> resultType) {
+    public <T> T get(final String path, final QueryParameters parameters, final Class<T> resultType) {
         final HttpUrl url = createUrl(path, parameters);
         return get(resultType, url);
     }
 
-    public <T> T post(String path, QueryParameters parameters, Class<T> resultType) {
+    public <T> T post(final String path, final QueryParameters parameters, final Class<T> resultType) {
         final HttpUrl url = createUrl(path, parameters);
         return post(resultType, url);
     }
 
-    private <T> T get(Class<T> resultType, HttpUrl url) {
+    private <T> T get(final Class<T> resultType, final HttpUrl url) {
         final Request request = new Request.Builder().url(url).get().build();
         final Response response = execute(request);
         return parse(response, resultType);
     }
 
-    private <T> T post(Class<T> resultType, HttpUrl url) {
+    private <T> T post(final Class<T> resultType, final HttpUrl url) {
         final MediaType mediaType = MediaType.parse("application/xml");
         final RequestBody emptyBody = RequestBody.create(new byte[0], mediaType);
         final Request request = new Request.Builder().url(url).post(emptyBody).build();
@@ -90,7 +99,7 @@ public class HttpTemplate {
         return parse(response, resultType);
     }
 
-    private <T> T parse(final Response response, Class<T> resultType) {
+    private <T> T parse(final Response response, final Class<T> resultType) {
         if (!response.isSuccessful()) {
             throw new FritzBoxException("Request failed: " + response);
         }
@@ -112,7 +121,7 @@ public class HttpTemplate {
         }
     }
 
-    private HttpUrl createUrl(String path, QueryParameters parameters) {
+    private HttpUrl createUrl(final String path, final QueryParameters parameters) {
         final Builder builder = baseUrl.newBuilder().encodedPath(path);
         for (final Entry<String, String> param : parameters.getParameters().entrySet()) {
             builder.addQueryParameter(param.getKey(), param.getValue());
@@ -120,7 +129,7 @@ public class HttpTemplate {
         return builder.build();
     }
 
-    private Response execute(Request request) {
+    private Response execute(final Request request) {
         LOG.trace("Executing request {}", request);
         try {
             final Response response = httpClient.newCall(request).execute();

@@ -65,6 +65,10 @@ public class Config {
         return getMandatoryValue("fritzbox.url");
     }
 
+    public Optional<String> getCertificateChecksum() {
+        return getOptionalValue("fritzbox.certificateChecksum");
+    }
+
     public String getUsername() {
         return getMandatoryValue("fritzbox.username");
     }

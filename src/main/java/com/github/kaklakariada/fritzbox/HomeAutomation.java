@@ -51,12 +51,19 @@ public class HomeAutomation {
     }
 
     public static HomeAutomation connect(final Config config) {
-        return connect(config.getUrl(), config.getUsername(), config.getPassword());
+        return connect(config.getUrl(), config.getCertificateChecksum().orElse(null), config.getUsername(),
+                config.getPassword());
     }
 
+    @Deprecated
     public static HomeAutomation connect(final String baseUrl, final String username, final String password) {
+        return connect(baseUrl, null, username, password);
+    }
+
+    public static HomeAutomation connect(final String baseUrl, final String certificatChecksum, final String username,
+            final String password) {
         LOG.info("Logging in to '{}' with username '{}'", baseUrl, username);
-        final FritzBoxSession session = new FritzBoxSession(baseUrl);
+        final FritzBoxSession session = new FritzBoxSession(baseUrl, certificatChecksum);
         session.login(username, password);
         return new HomeAutomation(session);
     }
