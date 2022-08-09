@@ -19,6 +19,7 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import static java.util.stream.Collectors.toList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.simpleframework.xml.Attribute;
@@ -31,8 +32,8 @@ public class DeviceList {
     @Attribute(name = "version")
     private String apiVersion;
 
-    @ElementList(name = "device", type = Device.class, inline = true)
-    private List<Device> devices;
+    @ElementList(name = "device", type = Device.class, inline = true, required = false)
+    private List<Device> devices = new ArrayList<>();
 
     @ElementList(name = "group", type = Group.class, inline = true, required = false)
     private List<Group> groups;
