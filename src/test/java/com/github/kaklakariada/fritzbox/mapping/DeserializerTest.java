@@ -91,6 +91,12 @@ class DeserializerTest {
     }
 
     @Test
+    void parseDeviceListEmpty() throws IOException {
+        final DeviceList deviceList = parseDeviceList(Paths.get("src/test/resources/FritzOS29/deviceListEmpty.xml"));
+        assertThat(deviceList.getDevices()).hasSize(0);
+    }
+
+    @Test
     void parseDeviceList() throws IOException {
         final DeviceList deviceList = parseDeviceList(Paths.get("src/test/resources/deviceList.xml"));
         assertThat(deviceList.getDevices()).hasSize(16);
