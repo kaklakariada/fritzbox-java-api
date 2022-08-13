@@ -18,7 +18,6 @@
 package com.github.kaklakariada.fritzbox.mapping;
 
 import static com.github.kaklakariada.fritzbox.assertions.HomeAutomationAssertions.assertThat;
-import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -110,16 +110,13 @@ class DeserializerTest {
     }
 
     DeviceList parseDeviceList(final Path file) throws IOException {
-        final String content = Files.readString(file);
+        final InputStream content = Files.newInputStream(file);
         return new Deserializer().parse(content, DeviceList.class);
     }
 
     @Test
     void parseDeviceStatsFritzDect200() throws IOException {
-        final String fileContent = Files
-                .readAllLines(Paths.get("src/test/resources/FritzOS29/devicestatsFritzDect200.xml"))
-                .stream()
-                .collect(joining("\n"));
+        final InputStream fileContent = Files.newInputStream(Paths.get("src/test/resources/FritzOS29/devicestatsFritzDect200.xml"));
         final DeviceStats stats = new Deserializer().parse(fileContent, DeviceStats.class);
         assertEquals(1, stats.getTemperature().get().getStats().size(), "Temperature has just one statistics Element");
         assertEquals(Double.valueOf(0.1),
@@ -133,8 +130,7 @@ class DeserializerTest {
 
     @Test
     void parseSessionInfo() throws IOException {
-        final String fileContent = Files.readAllLines(Paths.get("src/test/resources/sessionInfo.xml")).stream()
-                .collect(joining("\n"));
+        final InputStream fileContent = Files.newInputStream(Paths.get("src/test/resources/sessionInfo.xml"));
         final SessionInfo sessionInfo = new Deserializer().parse(fileContent, SessionInfo.class);
         assertNotNull(sessionInfo.getUsers());
         assertEquals(3, sessionInfo.getUsers().size());
