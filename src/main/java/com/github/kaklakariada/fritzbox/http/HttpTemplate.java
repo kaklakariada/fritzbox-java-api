@@ -94,22 +94,10 @@ public class HttpTemplate {
         if (!response.isSuccessful()) {
             throw new FritzBoxException("Request failed: " + response);
         }
-        final String body = getBodyAsString(response);
-        if (body.startsWith("HTTP/1.0 500 Internal Server Error")) {
-            throw new FritzBoxException("Request failed: " + body);
+        if (response.code() == 500) {
+            throw new FritzBoxException("Request failed: " + deserializer.getStringFromStream(response.body().byteStream()));
         }
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("Got response {} with body\n'{}'", response, body.trim());
-        }
-        return deserializer.parse(body.trim(), resultType);
-    }
-
-    private String getBodyAsString(final Response response) {
-        try {
-            return response.body().string();
-        } catch (final IOException e) {
-            throw new HttpException("Error getting body from response " + response, e);
-        }
+        return deserializer.parse(response.body().byteStream(), resultType);
     }
 
     private HttpUrl createUrl(String path, QueryParameters parameters) {
