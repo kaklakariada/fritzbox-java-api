@@ -23,11 +23,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.github.kaklakariada.fritzbox.helper.StringHelper;
-
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
+
+import com.github.kaklakariada.fritzbox.helper.StringHelper;
 
 @Root(name = "stats")
 public class Statistics {
@@ -40,6 +40,9 @@ public class Statistics {
     @Attribute(name = "grid", required = false)
     private int grid;
 
+    @Attribute(name = "datatime", required = false)
+    private long datatime;
+
     @Text()
     private String csvValues;
 
@@ -49,6 +52,10 @@ public class Statistics {
 
     public int getGrid() {
         return grid;
+    }
+
+    public long getDataTime() {
+        return datatime;
     }
 
     /**
