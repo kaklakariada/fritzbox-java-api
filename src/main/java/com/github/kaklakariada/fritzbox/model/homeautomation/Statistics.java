@@ -17,6 +17,7 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,8 +55,12 @@ public class Statistics {
         return grid;
     }
 
-    public long getDataTime() {
+    public long getDataTimeRaw() {
         return datatime;
+    }
+
+    public Instant getDataTime() {
+        return Instant.ofEpochMilli(datatime);
     }
 
     /**

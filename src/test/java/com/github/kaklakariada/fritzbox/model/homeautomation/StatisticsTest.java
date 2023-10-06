@@ -19,6 +19,8 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.lang.System.Logger;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,7 @@ import org.junit.jupiter.api.Test;
 class StatisticsTest {
 
     private static Statistics statistics;
+    private static final Logger LOGGER = System.getLogger("StatisticsTest");
 
     @BeforeAll
     static void setupStatistics() {
@@ -73,5 +76,28 @@ class StatisticsTest {
         assertEquals(true, result.get(0).isEmpty(), "(5) First number is empty");
         assertEquals(Double.valueOf(11.11), result.get(1).get(), "(5) Second number");
         assertEquals(true, result.get(2).isEmpty(), "(5) Third number is empty");
+    }
+
+    @Test
+    void getDataTimeTest() {
+        setDataTime(0);
+        assertEquals(0, statistics.getDataTime(), "Test DataTime 0");
+        setDataTime(-1);
+        assertEquals(-1, statistics.getDataTime(), "Test DataTime -1");
+        setDataTime(Long.MAX_VALUE);
+        assertEquals(Long.MAX_VALUE, statistics.getDataTime(), "Test DataTime MAX_VALUE");
+        setDataTime(Long.MIN_VALUE);
+        assertEquals(Long.MIN_VALUE, statistics.getDataTime(), "Test DataTime MIN_VALUE");
+    }
+
+    private void setDataTime(long dataTime) {
+        try {
+            final Field dt = statistics.getClass().getDeclaredField("datatime");
+            dt.setAccessible(true);
+            dt.set(statistics, dataTime);
+            // LOGGER.log(Level.ALL, "statistics.dataTime ist now set to:" + statistics.getDataTime());
+            System.out.println("statistics.dataTime ist now set to:" + statistics.getDataTime());
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+        }
     }
 }
