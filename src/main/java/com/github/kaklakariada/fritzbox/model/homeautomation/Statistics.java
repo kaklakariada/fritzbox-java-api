@@ -18,15 +18,10 @@
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Text;
+import org.simpleframework.xml.*;
 
 import com.github.kaklakariada.fritzbox.helper.StringHelper;
 
@@ -42,10 +37,23 @@ public class Statistics {
     private int grid;
 
     @Attribute(name = "datatime", required = false)
-    private long datatime;
+    private Long datatime;
 
     @Text()
     private String csvValues;
+
+    public Statistics() {
+        // Default constructor for XML deserialization
+    }
+
+    Statistics(final MeasurementUnit measurementUnit, final int count, final int grid, final Long datatime,
+            final String csvValues) {
+        this.measurementUnit = measurementUnit;
+        this.count = count;
+        this.grid = grid;
+        this.datatime = datatime;
+        this.csvValues = csvValues;
+    }
 
     public int getCount() {
         return count;
@@ -55,12 +63,24 @@ public class Statistics {
         return grid;
     }
 
-    public long getDataTimeRaw() {
+    /**
+     * Get the raw timestamp in seconds since epoch.
+     * 
+     * @return raw timestamp or {@code null} if not available
+     */
+    public Long getDataTimeRaw() {
         return datatime;
     }
 
+    /**
+     * Get the timestamp.
+     * 
+     * @return timestamp or {@code null} if not available
+     */
     public Instant getDataTime() {
-        return Instant.ofEpochMilli(datatime);
+        return Optional.ofNullable(getDataTimeRaw()) //
+                .map(Instant::ofEpochSecond) //
+                .orElse(null);
     }
 
     /**

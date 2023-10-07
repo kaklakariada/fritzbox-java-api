@@ -20,12 +20,14 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.System.Logger;
-import java.lang.reflect.Field;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class StatisticsTest {
 
@@ -78,26 +80,14 @@ class StatisticsTest {
         assertEquals(true, result.get(2).isEmpty(), "(5) Third number is empty");
     }
 
-    @Test
-    void getDataTimeTest() {
-        setDataTime(0);
-        assertEquals(0, statistics.getDataTime(), "Test DataTime 0");
-        setDataTime(-1);
-        assertEquals(-1, statistics.getDataTime(), "Test DataTime -1");
-        setDataTime(Long.MAX_VALUE);
-        assertEquals(Long.MAX_VALUE, statistics.getDataTime(), "Test DataTime MAX_VALUE");
-        setDataTime(Long.MIN_VALUE);
-        assertEquals(Long.MIN_VALUE, statistics.getDataTime(), "Test DataTime MIN_VALUE");
-    }
-
-    private void setDataTime(long dataTime) {
-        try {
-            final Field dt = statistics.getClass().getDeclaredField("datatime");
-            dt.setAccessible(true);
-            dt.set(statistics, dataTime);
-            // LOGGER.log(Level.ALL, "statistics.dataTime ist now set to:" + statistics.getDataTime());
-            System.out.println("statistics.dataTime ist now set to:" + statistics.getDataTime());
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-        }
+    @ParameterizedTest
+    @CsvSource(nullValues = "null", value = { "null, null",
+            "0, 1970-01-01T00:00:00Z",
+            "1665897036, 2022-10-16T05:10:36Z",
+    })
+    void dateTime(final Long rawDateTime, final Instant expectedInstant) {
+        final Statistics stat = new Statistics(null, 0, 0, rawDateTime, null);
+        assertEquals(expectedInstant, stat.getDataTime());
+        assertEquals(rawDateTime, stat.getDataTimeRaw());
     }
 }
