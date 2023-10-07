@@ -5,11 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.7.0] - unreleased
+## [1.8.0] - unreleased
+
+## [1.7.0] - 2023-10-07
 
 ### Added
 
 - [#29](https://github.com/kaklakariada/fritzbox-java-api/issues/29) Add support for login via Pbkdf2 challenge-response (propsed by [@linnex81](https://github.com/linnex81))
+- [#58](https://github.com/kaklakariada/fritzbox-java-api/pull/58) Datatime attribute added in devicestats XML response since Fritz OS 7.50 (thanks to [@LutzHelling](https://github.com/LutzHelling))
 
 ### Fixed
 
@@ -18,10 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Refactoring
 
 - [#50](https://github.com/kaklakariada/fritzbox-java-api/pull/50) Migrate to Junit 5
-
-## [1.6.1] - unreleased
-
-- datatime attribute added in devicestats XML response since Fritz OS 7.50
 
 ## [1.6.0] - 2021-12-04
 
