@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Refactoring
 
 - [#50](https://github.com/kaklakariada/fritzbox-java-api/pull/50) Migrate to Junit 5
+- [#59](https://github.com/kaklakariada/fritzbox-java-api/pull/59) Upgrade dependencies
 
 ## [1.6.0] - 2021-12-04
 
