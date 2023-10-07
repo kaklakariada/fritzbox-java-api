@@ -59,7 +59,7 @@ See [CHANGELOG.md](CHANGELOG.md).
     fritzbox.username = user
     fritzbox.password = secret
     ```
-2. Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/master/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
+2. Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/main/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
 
 ## Development
 
