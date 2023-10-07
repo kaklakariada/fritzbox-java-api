@@ -59,32 +59,32 @@ See [CHANGELOG.md](CHANGELOG.md).
     fritzbox.username = user
     fritzbox.password = secret
     ```
-2. Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/master/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
+2. Run example class [`TestDriver`](https://github.com/kaklakariada/fritzbox-java-api/blob/main/src/main/java/com/github/kaklakariada/fritzbox/TestDriver.java).
 
 ## Development
 
 ### Generate / update license header
 
-```bash
+```sh
 ./gradlew licenseFormat
 ```
 
 ### Check if dependencies are up-to-date
 
-```bash
+```sh
 ./gradlew dependencyUpdates
 ```
 
 ### Check dependencies for vulnerabilities
 
-```bash
+```sh
 ./gradlew ossIndexAudit
 ```
 
 ### Building
 
 Install to local maven repository:
-```bash
+```sh
 ./gradlew clean publishToMavenLocal
 ```
 
@@ -102,11 +102,18 @@ Install to local maven repository:
     ```
 
 2. Increment version number in `build.gradle` and `README.md`, update [CHANGELOG.md](CHANGELOG.md), commit and push.
-3. Run the following command:
 
-    ```bash
-    ./gradlew clean check build publish closeAndReleaseRepository --info
+3. Optional: run the following command to do a dry-run:
+
+    ```sh
+    ./gradlew clean check build publishToSonatype closeSonatypeStagingRepository --info
     ```
 
-4. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
-5. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).
+4. Run the following command to publish to Maven Central:
+
+    ```sh
+    ./gradlew clean check build publishToSonatype closeAndReleaseSonatypeStagingRepository --info
+    ```
+
+5. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
+6. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).
