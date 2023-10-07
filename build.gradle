@@ -136,6 +136,7 @@ nexusPublishing {
     packageGroup = project.group
     repositories {
         sonatype {
+            stagingProfileId = "4f1b95618be44"
             username = getOptionalProperty("ossrhUsername")
             password = getOptionalProperty("ossrhPassword")
         }
