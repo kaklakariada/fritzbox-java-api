@@ -36,7 +36,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
     ```groovy
     dependencies {
-        compile 'com.github.kaklakariada:fritzbox-java-api:1.6.0'
+        compile 'com.github.kaklakariada:fritzbox-java-api:1.6.1'
     }
     ```
 
@@ -46,7 +46,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 <dependency>
   <groupId>com.github.kaklakariada</groupId>
   <artifactId>fritzbox-java-api</artifactId>
-  <version>1.6.0</version>
+  <version>1.6.1</version>
 </dependency>
 ```
 

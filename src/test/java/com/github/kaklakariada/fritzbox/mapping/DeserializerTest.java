@@ -116,7 +116,8 @@ class DeserializerTest {
 
     @Test
     void parseDeviceStatsFritzDect200() throws IOException {
-        final InputStream fileContent = Files.newInputStream(Paths.get("src/test/resources/FritzOS29/devicestatsFritzDect200.xml"));
+        final InputStream fileContent = Files
+                .newInputStream(Paths.get("src/test/resources/FritzOS29/devicestatsFritzDect200.xml"));
         final DeviceStats stats = new Deserializer().parse(fileContent, DeviceStats.class);
         assertEquals(1, stats.getTemperature().get().getStats().size(), "Temperature has just one statistics Element");
         assertEquals(Double.valueOf(0.1),
@@ -126,6 +127,12 @@ class DeserializerTest {
         assertEquals(2, stats.getEnergy().get().getStats().size(), "Energy has two statistics Element");
 
         assertEquals(false, stats.getHumidity().isPresent(), "Humidity is missing");
+
+        assertEquals(true, stats.getEnergy().get().getStats().get(0).getDataTimeRaw() == 1665897036,
+                "DataTime (raw) is missing");
+        assertEquals(false,
+                stats.getEnergy().get().getStats().get(0).getDataTime().toEpochMilli() == 1665897,
+                "DataTime is missing");
     }
 
     @Test

@@ -19,15 +19,20 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.lang.System.Logger;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class StatisticsTest {
 
     private static Statistics statistics;
+    private static final Logger LOGGER = System.getLogger("StatisticsTest");
 
     @BeforeAll
     static void setupStatistics() {
@@ -73,5 +78,16 @@ class StatisticsTest {
         assertEquals(true, result.get(0).isEmpty(), "(5) First number is empty");
         assertEquals(Double.valueOf(11.11), result.get(1).get(), "(5) Second number");
         assertEquals(true, result.get(2).isEmpty(), "(5) Third number is empty");
+    }
+
+    @ParameterizedTest
+    @CsvSource(nullValues = "null", value = { "null, null",
+            "0, 1970-01-01T00:00:00Z",
+            "1665897036, 2022-10-16T05:10:36Z",
+    })
+    void dateTime(final Long rawDateTime, final Instant expectedInstant) {
+        final Statistics stat = new Statistics(null, 0, 0, rawDateTime, null);
+        assertEquals(expectedInstant, stat.getDataTime());
+        assertEquals(rawDateTime, stat.getDataTimeRaw());
     }
 }
