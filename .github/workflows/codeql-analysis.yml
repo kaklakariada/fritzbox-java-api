@@ -30,7 +30,7 @@ jobs:
         java-version: 11
         cache: 'gradle'
 
-    - uses: gradle/wrapper-validation-action@v1
+    - uses: gradle/wrapper-validation-action@v2
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2

@@ -34,7 +34,7 @@ jobs:
         key: ${{ runner.os }}-java-${{ matrix.java }}-sonar
         restore-keys: ${{ runner.os }}-java-${{ matrix.java }}-sonar
 
-    - uses: gradle/wrapper-validation-action@v1
+    - uses: gradle/wrapper-validation-action@v2
 
     - name: Build with Gradle
       run: ./gradlew clean build --info --warning-mode all
