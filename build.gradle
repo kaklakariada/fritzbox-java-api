@@ -15,7 +15,8 @@ version = '1.7.0'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
+        def javaVersion = project.hasProperty('javaVersion') ? project.getProperty('javaVersion') : 11
+        languageVersion = JavaLanguageVersion.of(javaVersion)
     }
     withJavadocJar()
     withSourcesJar()
@@ -41,7 +42,6 @@ testing {
 
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    //implementation 'com.squareup.okio:okio:3.6.0' // Fix CVE-2023-3635
     implementation 'com.subshell.simpleframework:simple-xml:2.9.0'
     implementation 'org.slf4j:slf4j-api:2.0.16'
     
