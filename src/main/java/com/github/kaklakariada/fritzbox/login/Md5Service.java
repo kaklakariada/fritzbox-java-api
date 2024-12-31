@@ -34,9 +34,9 @@ class Md5Service {
     private String buildHexString(final byte[] data) {
         final StringBuilder hexString = new StringBuilder();
         for (final byte aMessageDigest : data) {
-            String h = Integer.toHexString(0xFF & aMessageDigest);
+            final StringBuilder h = new StringBuilder(Integer.toHexString(0xFF & aMessageDigest));
             while (h.length() < 2) {
-                h = "0" + h;
+                h.insert(0, "0");
             }
             hexString.append(h);
         }

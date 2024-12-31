@@ -17,9 +17,8 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.System.Logger;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +31,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 class StatisticsTest {
 
     private static Statistics statistics;
-    private static final Logger LOGGER = System.getLogger("StatisticsTest");
 
     @BeforeAll
     static void setupStatistics() {
@@ -42,10 +40,10 @@ class StatisticsTest {
 
     @Test
     void computeValueTest() {
-        assertEquals(null, statistics.computeValue(null), "Test null");
-        assertEquals(Double.valueOf(0.02), statistics.computeValue("2"), "Test Integer");
-        assertEquals(null, statistics.computeValue("1.1"), "Test Double");
-        assertEquals(null, statistics.computeValue("1.1D"), "Test Double");
+        assertNull(statistics.computeValue(null), "Test null");
+        assertEquals(0.02, statistics.computeValue("2"), "Test Integer");
+        assertNull(statistics.computeValue("1.1"), "Test Double");
+        assertNull(statistics.computeValue("1.1D"), "Test Double");
     }
 
     @Test
@@ -57,27 +55,27 @@ class StatisticsTest {
         statistics.setCsvValues("");
         result = statistics.getValues();
         assertEquals(1, result.size(), "(2) Number of entries");
-        assertEquals(Optional.empty(), result.get(0), "(2) First number");
+        assertEquals(Optional.empty(), result.getFirst(), "(2) First number");
 
         statistics.setCsvValues("1111, 22222");
         result = statistics.getValues();
         assertEquals(2, result.size(), "(3) Number of entries");
-        assertEquals(Double.valueOf(11.11), result.get(0).get(), "(3) First number");
+        assertEquals(11.11, result.getFirst().get(), "(3) First number");
 
         statistics.setCsvValues("1111,,22222,-");
         result = statistics.getValues();
         assertEquals(4, result.size(), "(4) Number of entries");
-        assertEquals(Double.valueOf(11.11), result.get(0).get(), "(4) First number");
-        assertEquals(true, result.get(1).isEmpty(), "(4) Second number is empty");
-        assertEquals(Double.valueOf(222.22), result.get(2).get(), "(4) Third number");
-        assertEquals(true, result.get(3).isEmpty(), "(4) Fourth number is empty");
+        assertEquals(11.11, result.get(0).get(), "(4) First number");
+        assertTrue(result.get(1).isEmpty(), "(4) Second number is empty");
+        assertEquals(222.22, result.get(2).get(), "(4) Third number");
+        assertTrue(result.get(3).isEmpty(), "(4) Fourth number is empty");
 
         statistics.setCsvValues(",1111,-");
         result = statistics.getValues();
         assertEquals(3, result.size(), "(5) Number of entries");
-        assertEquals(true, result.get(0).isEmpty(), "(5) First number is empty");
-        assertEquals(Double.valueOf(11.11), result.get(1).get(), "(5) Second number");
-        assertEquals(true, result.get(2).isEmpty(), "(5) Third number is empty");
+        assertTrue(result.get(0).isEmpty(), "(5) First number is empty");
+        assertEquals(11.11, result.get(1).get(), "(5) Second number");
+        assertTrue(result.get(2).isEmpty(), "(5) Third number is empty");
     }
 
     @ParameterizedTest

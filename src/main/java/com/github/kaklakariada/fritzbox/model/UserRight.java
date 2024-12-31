@@ -28,6 +28,8 @@ public class UserRight {
 
     @Override
     public String toString() {
-        return "UserRight [name=" + name + ", access=" + access + "]";
+        return "UserRight [name=" + name
+                + ", access=" + access
+                + "]";
     }
 }

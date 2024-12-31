@@ -32,7 +32,7 @@ public class FritzBoxSession {
     private static final Logger LOG = LoggerFactory.getLogger(FritzBoxSession.class);
 
     private static final String LOGIN_PATH = "/login_sid.lua";
-    private static final String WEBCM_PATH = "/home/home.lua";
+    private static final String WEB_CM_PATH = "/home/home.lua";
     private static final String EMPTY_SESSION_ID = "0000000000000000";
 
     private String sid;
@@ -81,7 +81,7 @@ public class FritzBoxSession {
         return ChallengeResponse.getAlgorithm(challenge).calculateResponse(challenge, password);
     }
 
-    public <T> T getAutenticated(final String path, final QueryParameters parameters, final Class<T> resultType) {
+    public <T> T getAuthenticated(final String path, final QueryParameters parameters, final Class<T> resultType) {
         if (sid == null) {
             throw new FritzBoxException("Not logged in, session id is null");
         }
@@ -90,8 +90,11 @@ public class FritzBoxSession {
     }
 
     public void logout() {
-        httpTemplate.get(WEBCM_PATH, QueryParameters.builder().add("sid", sid).add("logout", "1").build(),
-                String.class);
+        final QueryParameters q = QueryParameters.builder()
+                .add("sid", sid)
+                .add("logout", "1")
+                .build();
+        httpTemplate.get(WEB_CM_PATH, q, String.class);
         LOG.debug("Logged out, invalidate sid");
         sid = null;
     }

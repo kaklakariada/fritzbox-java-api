@@ -15,11 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.kaklakariada.fritzbox;
+package com.github.kaklakariada.fritzbox.app;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import com.github.kaklakariada.fritzbox.AbstractTestHelper;
+import com.github.kaklakariada.fritzbox.Config;
+import com.github.kaklakariada.fritzbox.HomeAutomation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +38,10 @@ public class TestHkrDriver extends AbstractTestHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestHkrDriver.class);
 
+    public static void main(final String[] args) {
+        new TestHkrDriver();
+    }
+
     private final HomeAutomation homeAutomation;
 
     public TestHkrDriver() {
@@ -51,11 +57,11 @@ public class TestHkrDriver extends AbstractTestHelper {
         }
         showTemperatures(hkrDevices);
 
-        final String ain = hkrDevices.get(0).getIdentifier().replaceAll("\\s*", "");
-        final double wasTemperature = getCelsius(hkrDevices.get(0).getHkr().getTSoll());
+        final String ain = hkrDevices.getFirst().getIdentifier().replaceAll("\\s*", "");
+        final double wasTemperature = getCelsius(hkrDevices.getFirst().getHkr().getTSoll());
         final double newTsoll = 25D;
         LOG.info("");
-        LOG.info("Changing temperature of {} (ain='{}')to {} degrees", hkrDevices.get(0).getName(), ain,
+        LOG.info("Changing temperature of {} (ain='{}')to {} degrees", hkrDevices.getFirst().getName(), ain,
                 newTsoll);
         homeAutomation.setHkrTsoll(ain, String.valueOf(getDegreeCode(newTsoll)));
 
@@ -66,7 +72,7 @@ public class TestHkrDriver extends AbstractTestHelper {
 
         homeAutomation.setHkrTsoll(ain, String.valueOf(getDegreeCode(wasTemperature)));
         LOG.info("");
-        LOG.info("Changing back temperature of {} (ain='{}')to {} degrees", hkrDevices.get(0).getName(), ain,
+        LOG.info("Changing back temperature of {} (ain='{}')to {} degrees", hkrDevices.getFirst().getName(), ain,
                 wasTemperature);
         LOG.info("");
         LOG.info("Temperature after changing back");
@@ -76,25 +82,18 @@ public class TestHkrDriver extends AbstractTestHelper {
 
     private List<Device> getHkrDevices() {
         final DeviceList devices = homeAutomation.getDeviceListInfos();
-        final List<Device> hkrDevices = devices.getDevices()
+        return devices.getDevices()
                 .stream()
-                .filter(device -> device.getHkr() != null)
-                .collect(Collectors.toList());
-        return hkrDevices;
+                .filter(device -> device.getHkr() != null).toList();
     }
 
     private void showTemperatures(final List<Device> hkrDevices) {
         hkrDevices.forEach(hkr -> {
-            final String message = String.format("%-15s tist: %s(%s\u00B0), tsoll: %s(%s\u00B0)",
+            final String message = String.format("%-15s t ist: %s(%s°), t soll: %s(%s°)",
                     hkr.getName(),
                     hkr.getHkr().getTIst(), getCelsius(hkr.getHkr().getTIst()),
                     hkr.getHkr().getTSoll(), getCelsius(hkr.getHkr().getTSoll()));
             LOG.info(message);
         });
     }
-
-    public static void main(final String[] args) {
-        new TestHkrDriver();
-    }
-
 }

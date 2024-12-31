@@ -27,7 +27,7 @@ public class NullHostnameVerifier implements HostnameVerifier {
     private static final Logger LOG = LoggerFactory.getLogger(NullHostnameVerifier.class);
 
     @Override
-    public boolean verify(String hostname, SSLSession session) {
+    public boolean verify(final String hostname, final SSLSession session) {
         LOG.trace("Ignore ssl certificate for {}: {}", hostname, session);
         return true;
     }

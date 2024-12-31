@@ -27,13 +27,13 @@ public class LevelControl {
     private int level;
 
     @Element(name = "levelpercentage", required = false)
-    private int levelpercentage;
+    private int levelPercentage;
 
     public int getLevel() {
         return level;
     }
 
-    public int getLevelpercentage() {
-        return levelpercentage;
+    public int getLevelPercentage() {
+        return levelPercentage;
     }
 }

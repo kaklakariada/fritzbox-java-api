@@ -44,7 +44,7 @@ public class QueryParameters {
         private final Map<String, String> parameters;
 
         private Builder() {
-            this(new HashMap<String, String>());
+            this(new HashMap<>());
         }
 
         public Builder(Map<String, String> parameters) {

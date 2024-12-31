@@ -34,14 +34,14 @@ public class StringHelper {
      * StringHelper.isIntegerNumber(" ")  = false
      * StringHelper.isIntegerNumber(" 1 ") = true
      * StringHelper.isIntegerNumber("123")  = true
-     * StringUtils.isIntegerNumber("\u0967\u0968\u0969")  = true
+     * StringUtils.isIntegerNumber("१२३")  = true
      * StringHelper.isIntegerNumber("1.1") = false
      * StringHelper.isIntegerNumber("1.1D") = false
      * </pre>
      * 
      * 
      * @param cs
-     *               the String to check, may be null
+     *            the String to check, may be null
      * @return {@code true} if only contains digits or is enclosed by blanks, and is non-null
      */
     public static boolean isIntegerNumber(final String cs) {
@@ -50,7 +50,7 @@ public class StringHelper {
         }
         try {
             Integer.parseInt(cs.trim());
-        } catch (NumberFormatException nfe) {
+        } catch (final NumberFormatException nfe) {
             return false;
         }
         return true;
@@ -79,7 +79,7 @@ public class StringHelper {
      * StringUtils.isNumeric("")     = false
      * StringUtils.isNumeric("  ")   = false
      * StringUtils.isNumeric("123")  = true
-     * StringUtils.isNumeric("\u0967\u0968\u0969")  = true
+     * StringUtils.isNumeric("१२३")  = true
      * StringUtils.isNumeric("12 3") = false
      * StringUtils.isNumeric("ab2c") = false
      * StringUtils.isNumeric("12-3") = false
@@ -89,7 +89,7 @@ public class StringHelper {
      * </pre>
      *
      * @param cs
-     *               the CharSequence to check, may be null
+     *            the CharSequence to check, may be null
      * @return {@code true} if only contains digits, and is non-null
      */
     public static boolean isNumeric(final CharSequence cs) {
@@ -122,10 +122,10 @@ public class StringHelper {
      *
      *
      * @param cs
-     *               the CharSequence to check, may be null
+     *            the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is empty or null
      */
     public static boolean isEmpty(final CharSequence cs) {
-        return cs == null || cs.length() == 0;
+        return cs == null || cs.isEmpty();
     }
 }

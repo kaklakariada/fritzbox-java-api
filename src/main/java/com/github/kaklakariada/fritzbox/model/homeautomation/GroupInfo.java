@@ -23,16 +23,16 @@ import java.util.List;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name="groupinfo")
+@Root(name = "groupinfo")
 public class GroupInfo {
 
-    @Element(name="masterdeviceid")
+    @Element(name = "masterdeviceid")
     private String masterDeviceId;
 
     /**
-     * Comma seperated list of devices identfied by their id.
+     * Comma separated list of devices identified by their id.
      */
-    @Element(name="members")
+    @Element(name = "members")
     private String members;
 
     public String getMasterDeviceId() {

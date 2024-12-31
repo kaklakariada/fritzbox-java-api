@@ -20,24 +20,22 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 import com.github.kaklakariada.fritzbox.MissingClassException;
 
 /**
- * provide the measurement unit to be used with the statistics.<p>
+ * provide the measurement unit to be used with the statistics.
+ * <p>
  * Consists of:
  * <ul>
- * <li>measurment unit [V, W, Wh, %]</li>
- * <li>precision as double to multiply with the gathered Integerv
+ * <li>measurement unit [V, W, Wh, %]</li>
+ * <li>precision as double to multiply with the gathered Integer value
  * </ul>
- * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided
- * by the statistics must be multiplied by the precision which gives us 237.123 V.
+ * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided by the
+ * statistics must be multiplied by the precision which gives us 237.123 V.
  * 
  * @author Ulrich Schmidt(Gombers)
  *
  */
 public enum MeasurementUnit {
-    TEMPERATURE("C", 0.1, Temperature.class), 
-    VOLTAGE("V", 0.001, Voltage.class), 
-    POWER("W", 0.01, Power.class), 
-    ENERGY("Wh", 1, Energy.class), 
-    HUMIDITY("%", 1, Humidity.class);
+    TEMPERATURE("C", 0.1, Temperature.class), VOLTAGE("V", 0.001, Voltage.class), POWER("W", 0.01,
+            Power.class), ENERGY("Wh", 1, Energy.class), HUMIDITY("%", 1, Humidity.class);
 
     private final String unit;
     private final Number precision;
@@ -53,7 +51,7 @@ public enum MeasurementUnit {
         return unit;
     }
 
-    public Number getPrescision() {
+    public Number getPrecision() {
         return precision;
     }
 
@@ -62,11 +60,12 @@ public enum MeasurementUnit {
     }
 
     public static MeasurementUnit getMatchingMeasurementUnit(Class<?> caller) {
-        for (MeasurementUnit iterator : MeasurementUnit.values()) {
-            if (caller.isAssignableFrom(iterator.getMapper())) {
-                return iterator;
+        for (MeasurementUnit measurementUnit : MeasurementUnit.values()) {
+            if (caller.isAssignableFrom(measurementUnit.getMapper())) {
+                return measurementUnit;
             }
         }
-        throw  new MissingClassException(String.format("Could not detect enum of type 'MeasurementUnit' associated to class '%s'", caller.toString()));
+        throw new MissingClassException(String
+                .format("Could not detect enum of type 'MeasurementUnit' associated to class '%s'", caller.toString()));
     }
 }

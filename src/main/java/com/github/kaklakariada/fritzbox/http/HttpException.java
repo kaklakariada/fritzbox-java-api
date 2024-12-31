@@ -19,15 +19,18 @@ package com.github.kaklakariada.fritzbox.http;
 
 import com.github.kaklakariada.fritzbox.FritzBoxException;
 
+import java.io.Serial;
+
 public class HttpException extends FritzBoxException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    public HttpException(String message, Throwable cause) {
+    public HttpException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public HttpException(String message) {
+    public HttpException(final String message) {
         super(message);
     }
 }

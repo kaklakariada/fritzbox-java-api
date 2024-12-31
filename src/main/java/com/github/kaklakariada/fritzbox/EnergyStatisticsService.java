@@ -40,7 +40,7 @@ public class EnergyStatisticsService {
 
         private final String command;
 
-        private EnergyStatsTimeRange(String command) {
+        EnergyStatsTimeRange(String command) {
             this.command = command;
         }
     }
@@ -58,7 +58,7 @@ public class EnergyStatisticsService {
     private String executeDeviceCommand(String deviceId, String command) {
         final QueryParameters parameters = QueryParameters.builder().add("command", command).add("id", deviceId)
                 .add("xhr", "1").build();
-        final String statisticsJson = session.getAutenticated(QUERY_PATH, parameters, String.class);
+        final String statisticsJson = session.getAuthenticated(QUERY_PATH, parameters, String.class);
         LOG.trace("Got statistics json for command '{}': {}", command, statisticsJson);
         return statisticsJson;
     }

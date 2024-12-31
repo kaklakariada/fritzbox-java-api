@@ -24,13 +24,13 @@ import org.simpleframework.xml.Root;
 public class Hkr {
 
     @Element(name = "tist", required = false)
-    private int tist;
+    private int tIst;
 
     @Element(name = "tsoll", required = false)
-    private int tsoll;
+    private int tSoll;
 
     @Element(name = "absenk", required = false)
-    private int tabsenk;
+    private int tAbsenk;
 
     @Element(name = "komfort", required = false)
     private int komfort;
@@ -39,25 +39,25 @@ public class Hkr {
     private int lock;
 
     @Element(name = "devicelock", required = false)
-    private int devicelock;
+    private int deviceLock;
 
     @Element(name = "errorcode", required = false)
-    private int errorcode;
+    private int errorCode;
 
     @Element(name = "windowopenactiv", required = false)
-    private boolean windowopenactiv;
+    private boolean windowOpenActive;
 
     @Element(name = "windowopenactiveendtime", required = false)
-    private int windowopenactiveendtime;
+    private int windowOpenActiveEndTime;
 
     @Element(name = "boostactive", required = false)
-    private boolean boostactive;
+    private boolean boostActive;
 
     @Element(name = "boostactiveendtime", required = false)
-    private int boostactiveendtime;
+    private int boostActiveEndTime;
 
     @Element(name = "batterylow", required = false)
-    private boolean batterylow;
+    private boolean batteryLow;
 
     @Element(name = "battery", required = false)
     private int battery;
@@ -66,40 +66,46 @@ public class Hkr {
     private NextChange nextChange;
 
     @Element(name = "summeractive", required = false)
-    private boolean summeractive;
+    private boolean summerActive;
 
     @Element(name = "holidayactive", required = false)
-    private boolean holidayactive;
+    private boolean holidayActive;
 
-    public int getTist() {
-        return tist;
+    @Element(name = "adaptiveHeatingActive", required = false)
+    private boolean adaptiveHeatingActive;
+
+    @Element(name = "adaptiveHeatingRunning", required = false)
+    private boolean adaptiveHeatingRunning;
+
+    public int getTIst() {
+        return tIst;
     }
 
-    public void setTist(int tist) {
-        this.tist = tist;
+    public void setTIst(final int tIst) {
+        this.tIst = tIst;
     }
 
-    public int getTsoll() {
-        return tsoll;
+    public int getTSoll() {
+        return tSoll;
     }
 
-    public void setTsoll(int tsoll) {
-        this.tsoll = tsoll;
+    public void setTSoll(final int tSoll) {
+        this.tSoll = tSoll;
     }
 
-    public int getTabsenk() {
-        return tabsenk;
+    public int getTAbsenk() {
+        return tAbsenk;
     }
 
-    public void setTabsenk(int tabsenk) {
-        this.tabsenk = tabsenk;
+    public void setTAbsenk(final int tAbsenk) {
+        this.tAbsenk = tAbsenk;
     }
 
     public int getKomfort() {
         return komfort;
     }
 
-    public void setKomfort(int komfort) {
+    public void setKomfort(final int komfort) {
         this.komfort = komfort;
     }
 
@@ -107,71 +113,71 @@ public class Hkr {
         return lock;
     }
 
-    public void setLock(int lock) {
+    public void setLock(final int lock) {
         this.lock = lock;
     }
 
-    public int getDevicelock() {
-        return devicelock;
+    public int getDeviceLock() {
+        return deviceLock;
     }
 
-    public void setDevicelock(int devicelock) {
-        this.devicelock = devicelock;
+    public void setDeviceLock(final int deviceLock) {
+        this.deviceLock = deviceLock;
     }
 
-    public int getErrorcode() {
-        return errorcode;
+    public int getErrorCode() {
+        return errorCode;
     }
 
-    public void setErrorcode(int errorcode) {
-        this.errorcode = errorcode;
+    public void setErrorCode(final int errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public boolean isWindowopenactiv() {
-        return windowopenactiv;
+    public boolean isWindowOpenActive() {
+        return windowOpenActive;
     }
 
-    public void setWindowopenactiv(boolean windowopenactiv) {
-        this.windowopenactiv = windowopenactiv;
+    public void setWindowOpenActive(final boolean windowOpenActive) {
+        this.windowOpenActive = windowOpenActive;
     }
 
-    public int getWindowopenactiveendtime() {
-        return windowopenactiveendtime;
+    public int getWindowOpenActiveEndTime() {
+        return windowOpenActiveEndTime;
     }
 
-    public void setWindowopenactiveendtime(int windowopenactiveendtime) {
-        this.windowopenactiveendtime = windowopenactiveendtime;
+    public void setWindowOpenActiveEndTime(final int windowOpenActiveEndTime) {
+        this.windowOpenActiveEndTime = windowOpenActiveEndTime;
     }
 
-    public boolean isBoostactive() {
-        return boostactive;
+    public boolean isBoostActive() {
+        return boostActive;
     }
 
-    public void setBoostactive(boolean boostactive) {
-        this.boostactive = boostactive;
+    public void setBoostActive(final boolean boostActive) {
+        this.boostActive = boostActive;
     }
 
-    public int getBoostactiveendtime() {
-        return boostactiveendtime;
+    public int getBoostActiveEndTime() {
+        return boostActiveEndTime;
     }
 
-    public void setBoostactiveendtime(int boostactiveendtime) {
-        this.boostactiveendtime = boostactiveendtime;
+    public void setBoostActiveEndTime(final int boostActiveEndTime) {
+        this.boostActiveEndTime = boostActiveEndTime;
     }
 
-    public boolean isBatterylow() {
-        return batterylow;
+    public boolean isBatteryLow() {
+        return batteryLow;
     }
 
-    public void setBatterylow(boolean batterylow) {
-        this.batterylow = batterylow;
+    public void setBatteryLow(final boolean batteryLow) {
+        this.batteryLow = batteryLow;
     }
 
     public int getBattery() {
         return battery;
     }
 
-    public void setBattery(int battery) {
+    public void setBattery(final int battery) {
         this.battery = battery;
     }
 
@@ -179,30 +185,53 @@ public class Hkr {
         return nextChange;
     }
 
-    public void setNextChange(NextChange nextChange) {
+    public void setNextChange(final NextChange nextChange) {
         this.nextChange = nextChange;
     }
 
-    public boolean isSummeractive() {
-        return summeractive;
+    public boolean isSummerActive() {
+        return summerActive;
     }
 
-    public void setSummeractive(boolean summeractive) {
-        this.summeractive = summeractive;
+    public void setSummerActive(final boolean summerActive) {
+        this.summerActive = summerActive;
     }
 
-    public boolean isHolidayactive() {
-        return holidayactive;
+    public boolean isHolidayActive() {
+        return holidayActive;
     }
 
-    public void setHolidayactive(boolean holidayactive) {
-        this.holidayactive = holidayactive;
+    public void setHolidayActive(final boolean holidayActive) {
+        this.holidayActive = holidayActive;
+    }
+
+    public boolean isAdaptiveHeatingActive() {
+        return adaptiveHeatingActive;
+    }
+
+    public void setAdaptiveHeatingActive(final boolean adaptiveHeatingActive) {
+        this.adaptiveHeatingActive = adaptiveHeatingActive;
+    }
+
+    public boolean isAdaptiveHeatingRunning() {
+        return adaptiveHeatingRunning;
+    }
+
+    public void setAdaptiveHeatingRunning(final boolean adaptiveHeatingRunning) {
+        this.adaptiveHeatingRunning = adaptiveHeatingRunning;
     }
 
     @Override
     public String toString() {
-        return "Hkr [tist=" + tist + ", tsoll=" + tsoll + ", tabsenk=" + tabsenk + ", komfort=" + komfort + ", lock="
-                + lock + ", devicelock=" + devicelock + ", errorcode=" + errorcode + ", batterylow=" + batterylow
-                + ", nextChange=" + nextChange + "]";
+        return "Hkr [tIst=" + tIst
+                + ", tSoll=" + tSoll
+                + ", tAbsenk=" + tAbsenk
+                + ", komfort=" + komfort
+                + ", lock=" + lock
+                + ", deviceLock=" + deviceLock
+                + ", errorCode=" + errorCode
+                + ", batteryLow=" + batteryLow
+                + ", nextChange=" + nextChange
+                + "]";
     }
 }

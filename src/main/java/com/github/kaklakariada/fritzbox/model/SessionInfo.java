@@ -19,9 +19,7 @@ package com.github.kaklakariada.fritzbox.model;
 
 import java.util.List;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
+import org.simpleframework.xml.*;
 
 @Root(name = "SessionInfo")
 public class SessionInfo {
@@ -63,7 +61,10 @@ public class SessionInfo {
 
     @Override
     public String toString() {
-        return "SessionInfo [sid=" + sid + ", challenge=" + challenge + ", blockTime=" + blockTime + ", rights="
-                + rights + "]";
+        return "SessionInfo [sid=" + sid
+                + ", challenge=" + challenge
+                + ", blockTime=" + blockTime
+                + ", rights=" + rights
+                + "]";
     }
 }

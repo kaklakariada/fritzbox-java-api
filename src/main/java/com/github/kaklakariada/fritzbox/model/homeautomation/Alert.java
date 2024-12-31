@@ -33,7 +33,7 @@ public class Alert {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(final int state) {
         this.state = state;
     }
 
@@ -41,7 +41,7 @@ public class Alert {
         return lastAlertChgTimestamp;
     }
 
-    public void setLastAlertChgTimestamp(long lastAlertChgTimestamp) {
+    public void setLastAlertChgTimestamp(final long lastAlertChgTimestamp) {
         this.lastAlertChgTimestamp = lastAlertChgTimestamp;
     }
 }

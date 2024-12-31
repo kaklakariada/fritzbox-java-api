@@ -17,12 +17,8 @@
  */
 package com.github.kaklakariada.fritzbox;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
+import java.nio.file.*;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -39,11 +35,7 @@ public class Config {
     }
 
     public static Config read() {
-        return read(DEFAULT_CONFIG);
-    }
-
-    private static Config read(final Path configFile) {
-        final Path file = configFile.normalize();
+        final Path file = DEFAULT_CONFIG.normalize();
         return new Config(loadProperties(file));
     }
 
@@ -74,8 +66,9 @@ public class Config {
     }
 
     private String getMandatoryValue(final String param) {
-        return getOptionalValue(param).orElseThrow(
-                () -> new IllegalStateException("Property '" + param + "' not found in config file"));
+        return getOptionalValue(param)
+                .orElseThrow(
+                        () -> new IllegalStateException("Property '" + param + "' not found in config file"));
     }
 
     private Optional<String> getOptionalValue(final String param) {

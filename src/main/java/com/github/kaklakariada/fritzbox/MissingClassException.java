@@ -17,8 +17,11 @@
  */
 package com.github.kaklakariada.fritzbox;
 
+import java.io.Serial;
+
 public class MissingClassException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public MissingClassException(String message, Throwable cause) {

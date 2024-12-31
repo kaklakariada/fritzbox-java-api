@@ -48,7 +48,9 @@ public class PowerMeter {
 
     @Override
     public String toString() {
-        return "PowerMeter [voltage=" + getVoltageVolt() + ", energyWattHours=" + energyWattHours + ", powerWatt="
-                + getPowerWatt() + "]";
+        return "PowerMeter [voltage=" + getVoltageVolt()
+                + ", energyWattHours=" + energyWattHours
+                + ", powerWatt=" + getPowerWatt()
+                + "]";
     }
 }

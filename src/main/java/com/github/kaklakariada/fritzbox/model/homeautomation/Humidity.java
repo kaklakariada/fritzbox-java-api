@@ -17,32 +17,16 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import java.util.List;
-
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root(name = "humidity")
-public class Humidity  extends AbstractDeviceStatistics {
-    
+public class Humidity extends AbstractDeviceStatistics {
+
     @Element(name = "rel_humidity", required = false)
     private int relHumidity;
-
-    @ElementList(name = "stats", required = false, inline = true)
-    private List<Statistics> stats;
 
     public int getRelHumidity() {
         return relHumidity;
     }
-
-    public List<Statistics> getStats() {
-        return getStats(stats, MeasurementUnit.getMatchingMeasurementUnit(this.getClass())) ;
-    }
-    
-    @Override
-    protected List<String> statisticsToString() {
-        return statisticsToString(MeasurementUnit.getMatchingMeasurementUnit(this.getClass()).name());
-    }
-
 }

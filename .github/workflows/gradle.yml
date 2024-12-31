@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [11, 17, 21, 23]
+        java: [21, 23]
     env:
-      DEFAULT_JAVA: 11
+      DEFAULT_JAVA: 21
 
     steps:
     - uses: actions/checkout@v4

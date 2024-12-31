@@ -184,10 +184,21 @@ public class Device {
 
     @Override
     public String toString() {
-        return "Device [identifier=" + identifier + ", id=" + id + ", functionBitmask=" + functionBitmask
-                + ", firmwareVersion=" + firmwareVersion + ", manufacturer=" + manufacturer + ", productName="
-                + productName + ", present=" + present + ", txbusy=" + txbusy + ", name=" + name + ", batterylow="
-                + batterylow + ", battery=" + battery + ", switchState=" + switchState + ", simpleOnOff=" + simpleOnOff
-                + ", powerMeter=" + powerMeter + ", temperature=" + temperature + ", hkr=" + hkr + "]";
+        return "Device [identifier=" + identifier
+                + ", id=" + id
+                + ", functionBitmask=" + functionBitmask
+                + ", firmwareVersion=" + firmwareVersion
+                + ", manufacturer=" + manufacturer
+                + ", productName=" + productName
+                + ", present=" + present
+                + ", txbusy=" + txbusy
+                + ", name=" + name
+                + ", batterylow=" + batterylow
+                + ", battery=" + battery
+                + ", switchState=" + switchState
+                + ", simpleOnOff=" + simpleOnOff
+                + ", powerMeter=" + powerMeter
+                + ", temperature=" + temperature
+                + ", hkr=" + hkr + "]";
     }
 }

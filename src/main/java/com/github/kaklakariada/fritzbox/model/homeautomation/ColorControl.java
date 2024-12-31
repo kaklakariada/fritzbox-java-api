@@ -26,7 +26,7 @@ public class ColorControl {
     @Element(name = "hue", required = false)
     private String hue;
 
-    @Element(name = "saturation", required =  false)
+    @Element(name = "saturation", required = false)
     private String saturation;
 
     @Element(name = "temperature", required = false)

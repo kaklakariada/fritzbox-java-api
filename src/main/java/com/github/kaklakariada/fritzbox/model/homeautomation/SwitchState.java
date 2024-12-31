@@ -40,7 +40,7 @@ public class SwitchState {
     private String lock;
 
     @Element(name = "devicelock", required = false)
-    private String devicelock;
+    private String deviceLock;
 
     boolean isNull() {
         return state == null || mode == null || lock == null;
@@ -55,7 +55,7 @@ public class SwitchState {
     }
 
     public boolean isDeviceLocked() {
-        return "1".equals(devicelock);
+        return "1".equals(deviceLock);
     }
 
     public SwitchMode getMode() {
@@ -63,19 +63,21 @@ public class SwitchState {
             LOG.warn("Switch mode is null for {}", this);
             return null;
         }
-        switch (mode) {
-        case "auto":
-            return SwitchMode.AUTO;
-        case "manuell":
-            return SwitchMode.MANUAL;
-        default:
+        return switch (mode) {
+        case "auto" -> SwitchMode.AUTO;
+        case "manuell" -> SwitchMode.MANUAL;
+        default -> {
             LOG.warn("Unknown value for switch mode: '{}' for {}", mode, this);
-            return null;
+            yield null;
         }
+        };
     }
 
     @Override
     public String toString() {
-        return "SwitchState [state=" + state + ", mode=" + mode + ", lock=" + lock + "]";
+        return "SwitchState [state=" + state
+                + ", mode=" + mode
+                + ", lock=" + lock
+                + "]";
     }
 }

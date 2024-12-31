@@ -15,19 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.kaklakariada.fritzbox;
+package com.github.kaklakariada.fritzbox.app;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
+import com.github.kaklakariada.fritzbox.Config;
+import com.github.kaklakariada.fritzbox.EnergyStatisticsService;
+import com.github.kaklakariada.fritzbox.HomeAutomation;
+import com.github.kaklakariada.fritzbox.model.homeautomation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
-import com.github.kaklakariada.fritzbox.model.homeautomation.*;
 
 public class TestDriver {
     private static final Logger LOG = LoggerFactory.getLogger(TestDriver.class);
@@ -50,12 +50,13 @@ public class TestDriver {
             return;
         }
 
-        final String ain = ids.get(0);
-
-        // testEnergyStats(homeAutomation, devices.getDevices().get(0).getId());
-        testEnergyStatsNew(homeAutomation, ain);
-        testVoltageStatsNew(homeAutomation, ain);
-        testHomeAutomation(homeAutomation, ain);
+        testEnergyStats(homeAutomation, devices.getDevices().getFirst().getId());
+        if (!ids.isEmpty()) {
+            final String ain = ids.getFirst();
+            testEnergyStatsNew(homeAutomation, ain);
+            testVoltageStatsNew(homeAutomation, ain);
+            testHomeAutomation(homeAutomation, ain);
+        }
     }
 
     private static void testEnergyStats(final HomeAutomation homeAutomation, final String deviceId) {
@@ -80,7 +81,7 @@ public class TestDriver {
         final MeasurementUnit measurementUnit = dailyEnergy.get().getMeasurementUnit();
         final List<Optional<Number>> dailyConsumption = dailyEnergy.get().getValues();
 
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         for (final Optional<Number> dailyValue : dailyConsumption) {
             if (dailyValue.isPresent()) {
                 sb.append(dailyValue.get()).append(measurementUnit.getUnit()).append(" ");
@@ -88,7 +89,7 @@ public class TestDriver {
                 sb.append("-").append(" ");
             }
         }
-        LOG.debug("Statistics daily energy consumption: {}", sb.toString());
+        LOG.debug("Statistics daily energy consumption: {}", sb);
     }
 
     private static void testVoltageStatsNew(final HomeAutomation homeAutomation, final String ain) {
@@ -97,34 +98,34 @@ public class TestDriver {
             LOG.error("No Statistics for power consumption gathered");
             return;
         }
-        final Optional<Statistics> sixMinsVoltage = power.get().getStatisticsByGrid(10);
-        if (sixMinsVoltage.isEmpty()) {
+        final Optional<Statistics> sixMinutesVoltage = power.get().getStatisticsByGrid(10);
+        if (sixMinutesVoltage.isEmpty()) {
             LOG.error("No Statistics for power consumption 'per 10 seconds interval' gathered");
             return;
         }
-        final MeasurementUnit measurementUnit = sixMinsVoltage.get().getMeasurementUnit();
-        final List<Optional<Number>> sixMinutestConsumption = sixMinsVoltage.get().getValues();
+        final MeasurementUnit measurementUnit = sixMinutesVoltage.get().getMeasurementUnit();
+        final List<Optional<Number>> sixMinutesConsumption = sixMinutesVoltage.get().getValues();
 
-        final StringBuffer sb = new StringBuffer();
-        for (final Optional<Number> intervalValue : sixMinutestConsumption) {
+        final StringBuilder sb = new StringBuilder();
+        for (final Optional<Number> intervalValue : sixMinutesConsumption) {
             if (intervalValue.isPresent()) {
                 sb.append(intervalValue.get()).append(measurementUnit.getUnit()).append(" ");
             } else {
                 sb.append("-").append(" ");
             }
         }
-        LOG.debug("Statistics power detetcted: {}", sb.toString());
+        LOG.debug("Statistics power detected: {}", sb);
     }
 
     private static void testHomeAutomation(final HomeAutomation homeAutomation, final String ain)
             throws InterruptedException {
-        // homeAutomation.switchPowerState(ain, false);
-        // homeAutomation.togglePowerState(ain);
         LOG.info("Switch {} has present state '{}'", ain, homeAutomation.getSwitchPresent(ain));
         LOG.info("Switch {} has state '{}'", ain, homeAutomation.getSwitchState(ain));
         LOG.info("Switch {} uses {}W", ain, homeAutomation.getSwitchPowerWatt(ain));
         LOG.info("Switch {} has used {}Wh", ain, homeAutomation.getSwitchEnergyWattHour(ain));
-        LOG.info("Switch {} has name '{}'", ain, homeAutomation.getSwitchName(ain));
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Switch {} has name '{}'", ain, homeAutomation.getSwitchName(ain));
+        }
         LOG.info("Switch {} has temperature {}°C", ain, homeAutomation.getTemperature(ain));
         LOG.info("Switch {} statistics '{}'", ain, homeAutomation.getBasicStatistics(ain));
 
@@ -148,17 +149,5 @@ public class TestDriver {
         LOG.debug("State: {}, temp: {}°C, voltage: {}V, power: {}W, energy: {}Wh",
                 switchState, device.getTemperature().getCelsius(), powerMeter.getVoltageVolt(),
                 powerMeter.getPowerWatt(), powerMeter.getEnergyWattHours());
-    }
-
-    private static Properties readConfig(final Path path) {
-        final Properties config = new Properties();
-        final Path absolutePath = path.toAbsolutePath();
-        LOG.debug("Reading config from file {}", absolutePath);
-        try (InputStream in = Files.newInputStream(absolutePath)) {
-            config.load(in);
-        } catch (final IOException e) {
-            throw new FritzBoxException("Error loading configuration from " + absolutePath, e);
-        }
-        return config;
     }
 }

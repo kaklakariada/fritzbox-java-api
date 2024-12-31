@@ -7,13 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.8.0] - unreleased
 
+- [#66](https://github.com/kaklakariada/fritzbox-java-api/pull/66) Add support for FritzBox 6690 (contributed by Manfred)
 - [#65](https://github.com/kaklakariada/fritzbox-java-api/pull/65) Upgrade dependencies
 
 ## [1.7.0] - 2023-10-07
 
 ### Added
 
-- [#29](https://github.com/kaklakariada/fritzbox-java-api/issues/29) Add support for login via Pbkdf2 challenge-response (propsed by [@linnex81](https://github.com/linnex81))
+- [#29](https://github.com/kaklakariada/fritzbox-java-api/issues/29) Add support for login via Pbkdf2 challenge-response (proposed by [@linnex81](https://github.com/linnex81))
 - [#58](https://github.com/kaklakariada/fritzbox-java-api/pull/58) Datatime attribute added in devicestats XML response since Fritz OS 7.50 (thanks to [@LutzHelling](https://github.com/LutzHelling))
 
 ### Fixed

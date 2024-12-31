@@ -17,14 +17,9 @@
  */
 package com.github.kaklakariada.fritzbox.http;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.security.*;
 
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
+import javax.net.ssl.*;
 
 /**
  * This class creates an {@link SSLSocketFactory} that trusts all certificates.
@@ -43,19 +38,18 @@ public class TrustSelfSignedCertificates {
         return sslContext.getSocketFactory();
     }
 
-    private static void initializeSslContext(SSLContext sslContext) {
+    private static void initializeSslContext(final SSLContext sslContext) {
         final KeyManager[] keyManagers = null;
         final TrustManager[] trustManagers = new TrustManager[] { new NullTrustManager() };
         final SecureRandom secureRandom = new SecureRandom();
-        final SSLContext sslContext1 = sslContext;
         try {
-            sslContext1.init(keyManagers, trustManagers, secureRandom);
+            sslContext.init(keyManagers, trustManagers, secureRandom);
         } catch (final KeyManagementException e) {
             throw new HttpException("Error initializing ssl context", e);
         }
     }
 
-    private static SSLContext getSSLContext(String algorithm) {
+    private static SSLContext getSSLContext(final String algorithm) {
         try {
             return SSLContext.getInstance(algorithm);
         } catch (final NoSuchAlgorithmException e) {

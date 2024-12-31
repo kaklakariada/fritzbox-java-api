@@ -15,7 +15,7 @@ version = '1.7.0'
 
 java {
     toolchain {
-        def javaVersion = project.hasProperty('javaVersion') ? project.getProperty('javaVersion') : 11
+        def javaVersion = project.hasProperty('javaVersion') ? project.getProperty('javaVersion') : 21
         languageVersion = JavaLanguageVersion.of(javaVersion)
     }
     withJavadocJar()
@@ -56,6 +56,7 @@ license {
     exclude('**/deviceList*Payload.xml')
     exclude('devicelist6840.xml')
     exclude('**/FritzOS29/*.xml')
+    exclude('**/FritzBox6690/*.xml')
 }
 
 jacocoTestReport {

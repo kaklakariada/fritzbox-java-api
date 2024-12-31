@@ -42,42 +42,35 @@ public class DeviceStats {
     @Element(name = "humidity", type = Humidity.class, required = false)
     private Humidity humidity;
 
-    public Optional<AbstractDeviceStatistics> getTemperature() {
+    public Optional<Temperature> getTemperature() {
         return Optional.ofNullable(temperature);
     }
-    public Optional<AbstractDeviceStatistics> getVoltage() {
+
+    public Optional<Voltage> getVoltage() {
         return Optional.ofNullable(voltage);
     }
-    public Optional<AbstractDeviceStatistics> getPower() {
+
+    public Optional<Power> getPower() {
         return Optional.ofNullable(power);
     }
-    public Optional<AbstractDeviceStatistics> getEnergy() {
+
+    public Optional<Energy> getEnergy() {
         return Optional.ofNullable(energy);
     }
-    public Optional<AbstractDeviceStatistics> getHumidity() {
+
+    public Optional<Humidity> getHumidity() {
         return Optional.ofNullable(humidity);
     }
-
 
     @Override
     public String toString() {
         List<String> allStatistics = new ArrayList<>();
-        if (getTemperature().isPresent()) {
-            allStatistics.addAll(getTemperature().get().statisticsToString());
-        }
-        if (getVoltage().isPresent()) {
-            allStatistics.addAll(getVoltage().get().statisticsToString());
-        }
-        if (getPower().isPresent()) {
-            allStatistics.addAll(getPower().get().statisticsToString());
-        }
-        if (getEnergy().isPresent()) {
-            allStatistics.addAll(getEnergy().get().statisticsToString());
-        }
-        if (getHumidity().isPresent()) {
-            allStatistics.addAll(getHumidity().get().statisticsToString());
-        }
-        final StringBuffer sb = new StringBuffer();
+        getTemperature().ifPresent(t -> allStatistics.addAll(t.statisticsToString()));
+        getVoltage().ifPresent(v -> allStatistics.addAll(v.statisticsToString()));
+        getPower().ifPresent(p -> allStatistics.addAll(p.statisticsToString()));
+        getEnergy().ifPresent(e -> allStatistics.addAll(e.statisticsToString()));
+        getHumidity().ifPresent(h -> allStatistics.addAll(h.statisticsToString()));
+        final StringBuilder sb = new StringBuilder();
         sb.append(" ---> ").append("\n\n\tStatistics").append("\n\t==========\n");
         allStatistics.forEach(stats -> sb.append("\t").append(stats).append("\n"));
         return sb.toString();

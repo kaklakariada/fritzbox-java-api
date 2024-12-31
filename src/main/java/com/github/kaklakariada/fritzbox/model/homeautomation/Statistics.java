@@ -19,7 +19,6 @@ package com.github.kaklakariada.fritzbox.model.homeautomation;
 
 import java.time.Instant;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.simpleframework.xml.*;
 
@@ -37,7 +36,7 @@ public class Statistics {
     private int grid;
 
     @Attribute(name = "datatime", required = false)
-    private Long datatime;
+    private Long dataTime;
 
     @Text()
     private String csvValues;
@@ -46,12 +45,15 @@ public class Statistics {
         // Default constructor for XML deserialization
     }
 
-    Statistics(final MeasurementUnit measurementUnit, final int count, final int grid, final Long datatime,
+    Statistics(final MeasurementUnit measurementUnit,
+            final int count,
+            final int grid,
+            final Long dataTime,
             final String csvValues) {
         this.measurementUnit = measurementUnit;
         this.count = count;
         this.grid = grid;
-        this.datatime = datatime;
+        this.dataTime = dataTime;
         this.csvValues = csvValues;
     }
 
@@ -69,7 +71,7 @@ public class Statistics {
      * @return raw timestamp or {@code null} if not available
      */
     public Long getDataTimeRaw() {
-        return datatime;
+        return dataTime;
     }
 
     /**
@@ -93,7 +95,7 @@ public class Statistics {
     }
 
     /**
-     * Just for unit test provided. Therefore it is set to package private.
+     * Just for unit test provided. Therefore, it is set to package private.
      */
     void setCsvValues(final String csvValues) {
         this.csvValues = csvValues;
@@ -106,12 +108,11 @@ public class Statistics {
      */
     public List<Optional<Number>> getValues() {
         if (getCsvValues() == null) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
-        return Arrays.asList(getCsvValues().split(","))
-                .stream()
+        return Arrays.stream(getCsvValues().split(","))
                 .map(aValue -> Optional.ofNullable(computeValue(aValue)))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**
@@ -119,7 +120,7 @@ public class Statistics {
      * <p>
      * Consists of:
      * <ul>
-     * <li>measurment unit [V, W, Wh, %]</li>
+     * <li>measurement unit [V, W, Wh, %]</li>
      * <li>precision as double to multiply with the gathered Integer</li>
      * </ul>
      * Sample: The Voltage is measured in 'V' (Volt) and has a precision of '0.001'. The number 237123 provided by the
@@ -136,15 +137,13 @@ public class Statistics {
     }
 
     protected Number computeValue(final String aValue) {
-        Number numberValue = null;
         if (StringHelper.isIntegerNumber(aValue)) {
             final Integer intValue = Integer.valueOf(aValue.trim());
-            if (measurementUnit.getPrescision() instanceof Double) {
-                numberValue = Double.valueOf(intValue * (Double) measurementUnit.getPrescision());
+            if (measurementUnit.getPrecision() instanceof Double precision) {
+                return intValue * precision;
             } else {
-                numberValue = Integer.valueOf(intValue * (Integer) measurementUnit.getPrescision());
+                return intValue * (Integer) measurementUnit.getPrecision();
             }
-            return numberValue;
         }
         return null;
     }

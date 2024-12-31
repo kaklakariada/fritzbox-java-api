@@ -24,29 +24,30 @@ import org.simpleframework.xml.Root;
 public class NextChange {
 
     @Element(name = "endperiod", required = false)
-    private int endperiod;
+    private int endPeriod;
 
     @Element(name = "tchange", required = false)
-    private int tchange;
+    private int tChange;
 
-    public int getEndperiod() {
-        return endperiod;
+    public int getEndPeriod() {
+        return endPeriod;
     }
 
-    public void setEndperiod(int endperiod) {
-        this.endperiod = endperiod;
+    public void setEndPeriod(int endPeriod) {
+        this.endPeriod = endPeriod;
     }
 
-    public int getTchange() {
-        return tchange;
+    public int getTChange() {
+        return tChange;
     }
 
-    public void setTchange(int tchange) {
-        this.tchange = tchange;
+    public void setTChange(int tChange) {
+        this.tChange = tChange;
     }
 
     @Override
     public String toString() {
-        return "NextChange [endperiod=" + endperiod + ", tchange=" + tchange + "]";
+        return "NextChange [endPeriod=" + endPeriod
+                + ", tChange=" + tChange + "]";
     }
 }

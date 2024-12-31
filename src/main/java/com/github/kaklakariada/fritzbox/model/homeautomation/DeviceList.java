@@ -17,8 +17,6 @@
  */
 package com.github.kaklakariada.fritzbox.model.homeautomation;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,6 @@ public class DeviceList {
 
     @ElementList(name = "group", type = Group.class, inline = true, required = false)
     private List<Group> groups;
-
 
     @Attribute(name = "fwversion", required = false, empty = "n/a")
     private String firmwareVersion;
@@ -62,8 +59,7 @@ public class DeviceList {
 
     public List<String> getDeviceIdentifiers() {
         return devices.stream() //
-                .map(Device::getIdentifier) //
-                .collect(toList());
+                .map(Device::getIdentifier).toList();
     }
 
     public String getFirmwareVersion() {

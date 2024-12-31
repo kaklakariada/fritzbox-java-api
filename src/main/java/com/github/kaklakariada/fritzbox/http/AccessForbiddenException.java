@@ -17,15 +17,18 @@
  */
 package com.github.kaklakariada.fritzbox.http;
 
+import java.io.Serial;
+
 public class AccessForbiddenException extends HttpException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    public AccessForbiddenException(String message, Throwable cause) {
+    public AccessForbiddenException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public AccessForbiddenException(String message) {
+    public AccessForbiddenException(final String message) {
         super(message);
     }
 }

@@ -15,11 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.kaklakariada.fritzbox;
+package com.github.kaklakariada.fritzbox.app;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import com.github.kaklakariada.fritzbox.AbstractTestHelper;
+import com.github.kaklakariada.fritzbox.Config;
+import com.github.kaklakariada.fritzbox.HomeAutomation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +38,9 @@ public class TestBlind extends AbstractTestHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestBlind.class);
     private static final int WAIT_SECONDS = 20;
+    public static final String STATUS_AFTER_CHANGE = "Status after change";
+    public static final String INITIAL_SETTING = "Initial setting";
+    public static final String CHANGING_STATUS_OF_BLIND_AIN_TO = "Changing status of blind {} (ain='{}') to {}";
 
     private final HomeAutomation homeAutomation;
 
@@ -48,33 +53,33 @@ public class TestBlind extends AbstractTestHelper {
             LOG.warn("No blind devices found");
             return;
         }
-        final int wasPercenClosed = blindDevices.get(0).getLevelControl().getLevelPercentage();
+        final int wasPercentClosed = blindDevices.getFirst().getLevelControl().getLevelPercentage();
 
         toggleBlindOpenClose();
 
         togglePercentOpen();
 
-        setPercentOpen(blindDevices.get(0), wasPercenClosed);
+        setPercentOpen(blindDevices.getFirst(), wasPercentClosed);
     }
 
     private void toggleBlindOpenClose() throws InterruptedException {
         // Start first move
         LOG.info("");
-        LOG.info("Initial setting");
+        LOG.info(INITIAL_SETTING);
         List<Device> blindDevices = getBlindDevices();
         if (blindDevices.isEmpty()) {
             return;
         }
         showStatus(blindDevices);
-        toggleBlindOpenClose(blindDevices.get(0));
+        toggleBlindOpenClose(blindDevices.getFirst());
 
         // Start move back
         sleep();
         LOG.info("");
-        LOG.info("Status after change");
+        LOG.info(STATUS_AFTER_CHANGE);
         blindDevices = getBlindDevices();
         showStatus(blindDevices);
-        toggleBlindOpenClose(blindDevices.get(0));
+        toggleBlindOpenClose(blindDevices.getFirst());
 
         // Show status at end of test
         LOG.info("");
@@ -94,31 +99,30 @@ public class TestBlind extends AbstractTestHelper {
         final String newStatus = wasOpen ? "close" : "open";
 
         LOG.info("");
-        LOG.info("Changing status of blind {} (ain='{}') to {}", blind.getName(), ain,
-                newStatus);
+        LOG.info(CHANGING_STATUS_OF_BLIND_AIN_TO, blind.getName(), ain, newStatus);
         homeAutomation.setBlind(ain, newStatus);
     }
 
     private void togglePercentOpen() throws InterruptedException {
         // Start first move
         LOG.info("");
-        LOG.info("Initial setting");
+        LOG.info(INITIAL_SETTING);
         List<Device> blindDevices = getBlindDevices();
         if (blindDevices.isEmpty()) {
             return;
         }
         showStatus(blindDevices);
-        final int wasPercenClosed = blindDevices.get(0).getLevelControl().getLevelPercentage();
-        final int newPercenClosed = wasPercenClosed == 0 ? 50 : wasPercenClosed / 2;
+        final int wasPercentClosed = blindDevices.getFirst().getLevelControl().getLevelPercentage();
+        final int newPercentClosed = wasPercentClosed == 0 ? 50 : wasPercentClosed / 2;
 
-        setPercentOpen(blindDevices.get(0), newPercenClosed);
+        setPercentOpen(blindDevices.getFirst(), newPercentClosed);
 
         sleep();
         LOG.info("");
-        LOG.info("Status after change");
+        LOG.info(STATUS_AFTER_CHANGE);
         blindDevices = getBlindDevices();
         showStatus(blindDevices);
-        setPercentOpen(blindDevices.get(0), wasPercenClosed);
+        setPercentOpen(blindDevices.getFirst(), wasPercentClosed);
 
         // Show status at end of test
         LOG.info("");
@@ -132,8 +136,7 @@ public class TestBlind extends AbstractTestHelper {
         final String newLevel = String.valueOf(percent);
 
         LOG.info("");
-        LOG.info("Changing status of blind {} (ain='{}') to {}", blind.getName(), ain,
-                newLevel);
+        LOG.info(CHANGING_STATUS_OF_BLIND_AIN_TO, blind.getName(), ain, newLevel);
         homeAutomation.setLevelPercentage(ain, newLevel);
     }
 
@@ -141,8 +144,7 @@ public class TestBlind extends AbstractTestHelper {
         final DeviceList devices = homeAutomation.getDeviceListInfos();
         return devices.getDevices()
                 .stream()
-                .filter(device -> device.getBlind() != null)
-                .collect(Collectors.toList());
+                .filter(device -> device.getBlind() != null).toList();
     }
 
     private void showStatus(final List<Device> blindDevices) {

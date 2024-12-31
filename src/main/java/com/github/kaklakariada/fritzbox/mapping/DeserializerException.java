@@ -19,15 +19,18 @@ package com.github.kaklakariada.fritzbox.mapping;
 
 import com.github.kaklakariada.fritzbox.FritzBoxException;
 
+import java.io.Serial;
+
 public class DeserializerException extends FritzBoxException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    public DeserializerException(String message, Throwable cause) {
+    public DeserializerException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public DeserializerException(String message) {
+    public DeserializerException(final String message) {
         super(message);
     }
 }

@@ -33,7 +33,7 @@ public class Blind {
         return endPositionsSet;
     }
 
-    public void setEndPositionsSet(int endPositionsSet) {
+    public void setEndPositionsSet(final int endPositionsSet) {
         this.endPositionsSet = endPositionsSet;
     }
 
@@ -41,7 +41,7 @@ public class Blind {
         return mode;
     }
 
-    public void setMode(String mode) {
+    public void setMode(final String mode) {
         this.mode = mode;
     }
 }

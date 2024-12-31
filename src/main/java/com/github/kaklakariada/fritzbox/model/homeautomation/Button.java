@@ -31,7 +31,7 @@ public class Button {
     @Element(name = "name", required = false)
     private String name;
     @Element(name = "lastpressedtimestamp", required = false)
-    private String lastpressedtimestamp;
+    private String lastPressedTimestamp;
 
     public String getIdentifier() {
         return identifier;
@@ -45,7 +45,7 @@ public class Button {
         return name;
     }
 
-    public String getLastpressedtimestamp() {
-        return lastpressedtimestamp;
+    public String getLastPressedTimestamp() {
+        return lastPressedTimestamp;
     }
 }

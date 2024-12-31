@@ -24,20 +24,20 @@ import org.simpleframework.xml.Root;
 public class EtsiUnitInfo {
 
     @Element(name = "etsideviceid")
-    private int etsideviceid;
+    private int etsiDeviceId;
 
     @Element(name = "unittype")
-    private int unittype;
+    private int unitType;
 
     @Element(name = "interfaces")
     private String interfaces;
 
-    public int getEtsideviceid() {
-        return etsideviceid;
+    public int getEtsiDeviceId() {
+        return etsiDeviceId;
     }
 
-    public int getUnittype() {
-        return unittype;
+    public int getUnitType() {
+        return unitType;
     }
 
     public String getInterfaces() {

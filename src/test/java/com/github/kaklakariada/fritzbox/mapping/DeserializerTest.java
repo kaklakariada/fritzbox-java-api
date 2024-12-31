@@ -19,10 +19,7 @@ package com.github.kaklakariada.fritzbox.mapping;
 
 import static com.github.kaklakariada.fritzbox.assertions.HomeAutomationAssertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,7 +49,7 @@ class DeserializerTest {
     @Test
     void parseDeviceListFritzDect301() throws IOException {
         final DeviceList deviceList = parseDeviceList(
-                Paths.get("src/test/resources/deviceListConnectedFritzDect200Payload.xml"));
+                Paths.get("src/test/resources/deviceListConnectedFritzDect301Payload.xml"));
         assertThat(deviceList.getDevices()).hasSize(1);
     }
 
@@ -93,7 +90,7 @@ class DeserializerTest {
     @Test
     void parseDeviceListEmpty() throws IOException {
         final DeviceList deviceList = parseDeviceList(Paths.get("src/test/resources/FritzOS29/deviceListEmpty.xml"));
-        assertThat(deviceList.getDevices()).hasSize(0);
+        assertThat(deviceList.getDevices()).isEmpty();
     }
 
     @Test
@@ -120,18 +117,17 @@ class DeserializerTest {
                 .newInputStream(Paths.get("src/test/resources/FritzOS29/devicestatsFritzDect200.xml"));
         final DeviceStats stats = new Deserializer().parse(fileContent, DeviceStats.class);
         assertEquals(1, stats.getTemperature().get().getStats().size(), "Temperature has just one statistics Element");
-        assertEquals(Double.valueOf(0.1),
-                stats.getTemperature().get().getStats().get(0).getMeasurementUnit().getPrescision(),
+        assertEquals(0.1,
+                stats.getTemperature().get().getStats().getFirst().getMeasurementUnit().getPrecision(),
                 "Temperature statistics have unit precision '0.1'");
 
         assertEquals(2, stats.getEnergy().get().getStats().size(), "Energy has two statistics Element");
 
-        assertEquals(false, stats.getHumidity().isPresent(), "Humidity is missing");
+        assertFalse(stats.getHumidity().isPresent(), "Humidity is missing");
 
-        assertEquals(true, stats.getEnergy().get().getStats().get(0).getDataTimeRaw() == 1665897036,
+        assertEquals(1665897036, (long) stats.getEnergy().get().getStats().getFirst().getDataTimeRaw(),
                 "DataTime (raw) is missing");
-        assertEquals(false,
-                stats.getEnergy().get().getStats().get(0).getDataTime().toEpochMilli() == 1665897,
+        assertNotEquals(1665897, stats.getEnergy().get().getStats().getFirst().getDataTime().toEpochMilli(),
                 "DataTime is missing");
     }
 

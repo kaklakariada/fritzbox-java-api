@@ -25,8 +25,8 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * PBKDF2 challenge-response. See
- * https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AVM_Technical_Note_-_Session_ID_english_2021-05-03.pdf
+ * PBKDF2 challenge-response. See <a href=
+ * "https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AVM_Technical_Note_-_Session_ID_english_2021-05-03.pdf">...</a>
  */
 class Pbkdf2ChallengeResponse implements ChallengeResponse {
 
@@ -66,7 +66,7 @@ class Pbkdf2ChallengeResponse implements ChallengeResponse {
     }
 
     /**
-     * Create a pbkdf2 HMAC by appling the Hmac iter times as specified. We can't use the Android-internal PBKDF2 here,
+     * Create a pbkdf2 HMAC by applying the Hmac iter times as specified. We can't use the Android-internal PBKDF2 here,
      * as it only accepts char[] arrays, not bytes (for multi-stage hashing)
      */
     static byte[] pbkdf2HmacSha256(final byte[] password, final byte[] salt, final int iters) {
