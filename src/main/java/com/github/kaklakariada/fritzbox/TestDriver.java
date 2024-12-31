@@ -21,20 +21,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.kaklakariada.fritzbox.EnergyStatisticsService.EnergyStatsTimeRange;
-import com.github.kaklakariada.fritzbox.model.homeautomation.AbstractDeviceStatistics;
-import com.github.kaklakariada.fritzbox.model.homeautomation.Device;
-import com.github.kaklakariada.fritzbox.model.homeautomation.DeviceList;
-import com.github.kaklakariada.fritzbox.model.homeautomation.MeasurementUnit;
-import com.github.kaklakariada.fritzbox.model.homeautomation.PowerMeter;
-import com.github.kaklakariada.fritzbox.model.homeautomation.Statistics;
+import com.github.kaklakariada.fritzbox.model.homeautomation.*;
 
 public class TestDriver {
     private static final Logger LOG = LoggerFactory.getLogger(TestDriver.class);
@@ -74,7 +67,7 @@ public class TestDriver {
     }
 
     private static void testEnergyStatsNew(final HomeAutomation homeAutomation, final String ain) {
-        final Optional<AbstractDeviceStatistics> energy = homeAutomation.getBasicStatistics(ain).getEnergy();
+        final Optional<Energy> energy = homeAutomation.getBasicStatistics(ain).getEnergy();
         if (energy.isEmpty()) {
             LOG.error("No Statistics for energy consumption gathered");
             return;
@@ -99,7 +92,7 @@ public class TestDriver {
     }
 
     private static void testVoltageStatsNew(final HomeAutomation homeAutomation, final String ain) {
-        final Optional<AbstractDeviceStatistics> power = homeAutomation.getBasicStatistics(ain).getPower();
+        final Optional<Power> power = homeAutomation.getBasicStatistics(ain).getPower();
         if (power.isEmpty()) {
             LOG.error("No Statistics for power consumption gathered");
             return;
