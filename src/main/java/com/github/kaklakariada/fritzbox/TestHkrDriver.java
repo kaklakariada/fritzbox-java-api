@@ -52,7 +52,7 @@ public class TestHkrDriver extends AbstractTestHelper {
         showTemperatures(hkrDevices);
 
         final String ain = hkrDevices.get(0).getIdentifier().replaceAll("\\s*", "");
-        final double wasTemperature = getCelsius(hkrDevices.get(0).getHkr().getTsoll());
+        final double wasTemperature = getCelsius(hkrDevices.get(0).getHkr().getTSoll());
         final double newTsoll = 25D;
         LOG.info("");
         LOG.info("Changing temperature of {} (ain='{}')to {} degrees", hkrDevices.get(0).getName(), ain,
@@ -87,8 +87,8 @@ public class TestHkrDriver extends AbstractTestHelper {
         hkrDevices.forEach(hkr -> {
             final String message = String.format("%-15s tist: %s(%s\u00B0), tsoll: %s(%s\u00B0)",
                     hkr.getName(),
-                    hkr.getHkr().getTist(), getCelsius(hkr.getHkr().getTist()),
-                    hkr.getHkr().getTsoll(), getCelsius(hkr.getHkr().getTsoll()));
+                    hkr.getHkr().getTIst(), getCelsius(hkr.getHkr().getTIst()),
+                    hkr.getHkr().getTSoll(), getCelsius(hkr.getHkr().getTSoll()));
             LOG.info(message);
         });
     }

@@ -48,7 +48,7 @@ public class TestBlind extends AbstractTestHelper {
             LOG.warn("No blind devices found");
             return;
         }
-        final int wasPercenClosed = blindDevices.get(0).getLevelControl().getLevelpercentage();
+        final int wasPercenClosed = blindDevices.get(0).getLevelControl().getLevelPercentage();
 
         toggleBlindOpenClose();
 
@@ -108,7 +108,7 @@ public class TestBlind extends AbstractTestHelper {
             return;
         }
         showStatus(blindDevices);
-        final int wasPercenClosed = blindDevices.get(0).getLevelControl().getLevelpercentage();
+        final int wasPercenClosed = blindDevices.get(0).getLevelControl().getLevelPercentage();
         final int newPercenClosed = wasPercenClosed == 0 ? 50 : wasPercenClosed / 2;
 
         setPercentOpen(blindDevices.get(0), newPercenClosed);
@@ -150,7 +150,7 @@ public class TestBlind extends AbstractTestHelper {
             final String message = String.format("%-15s Mode: %s Percent-Closed: %s%%",
                     blind.getName(),
                     blind.getBlind().getMode(),
-                    blind.getLevelControl().getLevelpercentage());
+                    blind.getLevelControl().getLevelPercentage());
             LOG.info(message);
         });
     }
