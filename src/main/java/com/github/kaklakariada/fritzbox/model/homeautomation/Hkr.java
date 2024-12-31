@@ -1,17 +1,17 @@
 /**
  * A Java API for managing FritzBox HomeAutomation
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
- * <br>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * <br>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <br>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -81,7 +81,7 @@ public class Hkr {
         return tIst;
     }
 
-    public void setTIst(int tIst) {
+    public void setTIst(final int tIst) {
         this.tIst = tIst;
     }
 
@@ -89,7 +89,7 @@ public class Hkr {
         return tSoll;
     }
 
-    public void setTSoll(int tSoll) {
+    public void setTSoll(final int tSoll) {
         this.tSoll = tSoll;
     }
 
@@ -97,7 +97,7 @@ public class Hkr {
         return tAbsenk;
     }
 
-    public void setTAbsenk(int tAbsenk) {
+    public void setTAbsenk(final int tAbsenk) {
         this.tAbsenk = tAbsenk;
     }
 
@@ -105,7 +105,7 @@ public class Hkr {
         return komfort;
     }
 
-    public void setKomfort(int komfort) {
+    public void setKomfort(final int komfort) {
         this.komfort = komfort;
     }
 
@@ -113,7 +113,7 @@ public class Hkr {
         return lock;
     }
 
-    public void setLock(int lock) {
+    public void setLock(final int lock) {
         this.lock = lock;
     }
 
@@ -121,7 +121,7 @@ public class Hkr {
         return deviceLock;
     }
 
-    public void setDeviceLock(int deviceLock) {
+    public void setDeviceLock(final int deviceLock) {
         this.deviceLock = deviceLock;
     }
 
@@ -129,7 +129,7 @@ public class Hkr {
         return errorCode;
     }
 
-    public void setErrorCode(int errorCode) {
+    public void setErrorCode(final int errorCode) {
         this.errorCode = errorCode;
     }
 
@@ -137,7 +137,7 @@ public class Hkr {
         return windowOpenActive;
     }
 
-    public void setWindowOpenActive(boolean windowOpenActive) {
+    public void setWindowOpenActive(final boolean windowOpenActive) {
         this.windowOpenActive = windowOpenActive;
     }
 
@@ -145,7 +145,7 @@ public class Hkr {
         return windowOpenActiveEndTime;
     }
 
-    public void setWindowOpenActiveEndTime(int windowOpenActiveEndTime) {
+    public void setWindowOpenActiveEndTime(final int windowOpenActiveEndTime) {
         this.windowOpenActiveEndTime = windowOpenActiveEndTime;
     }
 
@@ -153,7 +153,7 @@ public class Hkr {
         return boostActive;
     }
 
-    public void setBoostActive(boolean boostActive) {
+    public void setBoostActive(final boolean boostActive) {
         this.boostActive = boostActive;
     }
 
@@ -161,7 +161,7 @@ public class Hkr {
         return boostActiveEndTime;
     }
 
-    public void setBoostActiveEndTime(int boostActiveEndTime) {
+    public void setBoostActiveEndTime(final int boostActiveEndTime) {
         this.boostActiveEndTime = boostActiveEndTime;
     }
 
@@ -169,7 +169,7 @@ public class Hkr {
         return batteryLow;
     }
 
-    public void setBatteryLow(boolean batteryLow) {
+    public void setBatteryLow(final boolean batteryLow) {
         this.batteryLow = batteryLow;
     }
 
@@ -177,7 +177,7 @@ public class Hkr {
         return battery;
     }
 
-    public void setBattery(int battery) {
+    public void setBattery(final int battery) {
         this.battery = battery;
     }
 
@@ -185,7 +185,7 @@ public class Hkr {
         return nextChange;
     }
 
-    public void setNextChange(NextChange nextChange) {
+    public void setNextChange(final NextChange nextChange) {
         this.nextChange = nextChange;
     }
 
@@ -193,7 +193,7 @@ public class Hkr {
         return summerActive;
     }
 
-    public void setSummerActive(boolean summerActive) {
+    public void setSummerActive(final boolean summerActive) {
         this.summerActive = summerActive;
     }
 
@@ -201,7 +201,7 @@ public class Hkr {
         return holidayActive;
     }
 
-    public void setHolidayActive(boolean holidayActive) {
+    public void setHolidayActive(final boolean holidayActive) {
         this.holidayActive = holidayActive;
     }
 

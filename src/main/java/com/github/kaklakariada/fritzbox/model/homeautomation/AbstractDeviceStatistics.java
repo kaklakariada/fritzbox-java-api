@@ -1,17 +1,17 @@
 /**
  * A Java API for managing FritzBox HomeAutomation
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
- * <br>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * <br>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <br>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,7 @@ public abstract class AbstractDeviceStatistics {
      * Supply the Statistics gathered for a chosen grid
      * 
      * @param grid
-     *                 grid
+     *            grid
      * @return Optional - avoid NPE if no statistics present
      */
     public Optional<Statistics> getStatisticsByGrid(final int grid) {
@@ -48,19 +48,23 @@ public abstract class AbstractDeviceStatistics {
      * @return List
      */
     public List<Statistics> getStats() {
-        return getStats(stats, MeasurementUnit.getMatchingMeasurementUnit(this.getClass())) ;
+        return getStats(stats, MeasurementUnit.getMatchingMeasurementUnit(this.getClass()));
     }
 
     /**
      * AVM gathers just integer numbers. We know the precision only from documentation, it is never provided by returned
      * responses from Fritz!Box. So we add this information here to the statistics.
      * 
-     * @param stats statistics to which to add the measurement unit
-     * @param measurementUnit the unit to add to the statistics
+     * @param stats
+     *            statistics to which to add the measurement unit
+     * @param measurementUnit
+     *            the unit to add to the statistics
      * @return statistics with measurement units
      */
     protected List<Statistics> getStats(final List<Statistics> stats, final MeasurementUnit measurementUnit) {
-        if (stats == null) { return Collections.emptyList(); }
+        if (stats == null) {
+            return Collections.emptyList();
+        }
         return stats
                 .stream()
                 .map(stat -> {
@@ -74,12 +78,13 @@ public abstract class AbstractDeviceStatistics {
      * 
      * @return List
      */
-    protected List<String> statisticsToString(){
+    protected List<String> statisticsToString() {
         return statisticsToString(MeasurementUnit.getMatchingMeasurementUnit(this.getClass()).name());
     }
 
     /**
-     * @param type statistics type
+     * @param type
+     *            statistics type
      * @return statistics as one line per grid
      */
     protected List<String> statisticsToString(final String type) {
@@ -91,8 +96,10 @@ public abstract class AbstractDeviceStatistics {
     /**
      * Form a line from a single statistic.
      * 
-     * @param type statistics type
-     * @param statistics statistic to convert to {@link String}
+     * @param type
+     *            statistics type
+     * @param statistics
+     *            statistic to convert to {@link String}
      * @return statistic as a line
      */
     private String statisticsToString(final String type, final Statistics statistics) {
