@@ -1,17 +1,17 @@
 /**
  * A Java API for managing FritzBox HomeAutomation
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
- *
+ * <br>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <br>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <br>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,29 +24,30 @@ import org.simpleframework.xml.Root;
 public class NextChange {
 
     @Element(name = "endperiod", required = false)
-    private int endperiod;
+    private int endPeriod;
 
     @Element(name = "tchange", required = false)
-    private int tchange;
+    private int tChange;
 
-    public int getEndperiod() {
-        return endperiod;
+    public int getEndPeriod() {
+        return endPeriod;
     }
 
-    public void setEndperiod(int endperiod) {
-        this.endperiod = endperiod;
+    public void setEndPeriod(int endPeriod) {
+        this.endPeriod = endPeriod;
     }
 
-    public int getTchange() {
-        return tchange;
+    public int getTChange() {
+        return tChange;
     }
 
-    public void setTchange(int tchange) {
-        this.tchange = tchange;
+    public void setTChange(int tChange) {
+        this.tChange = tChange;
     }
 
     @Override
     public String toString() {
-        return "NextChange [endperiod=" + endperiod + ", tchange=" + tchange + "]";
+        return "NextChange [endPeriod=" + endPeriod
+                + ", tChange=" + tChange + "]";
     }
 }

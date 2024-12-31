@@ -1,17 +1,17 @@
 /**
  * A Java API for managing FritzBox HomeAutomation
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
- *
+ * <br>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <br>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <br>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,7 +34,7 @@ public class StringHelper {
      * StringHelper.isIntegerNumber(" ")  = false
      * StringHelper.isIntegerNumber(" 1 ") = true
      * StringHelper.isIntegerNumber("123")  = true
-     * StringUtils.isIntegerNumber("\u0967\u0968\u0969")  = true
+     * StringUtils.isIntegerNumber("१२३")  = true
      * StringHelper.isIntegerNumber("1.1") = false
      * StringHelper.isIntegerNumber("1.1D") = false
      * </pre>
@@ -79,7 +79,7 @@ public class StringHelper {
      * StringUtils.isNumeric("")     = false
      * StringUtils.isNumeric("  ")   = false
      * StringUtils.isNumeric("123")  = true
-     * StringUtils.isNumeric("\u0967\u0968\u0969")  = true
+     * StringUtils.isNumeric("१२३")  = true
      * StringUtils.isNumeric("12 3") = false
      * StringUtils.isNumeric("ab2c") = false
      * StringUtils.isNumeric("12-3") = false
@@ -126,6 +126,6 @@ public class StringHelper {
      * @return {@code true} if the CharSequence is empty or null
      */
     public static boolean isEmpty(final CharSequence cs) {
-        return cs == null || cs.length() == 0;
+        return cs == null || cs.isEmpty();
     }
 }

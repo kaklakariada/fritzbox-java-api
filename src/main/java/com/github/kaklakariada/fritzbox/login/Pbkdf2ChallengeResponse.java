@@ -1,17 +1,17 @@
 /**
  * A Java API for managing FritzBox HomeAutomation
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
- *
+ * <br>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <br>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <br>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,7 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * PBKDF2 challenge-response. See
- * https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AVM_Technical_Note_-_Session_ID_english_2021-05-03.pdf
+ * <a href="https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AVM_Technical_Note_-_Session_ID_english_2021-05-03.pdf">...</a>
  */
 class Pbkdf2ChallengeResponse implements ChallengeResponse {
 
@@ -66,7 +66,7 @@ class Pbkdf2ChallengeResponse implements ChallengeResponse {
     }
 
     /**
-     * Create a pbkdf2 HMAC by appling the Hmac iter times as specified. We can't use the Android-internal PBKDF2 here,
+     * Create a pbkdf2 HMAC by applying the Hmac iter times as specified. We can't use the Android-internal PBKDF2 here,
      * as it only accepts char[] arrays, not bytes (for multi-stage hashing)
      */
     static byte[] pbkdf2HmacSha256(final byte[] password, final byte[] salt, final int iters) {

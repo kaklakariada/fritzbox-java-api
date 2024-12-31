@@ -1,23 +1,25 @@
 /**
  * A Java API for managing FritzBox HomeAutomation
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
- *
+
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * You should have received a copy of the GNU General Public License
+ * See the GNU General Public License for more details. You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.github.kaklakariada.fritzbox.http;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map.Entry;
 
 import org.slf4j.Logger;
@@ -94,11 +96,29 @@ public class HttpTemplate {
         if (!response.isSuccessful()) {
             throw new FritzBoxException("Request failed: " + response);
         }
+        if (response.body() == null) {
+            throw new FritzBoxException("Request failed: empty body");
+        }
         if (response.code() == 500) {
             throw new FritzBoxException("Request failed: " + deserializer.getStringFromStream(response.body().byteStream()));
         }
-        return deserializer.parse(response.body().byteStream(), resultType);
+        final InputStream data = getInputStream(response);
+        if (data == null) return null;
+        return deserializer.parse(data, resultType);
     }
+
+    InputStream getInputStream(Response response) {
+        try {
+            final String content = response.body().string();
+            if (content.length() < 3) return null;
+            LOG.trace("code {} body content '{}'", response.code(), content);
+            return new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+        }
+        catch (Exception e) { /* */}
+        assert response.body() != null;
+        return response.body().byteStream();
+    }
+
 
     private HttpUrl createUrl(String path, QueryParameters parameters) {
         final Builder builder = baseUrl.newBuilder().encodedPath(path);
@@ -121,7 +141,7 @@ public class HttpTemplate {
             }
             return response;
         } catch (final IOException e) {
-            throw new HttpException("Error executing requst " + request, e);
+            throw new HttpException("Error executing request" + request, e);
         }
     }
 }

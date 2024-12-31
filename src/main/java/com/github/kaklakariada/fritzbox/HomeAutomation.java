@@ -1,23 +1,24 @@
 /**
  * A Java API for managing FritzBox HomeAutomation
  * Copyright (C) 2017 Christoph Pirkl <christoph at users.sourceforge.net>
- *
+ * <br>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <br>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <br>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.github.kaklakariada.fritzbox;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -37,7 +38,10 @@ public class HomeAutomation {
     private final FritzBoxSession session;
 
     private enum Param {
-        PARAM("param"), LEVEL("level"), TARGET("target");
+        PARAM("param"),
+        LEVEL("level"),
+        TARGET("target"),
+        ;
 
         private final String name;
 
@@ -63,7 +67,7 @@ public class HomeAutomation {
 
     public DeviceList getDeviceListInfos() {
         final DeviceList deviceList = executeCommand("getdevicelistinfos", DeviceList.class);
-        LOG.trace("Found {} devices, devicelist version: {}", deviceList.getDevices().size(),
+        LOG.trace("Found {} devices, device list version: {}", deviceList.getDevices().size(),
                 deviceList.getApiVersion());
         return deviceList;
     }
@@ -74,7 +78,7 @@ public class HomeAutomation {
 
     private <T> T executeCommand(final String command, final Class<T> resultType) {
         final QueryParameters parameters = QueryParameters.builder().add("switchcmd", command).build();
-        return session.getAutenticated(HOME_AUTOMATION_PATH, parameters, resultType);
+        return session.getAuthenticated(HOME_AUTOMATION_PATH, parameters, resultType);
     }
 
     private <T> T executeParamCommand(final String deviceAin, final String command, final String parameter,
@@ -99,11 +103,12 @@ public class HomeAutomation {
         if (parameter != null) {
             paramBuilder.add(paramName.name, parameter);
         }
-        return session.getAutenticated(HOME_AUTOMATION_PATH, paramBuilder.build(), responseType);
+        return session.getAuthenticated(HOME_AUTOMATION_PATH, paramBuilder.build(), responseType);
     }
 
     public List<String> getSwitchList() {
         final String switches = executeCommand("getswitchlist", String.class);
+        if (switches == null) { return Collections.emptyList();}
         final List<String> idList = Arrays.asList(switches.split(","));
         LOG.trace("Got switch list string '{}': {}", switches, idList);
         return idList;
