@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [11, 17]
+        java: [11, 17, 21, 23]
     env:
-      DEFAULT_JAVA: 17
+      DEFAULT_JAVA: 11
 
     steps:
     - uses: actions/checkout@v4
@@ -24,8 +24,9 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: ${{ matrix.java }}
-        cache: 'gradle'
 
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
 
     - name: Cache SonarQube packages
       uses: actions/cache@v4
@@ -34,10 +35,8 @@ jobs:
         key: ${{ runner.os }}-java-${{ matrix.java }}-sonar
         restore-keys: ${{ runner.os }}-java-${{ matrix.java }}-sonar
 
-    - uses: gradle/wrapper-validation-action@v2
-
     - name: Build with Gradle
-      run: ./gradlew clean build --info --warning-mode all
+      run: ./gradlew clean build --info --warning-mode all -PjavaVersion=${{ matrix.java }}
 
     - name: Sonar analysis
       if: ${{ env.DEFAULT_JAVA == matrix.java && env.SONAR_TOKEN != null }}
