@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.8.0] - unreleased
 
+## [1.7.1] - 2025-05-09
+
 - [#65](https://github.com/kaklakariada/fritzbox-java-api/pull/65) Upgrade dependencies
+- [#67](https://github.com/kaklakariada/fritzbox-java-api/pull/67) Upgrade dependencies, migrate Maven Central deployment
 
 ## [1.7.0] - 2023-10-07
 
