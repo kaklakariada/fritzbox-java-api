@@ -17,7 +17,7 @@ jobs:
       DEFAULT_JAVA: 11
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     
     - name: Setup Java ${{ matrix.java }}
       uses: actions/setup-java@v5
