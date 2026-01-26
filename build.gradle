@@ -48,7 +48,7 @@ dependencies {
     testRuntimeOnly 'ch.qos.logback:logback-classic:1.5.15'
     
     testImplementation 'org.mockito:mockito-core:5.14.2'
-    testImplementation 'org.assertj:assertj-core:3.27.0'
+    testImplementation 'org.assertj:assertj-core:3.27.7'
 }
 
 license {
