@@ -150,6 +150,8 @@ nexusPublishing {
 }
 
 ossIndexAudit {
+    username = project['ossIndexUsername']
+    password = project['ossIndexToken']
     allConfigurations = false
     useCache = true
     excludeVulnerabilityIds = []
