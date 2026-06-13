@@ -157,5 +157,3 @@ ossIndexAudit {
     excludeVulnerabilityIds = []
     printBanner = false
 }
-
-rootProject.tasks["build"].dependsOn(tasks["ossIndexAudit"])
