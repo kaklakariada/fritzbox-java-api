@@ -150,8 +150,8 @@ nexusPublishing {
 }
 
 ossIndexAudit {
-    username = project['ossIndexUsername']
-    password = project['ossIndexToken']
+    username = findProperty('ossIndexUsername')
+    password = findProperty('ossIndexToken')
     allConfigurations = false
     useCache = true
     excludeVulnerabilityIds = []
