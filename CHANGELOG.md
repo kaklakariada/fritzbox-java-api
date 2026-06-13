@@ -5,9 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.8.0] - unreleased
+## [2.0.1] - unreleased
 
-## [1.7.1] - 2025-05-09
+## [2.0.0] - 2026-06-??
+
+**Breaking Change**: Starting with this release this project requires Java 17.
 
 - [#65](https://github.com/kaklakariada/fritzbox-java-api/pull/65) Upgrade dependencies
 - [#67](https://github.com/kaklakariada/fritzbox-java-api/pull/67) Upgrade dependencies, migrate Maven Central deployment
