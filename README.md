@@ -4,7 +4,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.kaklakariada%3Afritzbox-java-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.kaklakariada%3Afritzbox-java-api)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.kaklakariada/fritzbox-java-api)](https://search.maven.org/artifact/com.github.kaklakariada/fritzbox-java-api)
 
-Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AHA-HTTP-Interface.pdf) inspired by grundid's [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api). This also runs on Android devices (see [Andect](https://github.com/kaklakariada/Andect)).
+Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://fritz.support/resources/AHA-HTTP-Interface.pdf) inspired by [grundid](https://github.com/grundid)'s [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api).
 
 ## Important: Migration to Maven Central
 
@@ -36,7 +36,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
     ```groovy
     dependencies {
-        compile 'com.github.kaklakariada:fritzbox-java-api:1.6.1'
+        compile 'com.github.kaklakariada:fritzbox-java-api:2.0.0'
     }
     ```
 
@@ -46,7 +46,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 <dependency>
   <groupId>com.github.kaklakariada</groupId>
   <artifactId>fritzbox-java-api</artifactId>
-  <version>1.6.1</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
@@ -77,6 +77,13 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ### Check dependencies for vulnerabilities
 
+Add the following to your `~/.gradle/gradle.properties`:
+
+```properties
+ossIndexUsername = <user>
+ossIndexToken = <token>
+```
+
 ```sh
 ./gradlew ossIndexAudit
 ```
@@ -104,4 +111,4 @@ Install to local maven repository:
   * Run command `gh workflow run release.yml --repo kaklakariada/fritzbox-java-api --ref main`
   * or go to [GitHub Actions](https://github.com/kaklakariada/fritzbox-java-api/actions/workflows/release.yml) and start the `release.yml` workflow on branch `main`.
 2. Update title and description of the newly created [GitHub release](https://github.com/kaklakariada/fritzbox-java-api/releases).
-6. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).
+3. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).
