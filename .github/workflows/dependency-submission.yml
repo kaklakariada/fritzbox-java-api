@@ -5,19 +5,20 @@ on:
   push:
     branches: [ main ]
 
-permissions:
-  contents: write # Required for dependency submission
-
 jobs:
   dependency-submission:
+    permissions:
+      contents: write # Required for dependency submission
     runs-on: ubuntu-latest
     steps:
     - name: Checkout sources
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
+      with:
+        persist-credentials: false
     - name: Setup Java
       uses: actions/setup-java@v5
       with:
         distribution: 'temurin'
         java-version: 17
     - name: Generate and submit dependency graph
-      uses: gradle/actions/dependency-submission@v4
+      uses: gradle/actions/dependency-submission@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0

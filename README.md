@@ -4,7 +4,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.kaklakariada%3Afritzbox-java-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.kaklakariada%3Afritzbox-java-api)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.kaklakariada/fritzbox-java-api)](https://search.maven.org/artifact/com.github.kaklakariada/fritzbox-java-api)
 
-Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AHA-HTTP-Interface.pdf) inspired by grundid's [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api). This also runs on Android devices (see [Andect](https://github.com/kaklakariada/Andect)).
+Java API for managing FritzBox HomeAutomation using [AVM Home Automation HTTP Interface](https://fritz.support/resources/AHA-HTTP-Interface.pdf) inspired by [grundid](https://github.com/grundid)'s [fritzbox-java-api](https://github.com/grundid/fritzbox-java-api).
 
 ## Important: Migration to Maven Central
 
@@ -16,9 +16,12 @@ repositories {
 }
 ```
 
-## Changelog
+## Information for Users
 
-See [CHANGELOG.md](CHANGELOG.md).
+* [CHANGELOG.md](CHANGELOG.md)
+* [JavaDoc](https://kaklakariada.github.io/fritzbox-java-api/javadoc/)
+* [Test Results](https://kaklakariada.github.io/fritzbox-java-api/reports/tests/test/)
+* [Test Coverage Report](https://kaklakariada.github.io/fritzbox-java-api/reports/jacoco/test/html/)
 
 ## Usage
 
@@ -36,7 +39,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
     ```groovy
     dependencies {
-        compile 'com.github.kaklakariada:fritzbox-java-api:1.6.1'
+        compile 'com.github.kaklakariada:fritzbox-java-api:2.0.0'
     }
     ```
 
@@ -46,7 +49,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 <dependency>
   <groupId>com.github.kaklakariada</groupId>
   <artifactId>fritzbox-java-api</artifactId>
-  <version>1.6.1</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
@@ -77,6 +80,13 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ### Check dependencies for vulnerabilities
 
+Add the following to your `~/.gradle/gradle.properties`:
+
+```properties
+ossIndexUsername = <user>
+ossIndexToken = <token>
+```
+
 ```sh
 ./gradlew ossIndexAudit
 ```
@@ -88,32 +98,20 @@ Install to local maven repository:
 ./gradlew clean publishToMavenLocal
 ```
 
-### Publish to Maven Central
+### Creating a Release
 
-1. Add the following to your `~/.gradle/gradle.properties`:
+#### Preparations
 
-    ```properties
-    ossrhUsername=<your maven central username>
-    ossrhPassword=<your maven central passwort>
+1. Checkout the `main` branch, create a new branch.
+2. Update version number in `build.gradle` and `README.md`.
+3. Add changes in new version to `CHANGELOG.md`.
+4. Commit and push changes.
+5. Create a new pull request, have it reviewed and merged to `main`.
 
-    signing.keyId=<gpg key id (last 8 chars)>
-    signing.password=<gpg key password>
-    signing.secretKeyRingFile=<path to secret keyring file>
-    ```
+#### Perform the Release
 
-2. Increment version number in `build.gradle` and `README.md`, update [CHANGELOG.md](CHANGELOG.md), commit and push.
-
-3. Optional: run the following command to do a dry-run:
-
-    ```sh
-    ./gradlew clean check build publishToSonatype closeSonatypeStagingRepository --info
-    ```
-
-4. Run the following command to publish to Maven Central:
-
-    ```sh
-    ./gradlew clean check build publishToSonatype closeAndReleaseSonatypeStagingRepository --info
-    ```
-
-5. Create a new [release](https://github.com/kaklakariada/fritzbox-java-api/releases) on GitHub.
-6. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).
+1. Start the release workflow
+  * Run command `gh workflow run release.yml --repo kaklakariada/fritzbox-java-api --ref main`
+  * or go to [GitHub Actions](https://github.com/kaklakariada/fritzbox-java-api/actions/workflows/release.yml) and start the `release.yml` workflow on branch `main`.
+2. Update title and description of the newly created [GitHub release](https://github.com/kaklakariada/fritzbox-java-api/releases).
+3. After some time the release will be available at [Maven Central](https://repo1.maven.org/maven2/com/github/kaklakariada/fritzbox-java-api/).

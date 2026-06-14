@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip-deploy-maven-central:
+        description: "Skip deployment to Maven Central"
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: "bash"
+    concurrency:
+      group: ${{ github.workflow }}
+      cancel-in-progress: false
+    permissions:
+      contents: write # Required for creating GitHub release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Fail if not running on main branch
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          echo "Not running on main branch, github.ref is $GITHUB_REF. Please start this workflow only on main."
+          exit 1
+        env:
+          GITHUB_REF: ${{ github.ref }}
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+
+      - name: Build
+        run: ./gradlew clean build --info --warning-mode all
+
+      - name: Publish to Maven Central
+        if: ${{ !inputs.skip-deploy-maven-central }}
+        run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --info --warning-mode all
+        env:
+          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.MAVEN_CENTRAL_PORTAL_USERNAME }}
+          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.MAVEN_CENTRAL_PORTAL_TOKEN }}
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+
+      - name: Create GitHub Release
+        run: ./.github/workflows/github_release.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
