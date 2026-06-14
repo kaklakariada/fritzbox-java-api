@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.1] - unreleased
 
-## [2.0.0] - 2026-06-13
+## [2.0.0] - 2026-06-14
 
 **Breaking Change**: Starting with this release this project requires Java 17.
 

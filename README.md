@@ -16,9 +16,12 @@ repositories {
 }
 ```
 
-## Changelog
+## Information for Users
 
-See [CHANGELOG.md](CHANGELOG.md).
+* [CHANGELOG.md](CHANGELOG.md)
+* [JavaDoc](https://kaklakariada.github.io/fritzbox-java-api/javadoc/)
+* [Test Results](https://kaklakariada.github.io/fritzbox-java-api/reports/tests/test/)
+* [Test Coverage Report](https://kaklakariada.github.io/fritzbox-java-api/reports/jacoco/test/html/)
 
 ## Usage
 
